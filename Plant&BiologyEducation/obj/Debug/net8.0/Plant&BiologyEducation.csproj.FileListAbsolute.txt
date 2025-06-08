@@ -172,3 +172,4 @@ D:\API_Learning\Plant&BiologyEducation\Plant&BiologyEducation\obj\Debug\net8.0\P
 D:\API_Learning\Plant&BiologyEducation\Plant&BiologyEducation\obj\Debug\net8.0\Plant&BiologyEducation.genruntimeconfig.cache
 D:\API_Learning\Plant&BiologyEducation\Plant&BiologyEducation\obj\Debug\net8.0\ref\Plant&BiologyEducation.dll
 D:\API_Learning\Plant&BiologyEducation\Plant&BiologyEducation\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\API_Learning\Plant&BiologyEducation\Plant&BiologyEducation\obj\Debug\net8.0\Plant&BiologyEducation.sourcelink.json

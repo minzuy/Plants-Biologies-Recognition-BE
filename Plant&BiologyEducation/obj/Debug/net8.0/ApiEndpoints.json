@@ -1,23 +1,7 @@
 [
   {
     "ContainingType": "Plant_BiologyEducation.Controllers.QuestionController",
-    "Method": "CreateQuestion",
-    "RelativePath": "api/Question",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "questionDto",
-        "Type": "Plant_BiologyEducation.Entity.DTO.QuestionDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Plant_BiologyEducation.Controllers.QuestionController",
-    "Method": "GetAllQuestions",
+    "Method": "GetAll",
     "RelativePath": "api/Question",
     "HttpMethod": "GET",
     "IsController": true,
@@ -27,7 +11,23 @@
   },
   {
     "ContainingType": "Plant_BiologyEducation.Controllers.QuestionController",
-    "Method": "GetQuestion",
+    "Method": "CreateQuestion",
+    "RelativePath": "api/Question",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "questionRequestDTO",
+        "Type": "Plant_BiologyEducation.Entity.DTO.QuestionRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.QuestionController",
+    "Method": "GetById",
     "RelativePath": "api/Question/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -55,8 +55,8 @@
         "IsRequired": true
       },
       {
-        "Name": "questionDto",
-        "Type": "Plant_BiologyEducation.Entity.DTO.QuestionDTO",
+        "Name": "questionRequestDTO",
+        "Type": "Plant_BiologyEducation.Entity.DTO.QuestionRequestDTO",
         "IsRequired": true
       }
     ],
@@ -73,6 +73,22 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.QuestionController",
+    "Method": "GetByTestId",
+    "RelativePath": "api/Question/test/{testId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "testId",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],
@@ -231,6 +247,38 @@
       {
         "Name": "id",
         "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.UserController",
+    "Method": "Login",
+    "RelativePath": "api/User/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginDto",
+        "Type": "Plant_BiologyEducation.Entity.DTO.LoginDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.UserController",
+    "Method": "Register",
+    "RelativePath": "api/User/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userRequestDTO",
+        "Type": "Plant_BiologyEducation.Entity.DTO.UserRequestDTO",
         "IsRequired": true
       }
     ],

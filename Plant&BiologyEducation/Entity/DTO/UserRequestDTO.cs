@@ -13,7 +13,8 @@ namespace Plant_BiologyEducation.Entity.DTO
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Role is required")]
-        [RegularExpression("^(Admin|Teacher|Student)$", ErrorMessage = "Role must be Admin, Teacher, or Student")]
+        [RegularExpression("^(Teacher|Student)$", ErrorMessage = "Role must be Admin, Teacher, or Student")]
+        //[RegularExpression( ErrorMessage = "Role must be Admin, Teacher, or Student")]
         public string Role { get; set; }
 
         [Required(ErrorMessage = "Full name is required")]

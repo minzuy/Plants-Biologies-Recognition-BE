@@ -38,6 +38,11 @@ namespace Plant_BiologyEducation.Mapper
             CreateMap<QuestionDTO, Question>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore()) // ID sẽ được xử lý riêng
                 .ForMember(dest => dest.Test, opt => opt.Ignore()); // Navigation property
+
+            CreateMap<QuestionRequestDTO, Question>()
+               .ForMember(dest => dest.Id, opt => opt.Ignore())
+               .ForMember(dest => dest.Test, opt => opt.Ignore());
+
         }
     }
 }

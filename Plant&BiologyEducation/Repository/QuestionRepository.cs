@@ -4,6 +4,7 @@ using Plant_BiologyEducation.Entity.Model;
 
 namespace Plant_BiologyEducation.Repository
 {
+
     public class QuestionRepository
     {
         private readonly DataContext _context;
