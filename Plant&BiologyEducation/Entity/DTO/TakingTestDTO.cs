@@ -2,8 +2,9 @@
 {
     public class TakingTestDTO
     {
-        public int TestId { get; set; }
-        public string? TestTitle { get; set; } // Nếu muốn hiển thị tên bài test
+        public Guid UserId { get; set; }
+        public string FullName  { get; set; }
+        public string TestId { get; set; }
         public DateTime TakingDate { get; set; }
         public double Result { get; set; }
     }

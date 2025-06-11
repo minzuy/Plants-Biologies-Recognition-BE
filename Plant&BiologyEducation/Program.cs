@@ -32,7 +32,8 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"]!))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"]!)),
+        RoleClaimType = System.Security.Claims.ClaimTypes.Role
     };
 });
 
@@ -40,6 +41,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<TestRepository>();
 builder.Services.AddScoped<QuestionRepository>();
+builder.Services.AddScoped<TakingTestRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {

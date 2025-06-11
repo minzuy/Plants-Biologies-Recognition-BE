@@ -21,6 +21,30 @@ namespace Plant_BiologyEducation.Repository
                 .ToList();
         }
 
+        // Search chỉ theo ID với Contains
+        public ICollection<Test> SearchTestsByIdContains(string partialId)
+        {
+            return _context.Tests
+                .Include(t => t.Questions)
+                .Include(t => t.Creator)
+                .Where(t => t.Id.Contains(partialId))
+                .OrderBy(t => t.Id)
+                .ToList();
+        }
+
+        public ICollection<Test> GetTestsByCreatorName(String creatorName)
+        {
+            return _context.Tests
+                            .Include(t => t.Questions)
+                            .Include(t => t.Creator)
+                            .Where(t => t.Creator != null &&
+                                       (t.Creator.FullName.Contains(creatorName) ||
+                                        t.Creator.Account.Contains(creatorName)))
+                            .OrderByDescending(t => t.DateCreated)
+                            .ToList();
+        }
+
+
         public Test? GetTestById(string id)
         {
             return _context.Tests

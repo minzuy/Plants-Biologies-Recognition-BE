@@ -4,11 +4,13 @@ using Plant_BiologyEducation.Repository;
 using Plant_BiologyEducation.Service;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Plant_BiologyEducation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class TestController : ControllerBase
     {
         private readonly TestRepository _testRepository;
@@ -22,7 +24,7 @@ namespace Plant_BiologyEducation.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Test
+        //// GET: api/Test
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -37,6 +39,31 @@ namespace Plant_BiologyEducation.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        [HttpGet("search/creator/{creatorName}")]
+        public IActionResult SearchByCreatorName(string creatorName)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(creatorName))
+                    return BadRequest("Creator name is required for search.");
+
+                var tests = _testRepository.GetTestsByCreatorName(creatorName);
+                var result = _mapper.Map<IEnumerable<TestDTO>>(tests);
+
+                return Ok(new
+                {
+                    SearchTerm = creatorName,
+                    Count = result.Count(),
+                    Data = result
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
 
         // GET: api/Test/{id}
         [HttpGet("{id}")]
@@ -62,6 +89,7 @@ namespace Plant_BiologyEducation.Controllers
 
         // POST: api/Test
         [HttpPost]
+        [Authorize(Roles = "Admin,Teacher")]
         public IActionResult Create([FromBody] TestRequestDTO testRequestDTO)
         {
             try
@@ -126,6 +154,7 @@ namespace Plant_BiologyEducation.Controllers
 
         // PUT: api/Test/{id}
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Teacher")]
         public IActionResult Update(string id, [FromBody] TestRequestDTO testRequestDTO)
         {
             try
@@ -172,6 +201,7 @@ namespace Plant_BiologyEducation.Controllers
 
         // DELETE: api/Test/{id}
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin,Teacher")]
         public IActionResult Delete(string id)
         {
             try

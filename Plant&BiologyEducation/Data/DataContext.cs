@@ -48,6 +48,11 @@ namespace Plant_BiologyEducation.Data
                 .WithMany(t => t.Takings)
                 .HasForeignKey(t => t.TestId)
                 .OnDelete(DeleteBehavior.Cascade); // xóa Test thì xóa bài làm
+
+            modelBuilder.Entity<TakingTest>()
+                .HasOne(t => t.Test)
+                .WithMany(t => t.Takings)
+                .HasForeignKey(t => t.TestId);
         }
 
     }

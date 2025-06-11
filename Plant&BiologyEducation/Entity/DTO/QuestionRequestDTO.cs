@@ -13,6 +13,6 @@ namespace Plant_BiologyEducation.Entity.DTO
         public string Answer { get; set; }
 
         [Required(ErrorMessage = "Test ID là bắt buộc")]
-        public int TestId { get; set; }
+        public string TestId { get; set; }
     }
 }

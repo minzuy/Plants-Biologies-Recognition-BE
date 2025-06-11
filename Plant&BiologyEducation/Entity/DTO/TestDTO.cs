@@ -2,7 +2,7 @@
 {
     public class TestDTO
     {
-        public string Id { get; set; } = string.Empty; // Thay đổi từ int sang string
+        public string Id { get; set; } = string.Empty; 
         public DateTime DateCreated { get; set; }
 
         public Guid CreatorId { get; set; }
@@ -11,5 +11,7 @@
         public int QuestionCount { get; set; }    // tổng số câu hỏi
 
         public int TakingCount { get; set; }      // số lượt làm bài (nếu cần)
+
+        public List<QuestionDTO> Questions { get; set; } = new();
     }
 }

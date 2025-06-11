@@ -20,7 +20,8 @@ namespace Plant_BiologyEducation.Mapper
             CreateMap<Test, TestDTO>()
                 .ForMember(dest => dest.CreatorName, opt => opt.MapFrom(src => src.Creator.FullName))
                 .ForMember(dest => dest.QuestionCount, opt => opt.MapFrom(src => src.Questions.Count))
-                .ForMember(dest => dest.TakingCount, opt => opt.MapFrom(src => src.Takings.Count));
+                .ForMember(dest => dest.TakingCount, opt => opt.MapFrom(src => src.Takings.Count))
+                .ForMember(dest => dest.Questions, opt => opt.MapFrom(src => src.Questions)); // dòng này là cần thiết
 
             // TestRequestDTO to Test Entity
             CreateMap<TestRequestDTO, Test>()
@@ -30,19 +31,33 @@ namespace Plant_BiologyEducation.Mapper
                 .ForMember(dest => dest.Takings, opt => opt.Ignore()); // Relationships
 
             CreateMap<Question, QuestionDTO>()
-                           .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                           .ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.Content))
-                           .ForMember(dest => dest.Answer, opt => opt.MapFrom(src => src.Answer))
-                           .ForMember(dest => dest.TestId, opt => opt.MapFrom(src => src.TestId));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.Content))
+                .ForMember(dest => dest.Answer, opt => opt.MapFrom(src => src.Answer))
+                .ForMember(dest => dest.TestId, opt => opt.MapFrom(src => src.TestId));
 
             CreateMap<QuestionDTO, Question>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore()) // ID sẽ được xử lý riêng
                 .ForMember(dest => dest.Test, opt => opt.Ignore()); // Navigation property
 
             CreateMap<QuestionRequestDTO, Question>()
-               .ForMember(dest => dest.Id, opt => opt.Ignore())
-               .ForMember(dest => dest.Test, opt => opt.Ignore());
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.Test, opt => opt.Ignore());
 
+            // TakingTest mappings
+            CreateMap<TakingTest, TakingTestDTO>()
+                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.User.FullName));
+
+            // Mapping từ SubmitTestDTO sang TakingTest 
+            CreateMap<SubmitTestDTO, TakingTest>()
+                .ForMember(dest => dest.User, opt => opt.Ignore()) // Navigation property
+                .ForMember(dest => dest.Test, opt => opt.Ignore()) // Navigation property
+                .ForMember(dest => dest.TakingDate, opt => opt.Ignore()); // Sẽ được set trong controller
+
+         
+            CreateMap<TakingTestDTO, TakingTest>()
+                .ForMember(dest => dest.User, opt => opt.Ignore())
+                .ForMember(dest => dest.Test, opt => opt.Ignore());
         }
     }
 }
