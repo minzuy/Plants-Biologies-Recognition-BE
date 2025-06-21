@@ -1,0 +1,77 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Plant_BiologyEducation.Data;
+using Plant_BiologyEducation.Entity.Model;
+
+namespace Plant_BiologyEducation.Repository
+{
+    public class BookRepository
+    {
+        private readonly DataContext _context;
+
+        public BookRepository(DataContext context)
+        {
+            _context = context;
+        }
+
+        // Lấy tất cả sách
+        public ICollection<Book> GetAllBooks()
+        {
+            return _context.Books
+                .Include(b => b.Chapters)
+                .ThenInclude(c => c.Lessons)
+                .OrderBy(b => b.Book_Title)
+                .ToList();
+        }
+
+        // Tìm sách theo Id
+        public Book GetBookById(Guid id)
+        {
+            return _context.Books
+                .Include(b => b.Chapters)
+                .ThenInclude(c => c.Lessons)
+                .FirstOrDefault(b => b.Book_Id == id);
+        }
+
+        // Tìm sách theo tiêu đề
+        public ICollection<Book> SearchBooksByTitle(string title)
+        {
+            return _context.Books
+                .Where(b => b.Book_Title.Contains(title))
+                .OrderBy(b => b.Book_Title)
+                .ToList();
+        }
+
+        // Thêm sách mới
+        public bool CreateBook(Book book)
+        {
+            _context.Books.Add(book);
+            return Save();
+        }
+
+        // Cập nhật sách
+        public bool UpdateBook(Book book)
+        {
+            _context.Books.Update(book);
+            return Save();
+        }
+
+        // Xoá sách
+        public bool DeleteBook(Book book)
+        {
+            _context.Books.Remove(book);
+            return Save();
+        }
+
+        // Kiểm tra sách có tồn tại không
+        public bool BookExists(Guid id)
+        {
+            return _context.Books.Any(b => b.Book_Id == id);
+        }
+
+        // Lưu thay đổi
+        public bool Save()
+        {
+            return _context.SaveChanges() > 0;
+        }
+    }
+}

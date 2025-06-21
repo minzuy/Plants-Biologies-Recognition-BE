@@ -90,36 +90,47 @@
         }
       }
     },
-    "/api/Question": {
+    "/api/Book/search": {
       "get": {
         "tags": [
-          "Question"
+          "Book"
+        ],
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/Book": {
       "post": {
         "tags": [
-          "Question"
+          "Book"
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/QuestionRequestDTO"
+                "$ref": "#/components/schemas/BookRequestDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/QuestionRequestDTO"
+                "$ref": "#/components/schemas/BookRequestDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/QuestionRequestDTO"
+                "$ref": "#/components/schemas/BookRequestDTO"
               }
             }
           }
@@ -131,31 +142,10 @@
         }
       }
     },
-    "/api/Question/{id}": {
-      "get": {
-        "tags": [
-          "Question"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
+    "/api/Book/{id}": {
       "put": {
         "tags": [
-          "Question"
+          "Book"
         ],
         "parameters": [
           {
@@ -163,8 +153,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -172,17 +162,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/QuestionRequestDTO"
+                "$ref": "#/components/schemas/BookRequestDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/QuestionRequestDTO"
+                "$ref": "#/components/schemas/BookRequestDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/QuestionRequestDTO"
+                "$ref": "#/components/schemas/BookRequestDTO"
               }
             }
           }
@@ -195,66 +185,13 @@
       },
       "delete": {
         "tags": [
-          "Question"
+          "Book"
         ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/TakingTest": {
-      "post": {
-        "tags": [
-          "TakingTest"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SubmitTestDTO"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SubmitTestDTO"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/SubmitTestDTO"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/TakingTest/my-results": {
-      "get": {
-        "tags": [
-          "TakingTest"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "query",
             "schema": {
               "type": "string",
               "format": "uuid"
@@ -268,16 +205,15 @@
         }
       }
     },
-    "/api/TakingTest/test/{testId}": {
+    "/api/Chapter/search": {
       "get": {
         "tags": [
-          "TakingTest"
+          "Chapter"
         ],
         "parameters": [
           {
-            "name": "testId",
-            "in": "path",
-            "required": true,
+            "name": "title",
+            "in": "query",
             "schema": {
               "type": "string"
             }
@@ -290,36 +226,26 @@
         }
       }
     },
-    "/api/Test": {
-      "get": {
-        "tags": [
-          "Test"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
+    "/api/Chapter": {
       "post": {
         "tags": [
-          "Test"
+          "Chapter"
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TestRequestDTO"
+                "$ref": "#/components/schemas/ChapterRequestDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/TestRequestDTO"
+                "$ref": "#/components/schemas/ChapterRequestDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/TestRequestDTO"
+                "$ref": "#/components/schemas/ChapterRequestDTO"
               }
             }
           }
@@ -331,52 +257,10 @@
         }
       }
     },
-    "/api/Test/search/creator/{creatorName}": {
-      "get": {
-        "tags": [
-          "Test"
-        ],
-        "parameters": [
-          {
-            "name": "creatorName",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Test/{id}": {
-      "get": {
-        "tags": [
-          "Test"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
+    "/api/Chapter/{id}": {
       "put": {
         "tags": [
-          "Test"
+          "Chapter"
         ],
         "parameters": [
           {
@@ -384,7 +268,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -392,17 +277,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TestRequestDTO"
+                "$ref": "#/components/schemas/ChapterRequestDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/TestRequestDTO"
+                "$ref": "#/components/schemas/ChapterRequestDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/TestRequestDTO"
+                "$ref": "#/components/schemas/ChapterRequestDTO"
               }
             }
           }
@@ -415,13 +300,276 @@
       },
       "delete": {
         "tags": [
-          "Test"
+          "Chapter"
         ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Lesson/search": {
+      "get": {
+        "tags": [
+          "Lesson"
+        ],
+        "parameters": [
+          {
+            "name": "title",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Lesson": {
+      "post": {
+        "tags": [
+          "Lesson"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LessonRequestDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LessonRequestDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LessonRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Lesson/{id}": {
+      "put": {
+        "tags": [
+          "Lesson"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LessonRequestDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LessonRequestDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LessonRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Lesson"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ManageBook": {
+      "get": {
+        "tags": [
+          "ManageBook"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ManageBook"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManageBookRequestDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManageBookRequestDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManageBookRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ManageBook/{bookId}": {
+      "get": {
+        "tags": [
+          "ManageBook"
+        ],
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ManageChapter/update": {
+      "post": {
+        "tags": [
+          "ManageChapter"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManageChapterDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManageChapterDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManageChapterDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ManageLesson/update": {
+      "post": {
+        "tags": [
+          "ManageLesson"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManageLessonDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManageLessonDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManageLessonDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/User/search": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "fullName",
+            "in": "query",
             "schema": {
               "type": "string"
             }
@@ -435,16 +583,6 @@
       }
     },
     "/api/User": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
       "post": {
         "tags": [
           "User"
@@ -476,27 +614,6 @@
       }
     },
     "/api/User/{id}": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
       "put": {
         "tags": [
           "User"
@@ -562,6 +679,77 @@
   },
   "components": {
     "schemas": {
+      "BookRequestDTO": {
+        "required": [
+          "book_Title"
+        ],
+        "type": "object",
+        "properties": {
+          "book_Title": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "cover_img": {
+            "type": "string",
+            "nullable": true
+          },
+          "chapters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChapterRequestDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ChapterRequestDTO": {
+        "required": [
+          "book_Id",
+          "chapter_Title"
+        ],
+        "type": "object",
+        "properties": {
+          "book_Id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "chapter_Title": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "lessons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LessonRequestDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LessonRequestDTO": {
+        "required": [
+          "chapter_Id",
+          "lesson_Title"
+        ],
+        "type": "object",
+        "properties": {
+          "lesson_Title": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "content": {
+            "type": "string",
+            "nullable": true
+          },
+          "chapter_Id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
       "LoginDTO": {
         "type": "object",
         "properties": {
@@ -576,60 +764,50 @@
         },
         "additionalProperties": false
       },
-      "QuestionRequestDTO": {
-        "required": [
-          "answer",
-          "content",
-          "testId"
-        ],
+      "ManageBookRequestDTO": {
         "type": "object",
         "properties": {
-          "content": {
-            "maxLength": 1000,
-            "minLength": 0,
-            "type": "string"
+          "bookId": {
+            "type": "string",
+            "format": "uuid"
           },
-          "answer": {
-            "maxLength": 500,
-            "minLength": 0,
-            "type": "string"
-          },
-          "testId": {
-            "minLength": 1,
-            "type": "string"
+          "dateUpdated": {
+            "type": "string",
+            "format": "date-time"
           }
         },
         "additionalProperties": false
       },
-      "SubmitTestDTO": {
+      "ManageChapterDTO": {
         "type": "object",
         "properties": {
-          "userId": {
+          "user_Id": {
             "type": "string",
             "format": "uuid"
           },
-          "testId": {
+          "chapter_Id": {
             "type": "string",
-            "nullable": true
+            "format": "uuid"
           },
-          "result": {
-            "type": "number",
-            "format": "double"
+          "updatedDate": {
+            "type": "string",
+            "format": "date-time"
           }
         },
         "additionalProperties": false
       },
-      "TestRequestDTO": {
-        "required": [
-          "creatorId"
-        ],
+      "ManageLessonDTO": {
         "type": "object",
         "properties": {
-          "creatorId": {
+          "user_Id": {
             "type": "string",
             "format": "uuid"
           },
-          "dateCreated": {
+          "lesson_Id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "updatedDate": {
             "type": "string",
             "format": "date-time"
           }
@@ -657,7 +835,7 @@
           },
           "role": {
             "minLength": 1,
-            "pattern": "^(Teacher|Student)$",
+            "pattern": "^(Teacher|Student|Admin)$",
             "type": "string"
           },
           "fullName": {

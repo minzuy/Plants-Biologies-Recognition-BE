@@ -15,24 +15,29 @@ namespace Plant_BiologyEducation.Repository
 
         public bool UserExists(Guid id)
         {
-            return _context.Users.Any(u => u.Id == id);
+            return _context.Users.Any(u => u.User_Id == id);
         }
 
         public ICollection<User> GetAllUsers()
         {
             // Include TakingTests and Test details for each user
             return _context.Users
-                .Include(u => u.Takings)
-                    .ThenInclude(t => t.Test)
                 .ToList();
         }
+
+        public ICollection<User> SearchUsersByFullName(string fullName)
+        {
+            return _context.Users
+                .Where(u => u.FullName.Contains(fullName))
+                .OrderBy(u => u.Role)
+                .ToList();
+        }
+
 
         public User GetUserById(Guid id)
         {
             return _context.Users
-                .Include(u => u.Takings)
-                    .ThenInclude(t => t.Test)
-                .FirstOrDefault(u => u.Id == id);
+                .FirstOrDefault(u => u.User_Id == id);
         }
 
         public bool CreateUser(User user)

@@ -2,7 +2,7 @@
 {
     public class User
     {
-        public Guid Id { get; set; }
+        public Guid User_Id { get; set; }
         public string  Account { get; set; }
 
         public string Password { get; set; }
@@ -11,9 +11,11 @@
 
         public string FullName { get; set; }
 
+        public ICollection<ManageBook> ManagedBooks { get; set; }
+        public ICollection<ManageChapter> ManagedChapters { get; set; }
+        public ICollection<ManageLesson> ManagedLessons { get; set; }
 
-        public ICollection<Test> CreatedTests { get; set; } = new List<Test>();
-        public ICollection<TakingTest> Takings { get; set; } = new List<TakingTest>();
-
+        public ICollection<AccessBookHistory> BookHistories { get; set; }
+        public ICollection<AccessLessonHistory> LessonHistories { get; set; }
     }
 }

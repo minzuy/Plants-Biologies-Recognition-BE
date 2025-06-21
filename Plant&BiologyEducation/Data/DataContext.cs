@@ -8,51 +8,110 @@ namespace Plant_BiologyEducation.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
+
         public DbSet<User> Users { get; set; }
-        public DbSet<Test> Tests { get; set; }
-        public DbSet<Question> Questions { get; set; }
-        public DbSet<TakingTest> TakingTests { get; set; }
-        public DbSet<Plant_BilogyAI> Plant_BiologyAIs { get; set; }
+        public DbSet<ManageBook> ManageBooks { get; set; }
+        public DbSet<ManageChapter> ManageChapters { get; set; }
+        public DbSet<ManageLesson> ManageLessons { get; set; }
+        public DbSet<AccessBookHistory> AccessBookHistories { get; set; }
+        public DbSet<AccessLessonHistory> AccessLessonHistories { get; set; }
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Chapter> Chapters { get; set; }
+        public DbSet<Lesson> Lessons { get; set; }
+        public DbSet<Plant_Bilogy_Animals> Plant_Biology_Animals { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder); 
+            base.OnModelCreating(modelBuilder);
 
-            // Test - User (Creator)
-            modelBuilder.Entity<Test>()
-                .HasOne(t => t.Creator)
-                .WithMany(u => u.CreatedTests)
-                .HasForeignKey(t => t.CreatorId)
-                .OnDelete(DeleteBehavior.Restrict); // tránh cascade vòng
+            // Khóa chính cho các bảng chính
+            modelBuilder.Entity<User>().HasKey(u => u.User_Id);
+            modelBuilder.Entity<Book>().HasKey(b => b.Book_Id);
+            modelBuilder.Entity<Chapter>().HasKey(c => c.Chapter_Id);
+            modelBuilder.Entity<Lesson>().HasKey(l => l.Lesson_Id);
+            modelBuilder.Entity<Plant_Bilogy_Animals>().HasKey(p => p.Id);
 
-            // Question - Test
-            modelBuilder.Entity<Question>()
-                .HasOne(q => q.Test)
-                .WithMany(t => t.Questions)
-                .HasForeignKey(q => q.TestId)
-                .OnDelete(DeleteBehavior.Cascade); // xóa Test thì xóa câu hỏi
+            // Khóa chính + thiết lập quan hệ cho bảng trung gian ManageBook
+            modelBuilder.Entity<ManageBook>()
+                .HasKey(mb => new { mb.User_Id, mb.Book_Id });
 
-            // Taking - User
-            modelBuilder.Entity<TakingTest>()
-                .HasKey(t => new { t.UserId, t.TestId });
+            modelBuilder.Entity<ManageBook>()
+                .HasOne(mb => mb.User)
+                .WithMany(u => u.ManagedBooks)
+                .HasForeignKey(mb => mb.User_Id);
 
-            modelBuilder.Entity<TakingTest>()
-                .HasOne(t => t.User)
-                .WithMany(u => u.Takings)
-                .HasForeignKey(t => t.UserId)
-                .OnDelete(DeleteBehavior.Restrict); // KHÔNG dùng Cascade
+            modelBuilder.Entity<ManageBook>()
+                .HasOne(mb => mb.Book)
+                .WithMany(b => b.ManagedBy)
+                .HasForeignKey(mb => mb.Book_Id);
 
-            // Taking - Test
-            modelBuilder.Entity<TakingTest>()
-                .HasOne(t => t.Test)
-                .WithMany(t => t.Takings)
-                .HasForeignKey(t => t.TestId)
-                .OnDelete(DeleteBehavior.Cascade); // xóa Test thì xóa bài làm
+            // ManageChapter
+            modelBuilder.Entity<ManageChapter>()
+                .HasKey(mc => new { mc.User_Id, mc.Chapter_Id });
 
-            modelBuilder.Entity<TakingTest>()
-                .HasOne(t => t.Test)
-                .WithMany(t => t.Takings)
-                .HasForeignKey(t => t.TestId);
+            modelBuilder.Entity<ManageChapter>()
+                .HasOne(mc => mc.User)
+                .WithMany(u => u.ManagedChapters)
+                .HasForeignKey(mc => mc.User_Id);
+
+            modelBuilder.Entity<ManageChapter>()
+                .HasOne(mc => mc.Chapter)
+                .WithMany(c => c.ManagedBy)
+                .HasForeignKey(mc => mc.Chapter_Id);
+
+            // ManageLesson
+            modelBuilder.Entity<ManageLesson>()
+                .HasKey(ml => new { ml.User_Id, ml.Lesson_Id });
+
+            modelBuilder.Entity<ManageLesson>()
+                .HasOne(ml => ml.User)
+                .WithMany(u => u.ManagedLessons)
+                .HasForeignKey(ml => ml.User_Id);
+
+            modelBuilder.Entity<ManageLesson>()
+                .HasOne(ml => ml.Lesson)
+                .WithMany(l => l.ManagedBy)
+                .HasForeignKey(ml => ml.Lesson_Id);
+
+            // AccessBookHistory
+            modelBuilder.Entity<AccessBookHistory>()
+                .HasKey(ab => new { ab.User_Id, ab.Book_Id });
+
+            modelBuilder.Entity<AccessBookHistory>()
+                .HasOne(ab => ab.User)
+                .WithMany(u => u.BookHistories)
+                .HasForeignKey(ab => ab.User_Id);
+
+            modelBuilder.Entity<AccessBookHistory>()
+                .HasOne(ab => ab.Book)
+                .WithMany(b => b.AccessHistories)
+                .HasForeignKey(ab => ab.Book_Id);
+
+            // AccessLessonHistory
+            modelBuilder.Entity<AccessLessonHistory>()
+                .HasKey(al => new { al.User_Id, al.Lesson_Id });
+
+            modelBuilder.Entity<AccessLessonHistory>()
+                .HasOne(al => al.User)
+                .WithMany(u => u.LessonHistories)
+                .HasForeignKey(al => al.User_Id);
+
+            modelBuilder.Entity<AccessLessonHistory>()
+                .HasOne(al => al.Lesson)
+                .WithMany(l => l.AccessHistories)
+                .HasForeignKey(al => al.Lesson_Id);
+
+            // Quan hệ 1-n Chapter - Lesson
+            modelBuilder.Entity<Lesson>()
+                .HasOne(l => l.Chapter)
+                .WithMany(c => c.Lessons)
+                .HasForeignKey(l => l.Chapter_Id);
+
+            // Quan hệ 1-n Book - Chapter
+            modelBuilder.Entity<Chapter>()
+                .HasOne(c => c.Book)
+                .WithMany(b => b.Chapters)
+                .HasForeignKey(c => c.Book_Id);
         }
 
     }

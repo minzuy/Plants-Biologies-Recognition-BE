@@ -22,7 +22,160 @@ namespace Plant_BiologyEducation.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.Plant_BilogyAI", b =>
+            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.AccessBookHistory", b =>
+                {
+                    b.Property<Guid>("User_Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Book_Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Visited_Number")
+                        .HasColumnType("int");
+
+                    b.HasKey("User_Id", "Book_Id");
+
+                    b.HasIndex("Book_Id");
+
+                    b.ToTable("AccessBookHistories");
+                });
+
+            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.AccessLessonHistory", b =>
+                {
+                    b.Property<Guid>("User_Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Lesson_Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Visited_Number")
+                        .HasColumnType("int");
+
+                    b.HasKey("User_Id", "Lesson_Id");
+
+                    b.HasIndex("Lesson_Id");
+
+                    b.ToTable("AccessLessonHistories");
+                });
+
+            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.Book", b =>
+                {
+                    b.Property<Guid>("Book_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Book_Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cover_img")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Book_Id");
+
+                    b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.Chapter", b =>
+                {
+                    b.Property<Guid>("Chapter_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Book_Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Chapter_Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Chapter_Id");
+
+                    b.HasIndex("Book_Id");
+
+                    b.ToTable("Chapters");
+                });
+
+            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.Lesson", b =>
+                {
+                    b.Property<Guid>("Lesson_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Chapter_Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Lesson_Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Lesson_Id");
+
+                    b.HasIndex("Chapter_Id");
+
+                    b.ToTable("Lessons");
+                });
+
+            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.ManageBook", b =>
+                {
+                    b.Property<Guid>("User_Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Book_Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("User_Id", "Book_Id");
+
+                    b.HasIndex("Book_Id");
+
+                    b.ToTable("ManageBooks");
+                });
+
+            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.ManageChapter", b =>
+                {
+                    b.Property<Guid>("User_Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Chapter_Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("User_Id", "Chapter_Id");
+
+                    b.HasIndex("Chapter_Id");
+
+                    b.ToTable("ManageChapters");
+                });
+
+            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.ManageLesson", b =>
+                {
+                    b.Property<Guid>("User_Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Lesson_Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("User_Id", "Lesson_Id");
+
+                    b.HasIndex("Lesson_Id");
+
+                    b.ToTable("ManageLessons");
+                });
+
+            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.Plant_Bilogy_Animals", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,84 +185,22 @@ namespace Plant_BiologyEducation.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Plant_BiologyAIs");
-                });
-
-            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.Question", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Answer")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TestId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TestId");
-
-                    b.ToTable("Questions");
-                });
-
-            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.TakingTest", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("TestId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<double>("Result")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("TakingDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("UserId", "TestId");
-
-                    b.HasIndex("TestId");
-
-                    b.ToTable("TakingTests");
-                });
-
-            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.Test", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<Guid>("CreatorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatorId");
-
-                    b.ToTable("Tests");
+                    b.ToTable("Plant_Biology_Animals");
                 });
 
             modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("User_Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -129,64 +220,162 @@ namespace Plant_BiologyEducation.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("User_Id");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.Question", b =>
+            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.AccessBookHistory", b =>
                 {
-                    b.HasOne("Plant_BiologyEducation.Entity.Model.Test", "Test")
-                        .WithMany("Questions")
-                        .HasForeignKey("TestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Test");
-                });
-
-            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.TakingTest", b =>
-                {
-                    b.HasOne("Plant_BiologyEducation.Entity.Model.Test", "Test")
-                        .WithMany("Takings")
-                        .HasForeignKey("TestId")
+                    b.HasOne("Plant_BiologyEducation.Entity.Model.Book", "Book")
+                        .WithMany("AccessHistories")
+                        .HasForeignKey("Book_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Plant_BiologyEducation.Entity.Model.User", "User")
-                        .WithMany("Takings")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .WithMany("BookHistories")
+                        .HasForeignKey("User_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Test");
+                    b.Navigation("Book");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.Test", b =>
+            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.AccessLessonHistory", b =>
                 {
-                    b.HasOne("Plant_BiologyEducation.Entity.Model.User", "Creator")
-                        .WithMany("CreatedTests")
-                        .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("Plant_BiologyEducation.Entity.Model.Lesson", "Lesson")
+                        .WithMany("AccessHistories")
+                        .HasForeignKey("Lesson_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Creator");
+                    b.HasOne("Plant_BiologyEducation.Entity.Model.User", "User")
+                        .WithMany("LessonHistories")
+                        .HasForeignKey("User_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Lesson");
+
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.Test", b =>
+            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.Chapter", b =>
                 {
-                    b.Navigation("Questions");
+                    b.HasOne("Plant_BiologyEducation.Entity.Model.Book", "Book")
+                        .WithMany("Chapters")
+                        .HasForeignKey("Book_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Takings");
+                    b.Navigation("Book");
+                });
+
+            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.Lesson", b =>
+                {
+                    b.HasOne("Plant_BiologyEducation.Entity.Model.Chapter", "Chapter")
+                        .WithMany("Lessons")
+                        .HasForeignKey("Chapter_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Chapter");
+                });
+
+            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.ManageBook", b =>
+                {
+                    b.HasOne("Plant_BiologyEducation.Entity.Model.Book", "Book")
+                        .WithMany("ManagedBy")
+                        .HasForeignKey("Book_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Plant_BiologyEducation.Entity.Model.User", "User")
+                        .WithMany("ManagedBooks")
+                        .HasForeignKey("User_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.ManageChapter", b =>
+                {
+                    b.HasOne("Plant_BiologyEducation.Entity.Model.Chapter", "Chapter")
+                        .WithMany("ManagedBy")
+                        .HasForeignKey("Chapter_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Plant_BiologyEducation.Entity.Model.User", "User")
+                        .WithMany("ManagedChapters")
+                        .HasForeignKey("User_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Chapter");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.ManageLesson", b =>
+                {
+                    b.HasOne("Plant_BiologyEducation.Entity.Model.Lesson", "Lesson")
+                        .WithMany("ManagedBy")
+                        .HasForeignKey("Lesson_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Plant_BiologyEducation.Entity.Model.User", "User")
+                        .WithMany("ManagedLessons")
+                        .HasForeignKey("User_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Lesson");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.Book", b =>
+                {
+                    b.Navigation("AccessHistories");
+
+                    b.Navigation("Chapters");
+
+                    b.Navigation("ManagedBy");
+                });
+
+            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.Chapter", b =>
+                {
+                    b.Navigation("Lessons");
+
+                    b.Navigation("ManagedBy");
+                });
+
+            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.Lesson", b =>
+                {
+                    b.Navigation("AccessHistories");
+
+                    b.Navigation("ManagedBy");
                 });
 
             modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.User", b =>
                 {
-                    b.Navigation("CreatedTests");
+                    b.Navigation("BookHistories");
 
-                    b.Navigation("Takings");
+                    b.Navigation("LessonHistories");
+
+                    b.Navigation("ManagedBooks");
+
+                    b.Navigation("ManagedChapters");
+
+                    b.Navigation("ManagedLessons");
                 });
 #pragma warning restore 612, 618
         }

@@ -10,12 +10,15 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+// AutoMapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+// JWT Service
 builder.Services.AddScoped<JwtService>();
+
+// Authentication
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -37,17 +40,26 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-
+// Repository
 builder.Services.AddScoped<UserRepository>();
-builder.Services.AddScoped<TestRepository>();
-builder.Services.AddScoped<QuestionRepository>();
-builder.Services.AddScoped<TakingTestRepository>();
+builder.Services.AddScoped<BookRepository>();
+builder.Services.AddScoped<ChapterRepository>();
+builder.Services.AddScoped<LessonRepository>();
+
+builder.Services.AddScoped<ManageBookRepository>();
+builder.Services.AddScoped<ManageChapterRepository>();
+builder.Services.AddScoped<ManageLessonRepository>();
+
+builder.Services.AddScoped<AccessBookHistoryRepository>();
+builder.Services.AddScoped<AccessLessonHistoryRepository>();
+
+// Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Plant Biology Education API", Version = "v1" });
 
-    // Thêm cấu hình JWT Authentication cho Swagger
+    // JWT Authentication configuration for Swagger
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "JWT Authorization header using the Bearer scheme. Enter 'Bearer' [space] and then your token in the text input below.",
@@ -75,13 +87,38 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+
+// Database
 builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-
 var app = builder.Build();
+
+// Test database connection
+if (app.Environment.IsDevelopment())
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        try
+        {
+            var context = scope.ServiceProvider.GetRequiredService<DataContext>();
+            var canConnect = context.Database.CanConnect();
+            Console.WriteLine($"Database connection: {(canConnect ? "SUCCESS" : "FAILED")}");
+
+            if (!canConnect)
+            {
+                Console.WriteLine("Connection string: " + builder.Configuration.GetConnectionString("DefaultConnection"));
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Database connection error: {ex.Message}");
+            Console.WriteLine($"Inner exception: {ex.InnerException?.Message}");
+        }
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -91,11 +128,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthentication();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

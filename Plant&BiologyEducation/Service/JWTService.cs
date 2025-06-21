@@ -19,11 +19,13 @@ namespace Plant_BiologyEducation.Service
         public string GenerateToken(User user)
         {
             var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Account),
-                new Claim(ClaimTypes.Role, user.Role) // Role dùng cho phân quyền
-            };
+    {
+        new Claim("userId", user.User_Id.ToString()),                  // ✅ dễ lấy trong controller
+        new Claim(JwtRegisteredClaimNames.Sub, user.User_Id.ToString()), // ✅ chuẩn JWT
+        new Claim(ClaimTypes.NameIdentifier, user.User_Id.ToString()),
+        new Claim(ClaimTypes.Name, user.Account),
+        new Claim(ClaimTypes.Role, user.Role)
+    };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Secret"]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -38,5 +40,6 @@ namespace Plant_BiologyEducation.Service
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
     }
 }

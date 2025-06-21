@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Plant_BiologyEducation.Entity.DTO;
+using Plant_BiologyEducation.Entity.DTO.User;
 using Plant_BiologyEducation.Entity.Model;
 using Plant_BiologyEducation.Repository;
 using Plant_BiologyEducation.Service;
@@ -10,7 +10,7 @@ namespace Plant_BiologyEducation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+    //[Authorize]
     public class AuthenticationController : Controller
     {
         private readonly UserRepository _userRepo;
@@ -39,7 +39,7 @@ namespace Plant_BiologyEducation.Controllers
                 Token = token,
                 User = new
                 {
-                    userId = user.Id,
+                    userId = user.User_Id,
                 }
             });
         }
@@ -64,13 +64,13 @@ namespace Plant_BiologyEducation.Controllers
                 return Conflict("Account already exists.");
 
             var user = _mapper.Map<User>(userRequestDTO);
-            user.Id = Guid.NewGuid();
+            user.User_Id = Guid.NewGuid();
 
             if (!_userRepo.CreateUser(user))
                 return StatusCode(500, "Something went wrong while registering user.");
 
             var userDTO = _mapper.Map<UserDTO>(user);
-            return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, userDTO);
+            return CreatedAtAction(nameof(GetUserById), new { id = user.User_Id }, userDTO);
 
 
         }

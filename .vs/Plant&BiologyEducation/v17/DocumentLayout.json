@@ -1,12 +1,105 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\API_Learning\\Plant\u0026BiologyEducation\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation.csproj|d:\\api_learning\\plant\u0026biologyeducation\\plant\u0026biologyeducation\\entity\\dto\\uploadimgdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation.csproj|solutionrelative:plant\u0026biologyeducation\\entity\\dto\\uploadimgdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation.csproj|d:\\api_learning\\plant\u0026biologyeducation\\plant\u0026biologyeducation\\entity\\model\\objectdetection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation.csproj|solutionrelative:plant\u0026biologyeducation\\entity\\model\\objectdetection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation.csproj|d:\\api_learning\\plant\u0026biologyeducation\\plant\u0026biologyeducation\\service\\detailspecies.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation.csproj|solutionrelative:plant\u0026biologyeducation\\service\\detailspecies.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation.csproj|d:\\api_learning\\plant\u0026biologyeducation\\plant\u0026biologyeducation\\controllers\\objectdetectioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation.csproj|solutionrelative:plant\u0026biologyeducation\\controllers\\objectdetectioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation.csproj|d:\\api_learning\\plant\u0026biologyeducation\\plant\u0026biologyeducation\\controllers\\bookcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation.csproj|solutionrelative:plant\u0026biologyeducation\\controllers\\bookcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UploadImgDTO.cs",
+              "DocumentMoniker": "D:\\API_Learning\\Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation\\Entity\\DTO\\UploadImgDTO.cs",
+              "RelativeDocumentMoniker": "Plant\u0026BiologyEducation\\Entity\\DTO\\UploadImgDTO.cs",
+              "ToolTip": "D:\\API_Learning\\Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation\\Entity\\DTO\\UploadImgDTO.cs",
+              "RelativeToolTip": "Plant\u0026BiologyEducation\\Entity\\DTO\\UploadImgDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T11:27:07.944Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "BookController.cs",
+              "DocumentMoniker": "D:\\API_Learning\\Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation\\Controllers\\BookController.cs",
+              "RelativeDocumentMoniker": "Plant\u0026BiologyEducation\\Controllers\\BookController.cs",
+              "ToolTip": "D:\\API_Learning\\Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation\\Controllers\\BookController.cs",
+              "RelativeToolTip": "Plant\u0026BiologyEducation\\Controllers\\BookController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T11:10:11.109Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ObjectDetectionController.cs",
+              "DocumentMoniker": "D:\\API_Learning\\Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation\\Controllers\\ObjectDetectionController.cs",
+              "RelativeDocumentMoniker": "Plant\u0026BiologyEducation\\Controllers\\ObjectDetectionController.cs",
+              "ToolTip": "D:\\API_Learning\\Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation\\Controllers\\ObjectDetectionController.cs",
+              "RelativeToolTip": "Plant\u0026BiologyEducation\\Controllers\\ObjectDetectionController.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAACsAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T11:07:23.558Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DetailSpecies.json",
+              "DocumentMoniker": "D:\\API_Learning\\Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation\\Service\\DetailSpecies.json",
+              "RelativeDocumentMoniker": "Plant\u0026BiologyEducation\\Service\\DetailSpecies.json",
+              "ToolTip": "D:\\API_Learning\\Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation\\Service\\DetailSpecies.json",
+              "RelativeToolTip": "Plant\u0026BiologyEducation\\Service\\DetailSpecies.json",
+              "ViewState": "AgIAAIkAAAAAAAAAAAAuwKQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-06-20T02:04:06.771Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ObjectDetection.cs",
+              "DocumentMoniker": "D:\\API_Learning\\Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation\\Entity\\Model\\ObjectDetection.cs",
+              "RelativeDocumentMoniker": "Plant\u0026BiologyEducation\\Entity\\Model\\ObjectDetection.cs",
+              "ToolTip": "D:\\API_Learning\\Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation\\Entity\\Model\\ObjectDetection.cs",
+              "RelativeToolTip": "Plant\u0026BiologyEducation\\Entity\\Model\\ObjectDetection.cs",
+              "ViewState": "AgIAAGUAAAAAAAAAAAAuwHMAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-18T14:41:51.487Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

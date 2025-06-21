@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Plant_BiologyEducation.Entity.DTO;
 using Plant_BiologyEducation.Repository;
 using Plant_BiologyEducation.Entity.Model;
 using Microsoft.AspNetCore.Authorization;
+using Plant_BiologyEducation.Entity.DTO.User;
 
 namespace Plant_BiologyEducation.Controllers
 {
@@ -22,16 +22,21 @@ namespace Plant_BiologyEducation.Controllers
         }
 
         // GET: api/User
-        [HttpGet]
-        public IActionResult GetAllUsers()
+        [HttpGet("search")]
+        public IActionResult GetUsers([FromQuery] string? fullName)
         {
-            var users = _userRepo.GetAllUsers(); // Lấy danh sách User từ DB
-            var usersDTO = _mapper.Map<List<UserDTO>>(users); // Mapping sang DTO
+            var users = string.IsNullOrWhiteSpace(fullName)
+                ? _userRepo.GetAllUsers()
+                : _userRepo.SearchUsersByFullName(fullName);
+
+            var usersDTO = _mapper.Map<List<UserDTO>>(users);
             return Ok(usersDTO);
         }
 
-        // GET: api/User/{id}
+
         [HttpGet("{id}")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+
         public IActionResult GetUserById(Guid id)
         {
             if (!_userRepo.UserExists(id))
@@ -55,9 +60,9 @@ namespace Plant_BiologyEducation.Controllers
 
             // Map DTO to Entity
             var user = _mapper.Map<User>(userRequestDTO);
-
+             
             // Tạo ID mới cho user
-            user.Id = Guid.NewGuid();
+            user.User_Id = Guid.NewGuid();
 
             if (!_userRepo.CreateUser(user))
             {
@@ -66,7 +71,7 @@ namespace Plant_BiologyEducation.Controllers
 
             // Trả về user vừa tạo (không bao gồm password)
             var userDTO = _mapper.Map<UserDTO>(user);
-            return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, userDTO);
+            return CreatedAtAction(nameof(GetUserById), new { id = user.User_Id }, userDTO);
         }
 
         // PUT: api/User/{id}
@@ -87,7 +92,7 @@ namespace Plant_BiologyEducation.Controllers
 
             // Map các thay đổi từ DTO sang Entity (giữ nguyên ID)
             _mapper.Map(userRequestDTO, existingUser);
-            existingUser.Id = id; // Đảm bảo ID không bị thay đổi
+            existingUser.User_Id = id; // Đảm bảo ID không bị thay đổi
 
             if (!_userRepo.UpdateUser(existingUser))
             {
