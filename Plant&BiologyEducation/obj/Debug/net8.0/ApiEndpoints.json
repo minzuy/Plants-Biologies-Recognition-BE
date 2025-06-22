@@ -329,6 +329,136 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Plant_BiologyEducation.Controllers.MyPlanetController",
+    "Method": "HealthCheck",
+    "RelativePath": "api/MyPlanet/health",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Object",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.MyPlanetController",
+    "Method": "IdentifyPlant",
+    "RelativePath": "api/MyPlanet/identify",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Image",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "Project",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Organ",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Plant_BiologyEducation.Entity.Model.MyPlant.PlantIdentificationResult",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Object",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "System.Object",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 500
+      }
+    ]
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.MyPlanetController",
+    "Method": "GetAvailableOrgans",
+    "RelativePath": "api/MyPlanet/organs",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Object",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.MyPlanetController",
+    "Method": "GetAvailableProjects",
+    "RelativePath": "api/MyPlanet/projects",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Object",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.MyPlanetController",
+    "Method": "TestConnection",
+    "RelativePath": "api/MyPlanet/test-connection",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Object",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.ObjectDetectionController",
+    "Method": "GetLabels",
+    "RelativePath": "api/ObjectDetection/labels",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Plant_BiologyEducation.Controllers.ObjectDetectionController",
     "Method": "Predict",
     "RelativePath": "api/ObjectDetection/predict",
@@ -337,34 +467,25 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "ContentType",
+        "Name": "File",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.ObjectDetectionController",
+    "Method": "GetSpeciesDetails",
+    "RelativePath": "api/ObjectDetection/species/{name}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "name",
         "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "ContentDisposition",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "Headers",
-        "Type": "Microsoft.AspNetCore.Http.IHeaderDictionary",
-        "IsRequired": false
-      },
-      {
-        "Name": "Length",
-        "Type": "System.Int64",
-        "IsRequired": false
-      },
-      {
-        "Name": "Name",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "FileName",
-        "Type": "System.String",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

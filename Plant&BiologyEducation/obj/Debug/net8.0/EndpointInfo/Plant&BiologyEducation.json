@@ -561,6 +561,211 @@
         }
       }
     },
+    "/api/MyPlanet/identify": {
+      "post": {
+        "tags": [
+          "MyPlanet"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "Image"
+                ],
+                "type": "object",
+                "properties": {
+                  "Image": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "Project": {
+                    "type": "string"
+                  },
+                  "Organ": {
+                    "pattern": "^(leaf|flower|fruit|bark)$",
+                    "type": "string"
+                  }
+                }
+              },
+              "encoding": {
+                "Image": {
+                  "style": "form"
+                },
+                "Project": {
+                  "style": "form"
+                },
+                "Organ": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlantIdentificationResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": { }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/MyPlanet/health": {
+      "get": {
+        "tags": [
+          "MyPlanet"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/MyPlanet/projects": {
+      "get": {
+        "tags": [
+          "MyPlanet"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/MyPlanet/organs": {
+      "get": {
+        "tags": [
+          "MyPlanet"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/MyPlanet/test-connection": {
+      "get": {
+        "tags": [
+          "MyPlanet"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ObjectDetection/predict": {
+      "post": {
+        "tags": [
+          "ObjectDetection"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "File": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "File": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ObjectDetection/labels": {
+      "get": {
+        "tags": [
+          "ObjectDetection"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ObjectDetection/species/{name}": {
+      "get": {
+        "tags": [
+          "ObjectDetection"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/User/search": {
       "get": {
         "tags": [
@@ -810,6 +1015,92 @@
           "updatedDate": {
             "type": "string",
             "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlantIdentificationResult": {
+        "type": "object",
+        "properties": {
+          "isSuccess": {
+            "type": "boolean"
+          },
+          "plantName": {
+            "type": "string",
+            "nullable": true
+          },
+          "scientificName": {
+            "type": "string",
+            "nullable": true
+          },
+          "probability": {
+            "type": "number",
+            "format": "double"
+          },
+          "suggestions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PlantSuggestion"
+            },
+            "nullable": true
+          },
+          "similarImages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SimilarImage"
+            },
+            "nullable": true
+          },
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "remainingRequests": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlantSuggestion": {
+        "type": "object",
+        "properties": {
+          "plantName": {
+            "type": "string",
+            "nullable": true
+          },
+          "scientificName": {
+            "type": "string",
+            "nullable": true
+          },
+          "probability": {
+            "type": "number",
+            "format": "double"
+          },
+          "commonNames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SimilarImage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "similarity": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false
