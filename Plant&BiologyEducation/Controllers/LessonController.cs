@@ -44,7 +44,6 @@ namespace Plant_BiologyEducation.Controllers
             return Ok(lessonDTOs);
         }
 
-
         // ✅ CREATE
         [HttpPost]
         public IActionResult CreateLesson([FromBody] LessonRequestDTO dto)

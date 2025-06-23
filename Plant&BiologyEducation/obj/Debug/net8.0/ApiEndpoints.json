@@ -329,126 +329,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Plant_BiologyEducation.Controllers.MyPlanetController",
-    "Method": "HealthCheck",
-    "RelativePath": "api/MyPlanet/health",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Object",
-        "MediaTypes": [
-          "application/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Plant_BiologyEducation.Controllers.MyPlanetController",
-    "Method": "IdentifyPlant",
-    "RelativePath": "api/MyPlanet/identify",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "Image",
-        "Type": "Microsoft.AspNetCore.Http.IFormFile",
-        "IsRequired": false
-      },
-      {
-        "Name": "Project",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "Organ",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Plant_BiologyEducation.Entity.Model.MyPlant.PlantIdentificationResult",
-        "MediaTypes": [
-          "application/json"
-        ],
-        "StatusCode": 200
-      },
-      {
-        "Type": "System.Object",
-        "MediaTypes": [
-          "application/json"
-        ],
-        "StatusCode": 400
-      },
-      {
-        "Type": "System.Object",
-        "MediaTypes": [
-          "application/json"
-        ],
-        "StatusCode": 500
-      }
-    ]
-  },
-  {
-    "ContainingType": "Plant_BiologyEducation.Controllers.MyPlanetController",
-    "Method": "GetAvailableOrgans",
-    "RelativePath": "api/MyPlanet/organs",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Object",
-        "MediaTypes": [
-          "application/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Plant_BiologyEducation.Controllers.MyPlanetController",
-    "Method": "GetAvailableProjects",
-    "RelativePath": "api/MyPlanet/projects",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Object",
-        "MediaTypes": [
-          "application/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Plant_BiologyEducation.Controllers.MyPlanetController",
-    "Method": "TestConnection",
-    "RelativePath": "api/MyPlanet/test-connection",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Object",
-        "MediaTypes": [
-          "application/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
     "ContainingType": "Plant_BiologyEducation.Controllers.ObjectDetectionController",
     "Method": "GetLabels",
     "RelativePath": "api/ObjectDetection/labels",
@@ -486,6 +366,91 @@
         "Name": "name",
         "Type": "System.String",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.PBAController",
+    "Method": "Create",
+    "RelativePath": "api/PBA",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "requestDTO",
+        "Type": "Plant_BiologyEducation.Entity.DTO.P_B_A.P_B_A_RequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.PBAController",
+    "Method": "Update",
+    "RelativePath": "api/PBA/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "requestDTO",
+        "Type": "Plant_BiologyEducation.Entity.DTO.P_B_A.P_B_A_RequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.PBAController",
+    "Method": "Delete",
+    "RelativePath": "api/PBA/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.PBAController",
+    "Method": "SearchByCommonName",
+    "RelativePath": "api/PBA/search",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "commonName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PlantNetIdentifyController",
+    "Method": "IdentifyPlant",
+    "RelativePath": "api/PlantNetIdentify/identify",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "image",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

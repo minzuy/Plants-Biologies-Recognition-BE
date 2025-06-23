@@ -18,7 +18,7 @@ namespace Plant_BiologyEducation.Data
         public DbSet<Book> Books { get; set; }
         public DbSet<Chapter> Chapters { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
-        public DbSet<Plant_Bilogy_Animals> Plant_Biology_Animals { get; set; }
+        public DbSet<Plant_Biology_Animals> Plant_Biology_Animals { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,7 +29,7 @@ namespace Plant_BiologyEducation.Data
             modelBuilder.Entity<Book>().HasKey(b => b.Book_Id);
             modelBuilder.Entity<Chapter>().HasKey(c => c.Chapter_Id);
             modelBuilder.Entity<Lesson>().HasKey(l => l.Lesson_Id);
-            modelBuilder.Entity<Plant_Bilogy_Animals>().HasKey(p => p.Id);
+            modelBuilder.Entity<Plant_Biology_Animals>().HasKey(p => p.Id);
 
             // Khóa chính + thiết lập quan hệ cho bảng trung gian ManageBook
             modelBuilder.Entity<ManageBook>()
@@ -112,6 +112,13 @@ namespace Plant_BiologyEducation.Data
                 .HasOne(c => c.Book)
                 .WithMany(b => b.Chapters)
                 .HasForeignKey(c => c.Book_Id);
+
+            // Quan hệ 1-n: Lesson - Plant_Biology_Animals
+            modelBuilder.Entity<Plant_Biology_Animals>()
+                .HasOne(p => p.Lesson)
+                .WithMany(l => l.RelatedSpecies)
+                .HasForeignKey(p => p.LessonId)
+                .OnDelete(DeleteBehavior.Cascade); // hoặc Restrict nếu bạn không muốn xóa cascade
         }
 
     }

@@ -1,4 +1,4 @@
-﻿namespace Plant_BiologyEducation.Entity.Model
+﻿ namespace Plant_BiologyEducation.Entity.Model
 {
     public class Lesson
     {
@@ -11,5 +11,8 @@
 
         public ICollection<ManageLesson> ManagedBy { get; set; }
         public ICollection<AccessLessonHistory> AccessHistories { get; set; }
+
+        public ICollection<Plant_Biology_Animals> RelatedSpecies { get; set; } // Thêm dòng này
+
     }
 }

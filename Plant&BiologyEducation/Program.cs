@@ -40,6 +40,8 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+
+
 // Repository
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<BookRepository>();
@@ -52,6 +54,10 @@ builder.Services.AddScoped<ManageLessonRepository>();
 
 builder.Services.AddScoped<AccessBookHistoryRepository>();
 builder.Services.AddScoped<AccessLessonHistoryRepository>();
+
+builder.Services.AddScoped<Plant_Biology_Animal_Repository>();
+
+builder.Services.AddScoped<PlantNetService>();
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -87,6 +93,13 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+
+// 
+builder.Services.AddHttpClient("PlantNetClient", client =>
+{
+    client.BaseAddress = new Uri("https://my-api.plantnet.org/v2/");
+});
+
 
 // Database
 builder.Services.AddDbContext<DataContext>(options =>

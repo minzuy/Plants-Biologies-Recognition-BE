@@ -17,26 +17,31 @@ namespace Plant_BiologyEducation.Repository
         public ICollection<Book> GetAllBooks()
         {
             return _context.Books
+                .AsSplitQuery()
                 .Include(b => b.Chapters)
-                .ThenInclude(c => c.Lessons)
+                    .ThenInclude(c => c.Lessons)
+                    .ThenInclude(l => l.RelatedSpecies)
                 .OrderBy(b => b.Book_Title)
                 .ToList();
         }
 
-        // Tìm sách theo Id
         public Book GetBookById(Guid id)
         {
             return _context.Books
+                .AsSplitQuery()
                 .Include(b => b.Chapters)
-                .ThenInclude(c => c.Lessons)
+                    .ThenInclude(c => c.Lessons)
+                    .ThenInclude(l => l.RelatedSpecies)
                 .FirstOrDefault(b => b.Book_Id == id);
         }
-
         // Tìm sách theo tiêu đề
         public ICollection<Book> SearchBooksByTitle(string title)
         {
             return _context.Books
                 .Where(b => b.Book_Title.Contains(title))
+                .Include(b => b.Chapters)
+                    .ThenInclude(c => c.Lessons)
+                    .ThenInclude(l => l.RelatedSpecies) // Thêm dòng này
                 .OrderBy(b => b.Book_Title)
                 .ToList();
         }

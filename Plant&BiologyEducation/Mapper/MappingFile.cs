@@ -3,6 +3,7 @@ using Plant_BiologyEducation.Entity.DTO.Book;
 using Plant_BiologyEducation.Entity.DTO.Chapter;
 using Plant_BiologyEducation.Entity.DTO.Lesson;
 using Plant_BiologyEducation.Entity.DTO.Management;
+using Plant_BiologyEducation.Entity.DTO.P_B_A;
 using Plant_BiologyEducation.Entity.DTO.User;
 using Plant_BiologyEducation.Entity.Model;
 
@@ -18,12 +19,14 @@ namespace Plant_BiologyEducation.Mapper
                 .ForMember(dest => dest.User_Id, opt => opt.Ignore());
 
             // Lesson mappings
-            CreateMap<Lesson, LessonDTO>();
             CreateMap<LessonDTO, Lesson>();
             CreateMap<LessonRequestDTO, Lesson>()
                 .ForMember(dest => dest.Lesson_Id, opt => opt.Ignore())
                 .ForMember(dest => dest.Chapter_Id, opt => opt.Ignore());
             CreateMap<Lesson, LessonRequestDTO>();
+            // Lesson ↔ LessonDTO mapping
+            CreateMap<Lesson, LessonDTO>()
+                .ForMember(dest => dest.Plant_Biology_Animal, opt => opt.MapFrom(src => src.RelatedSpecies));
 
             // Chapter mappings
             CreateMap<Chapter, ChapterDTO>()
@@ -34,10 +37,20 @@ namespace Plant_BiologyEducation.Mapper
                 .ForMember(dest => dest.Chapter_Id, opt => opt.Ignore());
 
             // Book mappings
-            CreateMap<Book, BookDTO>();
+            CreateMap<Book, BookDTO>()
+                .ForMember(dest => dest.Chapters, opt => opt.MapFrom(src => src.Chapters));
+
             CreateMap<BookDTO, Book>();
             CreateMap<BookRequestDTO, Book>()
                 .ForMember(dest => dest.Book_Id, opt => opt.Ignore());
+
+            // PBA (Plant_Biology_Animals) mappings
+            CreateMap<Plant_Biology_Animals, P_B_A_DTO>()
+                .ForMember(dest => dest.Lesson_Id, opt => opt.MapFrom(src => src.LessonId));
+
+            CreateMap<P_B_A_RequestDTO, Plant_Biology_Animals>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.LessonId, opt => opt.MapFrom(src => src.Lesson_Id));
 
             // ManageBook mappings
             CreateMap<ManageBook, ManageBookRequestDTO>().ReverseMap();

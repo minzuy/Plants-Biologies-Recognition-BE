@@ -24,7 +24,9 @@ namespace Plant_BiologyEducation.Repository
         public ICollection<Lesson> GetAllLessons()
         {
             return _context.Lessons
-                .Include(l => l.Chapter) // include chapter để có dữ liệu liên quan
+                .Include(l => l.Chapter)
+                .Include(l => l.RelatedSpecies)
+                // include chapter để có dữ liệu liên quan
                 .ToList();
         }
 

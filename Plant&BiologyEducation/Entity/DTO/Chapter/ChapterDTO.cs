@@ -8,6 +8,6 @@ namespace Plant_BiologyEducation.Entity.DTO.Chapter
         public Guid Book_Id { get; set; }
         public Guid Chapter_Id { get; set; }
         public string Chapter_Title { get; set; }
-        public List<LessonRequestDTO> Lessons { get; set; }
+        public List<LessonDTO> Lessons { get; set; }
     }
 }

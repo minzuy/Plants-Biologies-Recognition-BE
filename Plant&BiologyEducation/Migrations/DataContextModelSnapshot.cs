@@ -175,29 +175,6 @@ namespace Plant_BiologyEducation.Migrations
                     b.ToTable("ManageLessons");
                 });
 
-            modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.Plant_Bilogy_Animals", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("DetailsInformation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Plant_Biology_Animals");
-                });
-
             modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.User", b =>
                 {
                     b.Property<Guid>("User_Id")
@@ -223,6 +200,55 @@ namespace Plant_BiologyEducation.Migrations
                     b.HasKey("User_Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Plant_Biology_Animals", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("AverageLifeSpan")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CommonName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DiscoveredAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Habitat")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsExtinct")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("LessonId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ScientificName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SpecieType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LessonId");
+
+                    b.ToTable("Plant_Biology_Animals");
                 });
 
             modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.AccessBookHistory", b =>
@@ -342,6 +368,17 @@ namespace Plant_BiologyEducation.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Plant_Biology_Animals", b =>
+                {
+                    b.HasOne("Plant_BiologyEducation.Entity.Model.Lesson", "Lesson")
+                        .WithMany("RelatedSpecies")
+                        .HasForeignKey("LessonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Lesson");
+                });
+
             modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.Book", b =>
                 {
                     b.Navigation("AccessHistories");
@@ -363,6 +400,8 @@ namespace Plant_BiologyEducation.Migrations
                     b.Navigation("AccessHistories");
 
                     b.Navigation("ManagedBy");
+
+                    b.Navigation("RelatedSpecies");
                 });
 
             modelBuilder.Entity("Plant_BiologyEducation.Entity.Model.User", b =>
