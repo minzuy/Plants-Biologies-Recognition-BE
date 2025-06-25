@@ -21,6 +21,11 @@
 **/obj
 **/secrets.dev.yaml
 **/values.dev.yaml
+bin/
+obj/
+*.user
+*.vs
+
 LICENSE
 README.md
 !**/.gitignore

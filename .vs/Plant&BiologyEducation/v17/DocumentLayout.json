@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "D:\\API_Learning\\Plant\u0026BiologyEducation\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|Plant\u0026BiologyEducation\\PlantBiologyEducation.csproj|d:\\api_learning\\plant\u0026biologyeducation\\plant\u0026biologyeducation\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|Plant\u0026BiologyEducation\\PlantBiologyEducation.csproj|solutionrelative:plant\u0026biologyeducation\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|d:\\api_learning\\plant\u0026biologyeducation\\plantbiologyeducation\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|solutionrelative:plantbiologyeducation\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
   ],
   "DocumentGroupContainers": [
@@ -20,13 +20,13 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Dockerfile",
-              "DocumentMoniker": "D:\\API_Learning\\Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation\\Dockerfile",
-              "RelativeDocumentMoniker": "Plant\u0026BiologyEducation\\Dockerfile",
-              "ToolTip": "D:\\API_Learning\\Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation\\Dockerfile",
-              "RelativeToolTip": "Plant\u0026BiologyEducation\\Dockerfile",
+              "DocumentMoniker": "D:\\API_Learning\\Plant\u0026BiologyEducation\\PlantBiologyEducation\\Dockerfile",
+              "RelativeDocumentMoniker": "PlantBiologyEducation\\Dockerfile",
+              "ToolTip": "D:\\API_Learning\\Plant\u0026BiologyEducation\\PlantBiologyEducation\\Dockerfile",
+              "RelativeToolTip": "PlantBiologyEducation\\Dockerfile",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-06-25T08:34:32.192Z",
+              "WhenOpened": "2025-06-25T10:57:57.313Z",
               "EditorCaption": ""
             }
           ]

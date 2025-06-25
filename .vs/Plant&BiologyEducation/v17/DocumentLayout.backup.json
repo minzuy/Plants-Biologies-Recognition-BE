@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "D:\\API_Learning\\Plant\u0026BiologyEducation\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|Plant\u0026BiologyEducation\\PlantBiologyEducation.csproj|d:\\api_learning\\plant\u0026biologyeducation\\plant\u0026biologyeducation\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|Plant\u0026BiologyEducation\\PlantBiologyEducation.csproj|solutionrelative:plant\u0026biologyeducation\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\API_Learning\\Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation\\Dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Plant\u0026BiologyEducation\\Dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
   ],
   "DocumentGroupContainers": [
@@ -24,10 +24,8 @@
               "RelativeDocumentMoniker": "Plant\u0026BiologyEducation\\Dockerfile",
               "ToolTip": "D:\\API_Learning\\Plant\u0026BiologyEducation\\Plant\u0026BiologyEducation\\Dockerfile",
               "RelativeToolTip": "Plant\u0026BiologyEducation\\Dockerfile",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-06-25T08:34:32.192Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-25T08:34:32.192Z"
             }
           ]
         }

@@ -5733,11 +5733,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\API_Learning\\Plant&BiologyEducation\\Plant&BiologyEducation\\PlantBiologyEducation.csproj",
+      "projectUniqueName": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\PlantBiologyEducation.csproj",
       "projectName": "PlantBiologyEducation",
-      "projectPath": "D:\\API_Learning\\Plant&BiologyEducation\\Plant&BiologyEducation\\PlantBiologyEducation.csproj",
+      "projectPath": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\PlantBiologyEducation.csproj",
       "packagesPath": "C:\\Users\\duymi\\.nuget\\packages\\",
-      "outputPath": "D:\\API_Learning\\Plant&BiologyEducation\\Plant&BiologyEducation\\obj\\",
+      "outputPath": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
