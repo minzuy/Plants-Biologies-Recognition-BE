@@ -25,11 +25,13 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 
 # Copy published output from build stage
-# The output is now inside /src/PlantBiologyEducation/app/publish within the build stage
-COPY --from=build /src/PlantBiologyEducation/app/publish .
+COPY --from=build /app/publish .
 
-# Expose default port
-EXPOSE 80
+# Expose port for Render deployment
+EXPOSE 8080
+
+# Set environment variable for ASP.NET Core to listen on all interfaces
+ENV ASPNETCORE_URLS=http://+:8080
 
 # Entry point for the application
 ENTRYPOINT ["dotnet", "PlantBiologyEducation.dll"]
