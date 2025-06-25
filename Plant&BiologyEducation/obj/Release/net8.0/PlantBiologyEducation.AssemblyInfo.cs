@@ -13,9 +13,9 @@ using System.Reflection;
 
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("f9fdf4c0-568c-41c2-8b86-2db331209155")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("PlantBiologyEducation")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+72569a747f1ba6a85fe1151350d4856f335513bf")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4cb92730f6a6cec8eb7295cfb5f7ba404136f2ac")]
 [assembly: System.Reflection.AssemblyProductAttribute("PlantBiologyEducation")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PlantBiologyEducation")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
