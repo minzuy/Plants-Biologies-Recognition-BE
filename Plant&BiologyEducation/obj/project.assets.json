@@ -5733,9 +5733,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\API_Learning\\Plant&BiologyEducation\\Plant&BiologyEducation\\Plant&BiologyEducation.csproj",
-      "projectName": "Plant&BiologyEducation",
-      "projectPath": "D:\\API_Learning\\Plant&BiologyEducation\\Plant&BiologyEducation\\Plant&BiologyEducation.csproj",
+      "projectUniqueName": "D:\\API_Learning\\Plant&BiologyEducation\\Plant&BiologyEducation\\PlantBiologyEducation.csproj",
+      "projectName": "PlantBiologyEducation",
+      "projectPath": "D:\\API_Learning\\Plant&BiologyEducation\\Plant&BiologyEducation\\PlantBiologyEducation.csproj",
       "packagesPath": "C:\\Users\\duymi\\.nuget\\packages\\",
       "outputPath": "D:\\API_Learning\\Plant&BiologyEducation\\Plant&BiologyEducation\\obj\\",
       "projectStyle": "PackageReference",
