@@ -4,14 +4,18 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copy project file and restore dependencies
-COPY PlantBiologyEducation.csproj .
+# Copy the entire project folder from the root of the context
+# This assumes your .csproj and source files are inside a subfolder named PlantBiologyEducation
+# in your GitHub repo.
+COPY PlantBiologyEducation/ ./PlantBiologyEducation/
+
+# Change working directory inside the container to the project folder
+WORKDIR /src/PlantBiologyEducation
+
+# Restore dependencies for the project in the current working directory
 RUN dotnet restore
 
-# Copy the rest of the source code
-COPY . .
-
-# Build and publish
+# Build and publish the project in the current working directory
 RUN dotnet publish -c Release -o /app/publish
 
 # ----------------------------
@@ -21,7 +25,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 
 # Copy published output from build stage
-COPY --from=build /app/publish .
+# The output is now inside /src/PlantBiologyEducation/app/publish within the build stage
+COPY --from=build /src/PlantBiologyEducation/app/publish .
 
 # Expose default port
 EXPOSE 80
