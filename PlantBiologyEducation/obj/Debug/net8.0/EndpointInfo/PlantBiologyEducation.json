@@ -2,6 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Plant Biology Education API",
+    "description": "API for Plant Biology Education Platform",
     "version": "v1"
   },
   "paths": {
@@ -734,6 +735,42 @@
               "format": "uuid"
             }
           }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "PlantBiologyEducation"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "PlantBiologyEducation"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api": {
+      "get": {
+        "tags": [
+          "PlantBiologyEducation"
         ],
         "responses": {
           "200": {

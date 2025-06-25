@@ -12,6 +12,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 
+// CORS - Allow frontend to call API
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 // AutoMapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -40,8 +51,6 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-
-
 // Repository
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<BookRepository>();
@@ -56,11 +65,16 @@ builder.Services.AddScoped<Plant_Biology_Animal_Repository>();
 
 builder.Services.AddScoped<PlantNetService>();
 
-// Swagger
+// Swagger - Enable for all environments
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Plant Biology Education API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Plant Biology Education API",
+        Version = "v1",
+        Description = "API for Plant Biology Education Platform"
+    });
 
     // JWT Authentication configuration for Swagger
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -91,19 +105,17 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// 
+// HTTP Client
 builder.Services.AddHttpClient("PlantNetClient", client =>
 {
     client.BaseAddress = new Uri("https://my-api.plantnet.org/v2/");
 });
-
 
 // Database
 builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-
 
 var app = builder.Build();
 
@@ -132,15 +144,60 @@ if (app.Environment.IsDevelopment())
 }
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+
+// Enable Swagger for all environments (useful for production API testing)
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Plant Biology Education API v1");
+    c.RoutePrefix = "swagger"; // Access at /swagger
+});
+
+// CORS
+app.UseCors("AllowAll");
+
+// HTTPS Redirection (comment out if having issues in production)
+if (!app.Environment.IsProduction())
+{
+    app.UseHttpsRedirection();
 }
 
-app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Map Controllers
 app.MapControllers();
+
+// Add a simple home page
+app.MapGet("/", () => Results.Json(new
+{
+    message = "🌱 Plant Biology Education API is running!",
+    documentation = "/swagger",
+    version = "v1.0",
+    status = "online",
+    timestamp = DateTime.UtcNow
+}));
+
+// Health check endpoint
+app.MapGet("/health", () => Results.Json(new
+{
+    status = "healthy",
+    timestamp = DateTime.UtcNow,
+    environment = app.Environment.EnvironmentName
+}));
+
+// API info endpoint
+app.MapGet("/api", () => Results.Json(new
+{
+    name = "Plant Biology Education API",
+    version = "1.0",
+    documentation = "/swagger",
+    endpoints = new
+    {
+        swagger = "/swagger",
+        health = "/health",
+        api_root = "/api"
+    }
+}));
 
 app.Run();

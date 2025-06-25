@@ -36,7 +36,7 @@
               "RelativeDocumentMoniker": "PlantBiologyEducation\\Program.cs",
               "ToolTip": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Program.cs",
               "RelativeToolTip": "PlantBiologyEducation\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAALYAAAAAAAAAAAAAwLoAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-25T15:13:50.883Z",
               "EditorCaption": ""
@@ -51,8 +51,7 @@
               "RelativeToolTip": "PlantBiologyEducation\\Dockerfile",
               "ViewState": "AgIAAAwAAAAAAAAAAAAuwBwAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-06-25T11:31:32.487Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-25T11:31:32.487Z"
             },
             {
               "$type": "Document",
@@ -64,8 +63,7 @@
               "RelativeToolTip": "PlantBiologyEducation\\appsettings.Development.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-06-25T11:01:32.687Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-25T11:01:32.687Z"
             },
             {
               "$type": "Document",
@@ -77,8 +75,7 @@
               "RelativeToolTip": "PlantBiologyEducation\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-06-25T11:01:07.075Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-25T11:01:07.075Z"
             }
           ]
         }
