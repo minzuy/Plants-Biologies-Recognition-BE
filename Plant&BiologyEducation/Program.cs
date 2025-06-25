@@ -52,9 +52,6 @@ builder.Services.AddScoped<ManageBookRepository>();
 builder.Services.AddScoped<ManageChapterRepository>();
 builder.Services.AddScoped<ManageLessonRepository>();
 
-builder.Services.AddScoped<AccessBookHistoryRepository>();
-builder.Services.AddScoped<AccessLessonHistoryRepository>();
-
 builder.Services.AddScoped<Plant_Biology_Animal_Repository>();
 
 builder.Services.AddScoped<PlantNetService>();
@@ -104,8 +101,9 @@ builder.Services.AddHttpClient("PlantNetClient", client =>
 // Database
 builder.Services.AddDbContext<DataContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
 
 var app = builder.Build();
 

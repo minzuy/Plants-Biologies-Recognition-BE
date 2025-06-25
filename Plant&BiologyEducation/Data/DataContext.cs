@@ -13,8 +13,6 @@ namespace Plant_BiologyEducation.Data
         public DbSet<ManageBook> ManageBooks { get; set; }
         public DbSet<ManageChapter> ManageChapters { get; set; }
         public DbSet<ManageLesson> ManageLessons { get; set; }
-        public DbSet<AccessBookHistory> AccessBookHistories { get; set; }
-        public DbSet<AccessLessonHistory> AccessLessonHistories { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<Chapter> Chapters { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
@@ -72,34 +70,6 @@ namespace Plant_BiologyEducation.Data
                 .HasOne(ml => ml.Lesson)
                 .WithMany(l => l.ManagedBy)
                 .HasForeignKey(ml => ml.Lesson_Id);
-
-            // AccessBookHistory
-            modelBuilder.Entity<AccessBookHistory>()
-                .HasKey(ab => new { ab.User_Id, ab.Book_Id });
-
-            modelBuilder.Entity<AccessBookHistory>()
-                .HasOne(ab => ab.User)
-                .WithMany(u => u.BookHistories)
-                .HasForeignKey(ab => ab.User_Id);
-
-            modelBuilder.Entity<AccessBookHistory>()
-                .HasOne(ab => ab.Book)
-                .WithMany(b => b.AccessHistories)
-                .HasForeignKey(ab => ab.Book_Id);
-
-            // AccessLessonHistory
-            modelBuilder.Entity<AccessLessonHistory>()
-                .HasKey(al => new { al.User_Id, al.Lesson_Id });
-
-            modelBuilder.Entity<AccessLessonHistory>()
-                .HasOne(al => al.User)
-                .WithMany(u => u.LessonHistories)
-                .HasForeignKey(al => al.User_Id);
-
-            modelBuilder.Entity<AccessLessonHistory>()
-                .HasOne(al => al.Lesson)
-                .WithMany(l => l.AccessHistories)
-                .HasForeignKey(al => al.Lesson_Id);
 
             // Quan hệ 1-n Chapter - Lesson
             modelBuilder.Entity<Lesson>()

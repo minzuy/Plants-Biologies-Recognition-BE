@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("f9fdf4c0-568c-41c2-8b86-2db331209155")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("Plant&BiologyEducation")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+36287f2624291abee27871b67b551c31aecec8f2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+42847bfebc4895e91e69a8ced7443aed6daad710")]
 [assembly: System.Reflection.AssemblyProductAttribute("Plant&BiologyEducation")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Plant&BiologyEducation")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

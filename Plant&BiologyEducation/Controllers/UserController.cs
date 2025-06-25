@@ -49,7 +49,6 @@ namespace Plant_BiologyEducation.Controllers
 
         // POST: api/User
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         public IActionResult CreateUser([FromBody] UserRequestDTO userRequestDTO)
         {
             if (userRequestDTO == null)

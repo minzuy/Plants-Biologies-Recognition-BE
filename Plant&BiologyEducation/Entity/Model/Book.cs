@@ -7,6 +7,5 @@
         public string Cover_img { get; set; }
         public ICollection<Chapter> Chapters { get; set; }
         public ICollection<ManageBook> ManagedBy { get; set; }
-        public ICollection<AccessBookHistory> AccessHistories { get; set; }
     }
 }

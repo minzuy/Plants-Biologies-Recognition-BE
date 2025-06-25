@@ -202,3 +202,5 @@ D:\API_Learning\Plant&BiologyEducation\Plant&BiologyEducation\bin\Debug\net8.0\r
 D:\API_Learning\Plant&BiologyEducation\Plant&BiologyEducation\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.dll
 D:\API_Learning\Plant&BiologyEducation\Plant&BiologyEducation\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
 D:\API_Learning\Plant&BiologyEducation\Plant&BiologyEducation\bin\Debug\net8.0\Microsoft.Extensions.Http.dll
+D:\API_Learning\Plant&BiologyEducation\Plant&BiologyEducation\bin\Debug\net8.0\Npgsql.dll
+D:\API_Learning\Plant&BiologyEducation\Plant&BiologyEducation\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll

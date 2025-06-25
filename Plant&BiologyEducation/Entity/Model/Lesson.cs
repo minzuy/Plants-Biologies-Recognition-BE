@@ -10,7 +10,6 @@
         public Guid Chapter_Id { get; set; }
 
         public ICollection<ManageLesson> ManagedBy { get; set; }
-        public ICollection<AccessLessonHistory> AccessHistories { get; set; }
 
         public ICollection<Plant_Biology_Animals> RelatedSpecies { get; set; } // Thêm dòng này
 

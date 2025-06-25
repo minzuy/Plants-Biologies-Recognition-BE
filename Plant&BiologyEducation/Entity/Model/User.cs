@@ -15,7 +15,5 @@
         public ICollection<ManageChapter> ManagedChapters { get; set; }
         public ICollection<ManageLesson> ManagedLessons { get; set; }
 
-        public ICollection<AccessBookHistory> BookHistories { get; set; }
-        public ICollection<AccessLessonHistory> LessonHistories { get; set; }
     }
 }
