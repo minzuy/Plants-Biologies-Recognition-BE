@@ -9,7 +9,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>Plant_BiologyEducation</RootNamespace>
+    <RootNamespace>PlantBiologyEducation</RootNamespace>
     <UserSecretsId>f9fdf4c0-568c-41c2-8b86-2db331209155</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>

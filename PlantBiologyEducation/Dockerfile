@@ -12,10 +12,10 @@ COPY . .
 WORKDIR /src 
 
 # Restore dependencies for the project
-RUN dotnet restore PlantBiologyEducation.csproj
+RUN dotnet restore PlantBiologyEducation.csproj 
 
 # Build and publish the project
-RUN dotnet publish PlantBiologyEducation.csproj -c Release -o /app/publish
+RUN dotnet publish PlantBiologyEducation.csproj -c Release -o /app/publish 
 
 # ----------------------------
 # STAGE 2: Runtime
@@ -30,7 +30,7 @@ COPY --from=build /app/publish .
 EXPOSE 8080
 
 # Set environment variable for ASP.NET Core to listen on all interfaces
-ENV ASPNETCORE_URLS=http://+:8080
+ENV ASPNETCORE_URLS=http://+:${PORT}
 
 # Entry point for the application
-ENTRYPOINT ["dotnet", "PlantBiologyEducation.dll"]
+ENTRYPOINT ["dotnet", "PlantBiologyEducation.dll"] 
