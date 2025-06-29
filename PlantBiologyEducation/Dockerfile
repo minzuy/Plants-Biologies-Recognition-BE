@@ -4,19 +4,18 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copy the entire project folder from the root of the context
-# This assumes your .csproj and source files are inside a subfolder named PlantBiologyEducation
-# in your GitHub repo.
-COPY PlantBiologyEducation/ ./PlantBiologyEducation/
+# Copy all content from the current build context (where Dockerfile is located)
+# to the /src directory inside the container.
+COPY . .
 
-# Change working directory inside the container to the project folder
-WORKDIR /src/PlantBiologyEducation
+# Change working directory to /src where your .csproj file now resides.
+WORKDIR /src 
 
-# Restore dependencies for the project in the current working directory
-RUN dotnet restore
+# Restore dependencies for the project
+RUN dotnet restore PlantBiologyEducation.csproj
 
-# Build and publish the project in the current working directory
-RUN dotnet publish -c Release -o /app/publish
+# Build and publish the project
+RUN dotnet publish PlantBiologyEducation.csproj -c Release -o /app/publish
 
 # ----------------------------
 # STAGE 2: Runtime

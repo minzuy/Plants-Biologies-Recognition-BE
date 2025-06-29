@@ -109,6 +109,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddHttpClient("PlantNetClient", client =>
 {
     client.BaseAddress = new Uri("https://my-api.plantnet.org/v2/");
+    client.Timeout = TimeSpan.FromMinutes(5);
 });
 
 // Database

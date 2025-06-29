@@ -10,6 +10,6 @@ namespace Plant_BiologyEducation.Entity.DTO.Book
 
         public string Cover_img { get; set; }
 
-        public List<ChapterRequestDTO> Chapters { get; set; }
+        public List<ChapterRequestDTO> ? Chapters { get; set; }
     }
 }

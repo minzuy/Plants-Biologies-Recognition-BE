@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PlantBiologyEducation")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+272507335e66fa171f51acc61dc1daacf2db9f42")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c0498105d1e06299d7cda7864ef158486f890114")]
 [assembly: System.Reflection.AssemblyProductAttribute("PlantBiologyEducation")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PlantBiologyEducation")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

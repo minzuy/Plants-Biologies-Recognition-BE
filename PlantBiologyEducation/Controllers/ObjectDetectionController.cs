@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿  using Microsoft.AspNetCore.Mvc;
 using PlantBiologyEducation.ObjectDetections;
 using System.Text.Json;
 
@@ -17,6 +17,7 @@ namespace Plant_BiologyEducation.Controllers
             var jsonText = System.IO.File.ReadAllText(jsonPath);
             _speciesDetails = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(jsonText)!;
 
+
             Console.WriteLine("=== Loaded Labels from DetailSpecies.json ===");
             foreach (var label in _speciesDetails.Keys)
             {
@@ -25,6 +26,7 @@ namespace Plant_BiologyEducation.Controllers
 
             var labels = _speciesDetails.Keys.ToList();
             _detector = new ObjectDetection("Service/best.onnx", labels);
+
         }
 
         [HttpPost("predict")]

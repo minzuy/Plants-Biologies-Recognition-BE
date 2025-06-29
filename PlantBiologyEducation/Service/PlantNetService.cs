@@ -15,19 +15,23 @@ public class PlantNetService
     public async Task<PlantNetResponse> IdentifyPlantAsync(IFormFile imageFile)
     {
         var client = _clientFactory.CreateClient("PlantNetClient");
-        var apiKey = _configuration["PlantNet:ApiKey"]; // cấu hình ở appsettings.json
+        var apiKey = _configuration["PlantNet:ApiKey"];
 
         using var content = new MultipartFormDataContent();
         using var stream = imageFile.OpenReadStream();
         content.Add(new StreamContent(stream), "images", imageFile.FileName);
 
-        var response = await client.PostAsync($"identify/all?api-key={apiKey}", content);
-        response.EnsureSuccessStatusCode();
-
-        var json = await response.Content.ReadAsStringAsync();
-        return JsonSerializer.Deserialize<PlantNetResponse>(json, new JsonSerializerOptions
+        try
         {
-            PropertyNameCaseInsensitive = true
-        });
+            var response = await client.PostAsync($"identify/all?api-key={apiKey}", content);
+            response.EnsureSuccessStatusCode();
+
+            var json = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<PlantNetResponse>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        }
+        catch (TaskCanceledException ex)
+        {
+            throw new Exception("PlantNet API request timed out.", ex);
+        }
     }
 }

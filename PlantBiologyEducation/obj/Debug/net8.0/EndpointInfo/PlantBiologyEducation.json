@@ -1132,7 +1132,7 @@
           },
           "role": {
             "minLength": 1,
-            "pattern": "^(Teacher|Student|Admin)$",
+            "pattern": "^(Teacher|Student)$",
             "type": "string"
           },
           "fullName": {
