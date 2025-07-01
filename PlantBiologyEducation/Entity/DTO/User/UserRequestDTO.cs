@@ -20,5 +20,7 @@ namespace Plant_BiologyEducation.Entity.DTO.User
         [Required(ErrorMessage = "Full name is required")]
         [StringLength(100, ErrorMessage = "Full name cannot exceed 100 characters")]
         public string FullName { get; set; }
+
+        public bool IsActive { get; set; } = false;
     }
 }

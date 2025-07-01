@@ -22,6 +22,7 @@ namespace Plant_BiologyEducation.Repository
         {
             // Include TakingTests and Test details for each user
             return _context.Users
+                .OrderBy(u => u.Role)
                 .ToList();
         }
 
@@ -33,19 +34,33 @@ namespace Plant_BiologyEducation.Repository
                 .ToList();
         }
 
-
         public User GetUserById(Guid id)
         {
             return _context.Users
                 .FirstOrDefault(u => u.User_Id == id);
         }
+        public User GetUserByAccount(string account)
+        {
+            return _context.Users.FirstOrDefault(u => u.Account == account);
+        }
+
+        public ICollection<User> GetInactiveUsers()
+        {
+            return _context.Users
+                .Where(u => !u.IsActive)
+                .ToList();
+        }
+
 
         public bool CreateUser(User user)
         {
             _context.Users.Add(user);
             return Save();
         }
-
+        public bool AccountExists(string account)
+        {
+            return _context.Users.Any(u => u.Account == account);
+        }
         public bool UpdateUser(User user)
         {
             _context.Users.Update(user);

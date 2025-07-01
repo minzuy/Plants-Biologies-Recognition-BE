@@ -8,12 +8,10 @@
         public string Password { get; set; }
 
         public string Role { get; set; }
-
         public string FullName { get; set; }
+        public bool IsActive { get; set; }
 
-        public ICollection<ManageBook> ManagedBooks { get; set; }
-        public ICollection<ManageChapter> ManagedChapters { get; set; }
-        public ICollection<ManageLesson> ManagedLessons { get; set; }
+
 
     }
 }

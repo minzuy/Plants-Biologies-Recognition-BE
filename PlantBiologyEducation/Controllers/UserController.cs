@@ -4,12 +4,13 @@ using Plant_BiologyEducation.Repository;
 using Plant_BiologyEducation.Entity.Model;
 using Microsoft.AspNetCore.Authorization;
 using Plant_BiologyEducation.Entity.DTO.User;
+using PlantBiologyEducation.Entity.DTO.User;
 
 namespace Plant_BiologyEducation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+    //[Authorize]
     public class UserController : ControllerBase
     {
         private readonly UserRepository _userRepo;
@@ -21,8 +22,20 @@ namespace Plant_BiologyEducation.Controllers
             _mapper = mapper;
         }
 
+
+        // GET: api/User
+        [HttpGet("getAllUsers")]
+        //[Authorize(Roles = "Admin")]
+        public IActionResult GetAllUsers()
+        {
+            var users = _userRepo.GetAllUsers();
+            var usersDTO = _mapper.Map<List<UserDTO>>(users);
+            return Ok(usersDTO);
+        }
+
         // GET: api/User
         [HttpGet("search")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult GetUsers([FromQuery] string? fullName)
         {
             var users = string.IsNullOrWhiteSpace(fullName)
@@ -30,6 +43,14 @@ namespace Plant_BiologyEducation.Controllers
                 : _userRepo.SearchUsersByFullName(fullName);
 
             var usersDTO = _mapper.Map<List<UserDTO>>(users);
+            return Ok(usersDTO);
+        }
+        [HttpGet("inactive")]
+        //[Authorize(Roles = "Admin")]
+        public IActionResult GetInactiveUsers()
+        {
+            var inactiveUsers = _userRepo.GetInactiveUsers();
+            var usersDTO = _mapper.Map<List<UserDTO>>(inactiveUsers);
             return Ok(usersDTO);
         }
 
@@ -48,8 +69,9 @@ namespace Plant_BiologyEducation.Controllers
         }
 
         // POST: api/User
-        [HttpPost]
-        public IActionResult CreateUser([FromBody] UserRequestDTO userRequestDTO)
+        [HttpPost("admin-create")]
+        //[Authorize(Roles = "Admin")]
+        public IActionResult CreateUser([FromBody] AdminRequestDTO userRequestDTO)
         {
             if (userRequestDTO == null)
                 return BadRequest("User data is required.");
@@ -57,6 +79,8 @@ namespace Plant_BiologyEducation.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            if (_userRepo.AccountExists(userRequestDTO.Account))
+                return Conflict("Account already exists.");
             // Map DTO to Entity
             var user = _mapper.Map<User>(userRequestDTO);
              
@@ -72,6 +96,8 @@ namespace Plant_BiologyEducation.Controllers
             var userDTO = _mapper.Map<UserDTO>(user);
             return CreatedAtAction(nameof(GetUserById), new { id = user.User_Id }, userDTO);
         }
+
+
 
         // PUT: api/User/{id}
         [HttpPut("{id}")]
@@ -98,15 +124,32 @@ namespace Plant_BiologyEducation.Controllers
                 return StatusCode(500, "Something went wrong while updating user.");
             }
 
-            return NoContent();
+            return Ok(new { message = "Update User successfully" });
+        }
+        [HttpPut("{id}/status")]
+        // [Authorize(Roles = "Admin")]
+        public IActionResult UpdateUserStatus(Guid id, [FromBody] UserStatusUpdateDTO statusDto)
+        {
+            var user = _userRepo.GetUserById(id);
+            if (user == null)
+                return NotFound("User not found.");
+
+            user.IsActive = statusDto.IsActive;
+
+            var result = _userRepo.UpdateUser(user);
+            if (!result)
+                return StatusCode(500, "Failed to update user status.");
+
+            return Ok(new
+            {
+                message = "User status updated successfully.",
+                userId = user.User_Id,
+                newStatus = user.IsActive ? "Active" : "Inactive"
+            });
         }
 
-        // Fix for CS1503: Argument 1: cannot convert from 'System.Guid' to 'Plant_BiologyEducation.Entity.Model.User'
-        // The DeleteUser method in UserRepository expects a User object, but the code is passing a Guid.
-        // To fix this, retrieve the User object by its ID before calling DeleteUser.
-
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult DeleteUser(Guid id)
         {
             if (!_userRepo.UserExists(id))
@@ -123,7 +166,7 @@ namespace Plant_BiologyEducation.Controllers
                 return StatusCode(500, "Something went wrong while deleting user.");
             }
 
-            return NoContent();
+            return Ok(new { message = "Delete User successfully" });
         }
     }
 }

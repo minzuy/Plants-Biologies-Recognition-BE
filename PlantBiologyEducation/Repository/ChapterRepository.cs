@@ -37,7 +37,14 @@ namespace Plant_BiologyEducation.Repository
                 .Include(c => c.Lessons)
                 .ToListAsync();
         }
-
+        public async Task<List<Chapter>> GetPendingChaptersAsync()
+        {
+            return await _context.Chapters
+                .Where(c => c.Status == "Pending")
+                .Include(c => c.Book)
+                .Include(c => c.Lessons)
+                .ToListAsync();
+        }
 
         // Thêm mới Chapter
         public bool CreateChapter(Chapter chapter)

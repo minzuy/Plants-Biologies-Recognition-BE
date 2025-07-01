@@ -45,7 +45,17 @@ namespace Plant_BiologyEducation.Repository
                 .OrderBy(b => b.Book_Title)
                 .ToList();
         }
-
+        public ICollection<Book> GetPendingBooks()
+        {
+            return _context.Books
+                .Where(b => b.Status == "Pending")
+                .AsSplitQuery()
+                .Include(b => b.Chapters)
+                    .ThenInclude(c => c.Lessons)
+                    .ThenInclude(l => l.RelatedSpecies)
+                .OrderBy(b => b.Book_Title)
+                .ToList();
+        }
         // Thêm sách mới
         public bool CreateBook(Book book)
         {

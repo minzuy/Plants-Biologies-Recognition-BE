@@ -4,6 +4,7 @@ using Plant_BiologyEducation.Entity.DTO.Lesson;
 using Plant_BiologyEducation.Entity.Model;
 using Plant_BiologyEducation.Repository;
 using Plant_BiologyEducation.Service;
+using PlantBiologyEducation.Entity.DTO.Lesson;
 using System;
 
 namespace Plant_BiologyEducation.Controllers
@@ -57,6 +58,9 @@ namespace Plant_BiologyEducation.Controllers
 
             var lesson = _mapper.Map<Lesson>(dto);
             lesson.Lesson_Id = Guid.NewGuid();
+            lesson.Status = "Pending";
+            lesson.IsActive = false;
+            lesson.RejectionReason = null;
 
             var success = _lessonRepository.CreateLesson(lesson);
             if (!success)
@@ -85,6 +89,44 @@ namespace Plant_BiologyEducation.Controllers
 
             return Ok("Lesson updated successfully.");
         }
+
+        [HttpPut("{id}/status")]
+        // [Authorize(Roles = "Admin")]
+        public IActionResult ApproveOrRejectLesson(Guid id, [FromBody] LessonStatusUpdate statusDto)
+        {
+            var lesson = _lessonRepository.GetLessonById(id);
+            if (lesson == null)
+                return NotFound("Lesson not found.");
+
+            var validStatuses = new[] { "Approved", "Rejected" };
+            if (!validStatuses.Contains(statusDto.Status))
+                return BadRequest("Invalid status. Must be 'Approved' or 'Rejected'.");
+
+            lesson.Status = statusDto.Status;
+
+            if (statusDto.Status == "Rejected")
+            {
+                lesson.RejectionReason = statusDto.RejectionReason ?? "No reason provided";
+                lesson.IsActive = false;
+            }
+            else if (statusDto.Status == "Approved")
+            {
+                lesson.RejectionReason = null;
+                lesson.IsActive = true;
+            }
+
+            var result = _lessonRepository.UpdateLesson(lesson);
+            if (!result)
+                return StatusCode(500, "Failed to update lesson status.");
+
+            return Ok(new
+            {
+                message = "Lesson status updated.",
+                newStatus = lesson.Status,
+                lessonId = lesson.Lesson_Id
+            });
+        }
+
 
         // ✅ DELETE
         [HttpDelete("{id}")]

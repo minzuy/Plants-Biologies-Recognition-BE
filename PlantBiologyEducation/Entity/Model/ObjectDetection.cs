@@ -117,7 +117,7 @@ namespace PlantBiologyEducation.ObjectDetections
                         result.Height);
 
                     ctx.Draw(Pens.Solid(Color.Red, 2), rect);
-                    ctx.DrawText($"{result.Label} ({result.Confidence:P1})", font, Color.Yellow, new PointF(rect.X, rect.Y - 20));
+                    ctx.DrawText($"{result.Label} ({result.Confidence:P1})", font, Color.Yellow, new PointF(rect.X, rect.Y - 20)); 
                 }
             });
             return image;

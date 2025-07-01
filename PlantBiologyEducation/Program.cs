@@ -57,13 +57,16 @@ builder.Services.AddScoped<BookRepository>();
 builder.Services.AddScoped<ChapterRepository>();
 builder.Services.AddScoped<LessonRepository>();
 
-builder.Services.AddScoped<ManageBookRepository>();
-builder.Services.AddScoped<ManageChapterRepository>();
-builder.Services.AddScoped<ManageLessonRepository>();
+
 
 builder.Services.AddScoped<Plant_Biology_Animal_Repository>();
 
 builder.Services.AddScoped<PlantNetService>();
+
+builder.Services.AddScoped<AccessBookRepository>();
+builder.Services.AddScoped<AccessLessonRepository>();
+builder.Services.AddScoped<AccessBiologyRepository>();
+
 
 // Swagger - Enable for all environments
 builder.Services.AddEndpointsApiExplorer();
@@ -177,7 +180,7 @@ app.MapGet("/", () => Results.Json(new
     version = "v1.0",
     status = "online",
     timestamp = DateTime.UtcNow
-}));
+})).ExcludeFromDescription();
 
 // Health check endpoint
 app.MapGet("/health", () => Results.Json(new
@@ -185,7 +188,8 @@ app.MapGet("/health", () => Results.Json(new
     status = "healthy",
     timestamp = DateTime.UtcNow,
     environment = app.Environment.EnvironmentName
-}));
+})).ExcludeFromDescription();
+
 
 // API info endpoint
 app.MapGet("/api", () => Results.Json(new
@@ -199,6 +203,6 @@ app.MapGet("/api", () => Results.Json(new
         health = "/health",
         api_root = "/api"
     }
-}));
+})).ExcludeFromDescription();
 
 app.Run();

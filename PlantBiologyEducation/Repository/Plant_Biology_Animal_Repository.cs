@@ -22,6 +22,12 @@ namespace Plant_BiologyEducation.Repository
             return _context.Plant_Biology_Animals
                 .ToList();
         }
+        public ICollection<Plant_Biology_Animals> GetPendingPBA()
+        {
+            return _context.Plant_Biology_Animals
+                .Where(pba => pba.Status == "Pending")
+                .ToList();
+        }
 
         public ICollection<Plant_Biology_Animals> SearchByCommonName(string commonName)
         {

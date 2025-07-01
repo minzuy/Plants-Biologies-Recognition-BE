@@ -13,6 +13,10 @@ public class Plant_Biology_Animals
     public DateTime? DiscoveredAt { get; set; }
     public int? AverageLifeSpan { get; set; }
 
+    public bool IsActive { get; set; }
+    public string Status { get; set; } // Pending, Approved, Rejected
+    public string? RejectionReason { get; set; } // Lý do từ chối nếu có
+
     // Mối quan hệ nhiều-1 với Lesson
     public Guid LessonId { get; set; }
     public Lesson Lesson { get; set; }

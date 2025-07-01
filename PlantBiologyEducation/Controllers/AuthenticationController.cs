@@ -1,16 +1,17 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Plant_BiologyEducation.Entity.DTO.User;
 using Plant_BiologyEducation.Entity.Model;
 using Plant_BiologyEducation.Repository;
 using Plant_BiologyEducation.Service;
+using PlantBiologyEducation.Entity.DTO.User;
 
 namespace Plant_BiologyEducation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    //[Authorize]
     public class AuthenticationController : Controller
     {
         private readonly UserRepository _userRepo;
@@ -74,7 +75,24 @@ namespace Plant_BiologyEducation.Controllers
 
 
         }
+        [HttpPost("forgot-password")]
+        public IActionResult ForgotPassword([FromBody] ForgotPasswordRequestDTO requestPassword)
+        {
+            if (string.IsNullOrWhiteSpace(requestPassword.Account) || string.IsNullOrWhiteSpace(requestPassword.NewPassword))
+                return BadRequest("Account and new password are required.");
 
+            var user = _userRepo.GetUserByAccount(requestPassword.Account);
+
+            if (user == null)
+                return NotFound("Account not found.");
+
+            user.Password = requestPassword.NewPassword; // TODO: Hash nếu cần
+
+            if (!_userRepo.UpdateUser(user))
+                return StatusCode(500, "Failed to update password.");
+
+            return Ok("Password updated successfully.");
+        }
         // GET: api/User/{id}
         [HttpGet("{id}")]
         public IActionResult GetUserById(Guid id)

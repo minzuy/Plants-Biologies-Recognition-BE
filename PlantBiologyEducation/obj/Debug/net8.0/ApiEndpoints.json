@@ -1,35 +1,99 @@
 [
   {
-    "ContainingType": "Program\u002B\u003C\u003Ec",
-    "Method": "\u003C\u003CMain\u003E$\u003Eb__0_7",
-    "RelativePath": "",
+    "ContainingType": "AccessBiologyController",
+    "Method": "GetBiologyStatistics",
+    "RelativePath": "api/AccessBiology/biology/{biologyId}/statistics",
     "HttpMethod": "GET",
-    "IsController": false,
+    "IsController": true,
     "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
+    "Parameters": [
       {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
+        "Name": "biologyId",
+        "Type": "System.Guid",
+        "IsRequired": true
       }
-    ]
+    ],
+    "ReturnTypes": []
   },
   {
-    "ContainingType": "Program\u002B\u003C\u003Ec",
-    "Method": "\u003C\u003CMain\u003E$\u003Eb__0_9",
-    "RelativePath": "api",
-    "HttpMethod": "GET",
-    "IsController": false,
+    "ContainingType": "AccessBiologyController",
+    "Method": "RecordAccess",
+    "RelativePath": "api/AccessBiology/record",
+    "HttpMethod": "POST",
+    "IsController": true,
     "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
+    "Parameters": [
       {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
+        "Name": "dto",
+        "Type": "PlantBiologyEducation.Entity.DTO.AccessHistories.AccessBioRequestDTO",
+        "IsRequired": true
       }
-    ]
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.AccessBookController",
+    "Method": "GetBookStatistics",
+    "RelativePath": "api/AccessBook/book/{bookId}/statistics",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "bookId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.AccessBookController",
+    "Method": "RecordAccess",
+    "RelativePath": "api/AccessBook/record",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "PlantBiologyEducation.Entity.DTO.AccessHistories.AccessBookRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AccessLessonController",
+    "Method": "GetLessonStatistics",
+    "RelativePath": "api/AccessLesson/lesson/{lessonId}/statistics",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "lessonId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AccessLessonController",
+    "Method": "RecordAccess",
+    "RelativePath": "api/AccessLesson/record",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "PlantBiologyEducation.Entity.DTO.AccessHistories.AccessLessonRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Plant_BiologyEducation.Controllers.AuthenticationController",
@@ -42,6 +106,22 @@
       {
         "Name": "id",
         "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.AuthenticationController",
+    "Method": "ForgotPassword",
+    "RelativePath": "api/Authentication/forgot-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "requestPassword",
+        "Type": "PlantBiologyEducation.Entity.DTO.User.ForgotPasswordRequestDTO",
         "IsRequired": true
       }
     ],
@@ -80,6 +160,122 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Plant_BiologyEducation.Controllers.BiologiesController",
+    "Method": "Create",
+    "RelativePath": "api/Biologies",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "requestDTO",
+        "Type": "Plant_BiologyEducation.Entity.DTO.P_B_A.P_B_A_RequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.BiologiesController",
+    "Method": "GetById",
+    "RelativePath": "api/Biologies/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.BiologiesController",
+    "Method": "Update",
+    "RelativePath": "api/Biologies/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "requestDTO",
+        "Type": "Plant_BiologyEducation.Entity.DTO.P_B_A.P_B_A_RequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.BiologiesController",
+    "Method": "Delete",
+    "RelativePath": "api/Biologies/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.BiologiesController",
+    "Method": "UpdateStatus",
+    "RelativePath": "api/Biologies/{id}/status",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "statusDto",
+        "Type": "PlantBiologyEducation.Entity.DTO.P_B_A.PBAStatusUpdateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.BiologiesController",
+    "Method": "GetPendingPBA",
+    "RelativePath": "api/Biologies/pending",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.BiologiesController",
+    "Method": "SearchByCommonName",
+    "RelativePath": "api/Biologies/search",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "commonName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Plant_BiologyEducation.Controllers.BookController",
     "Method": "CreateBookWithChaptersAndLessons",
     "RelativePath": "api/Book",
@@ -90,6 +286,22 @@
       {
         "Name": "dto",
         "Type": "Plant_BiologyEducation.Entity.DTO.Book.BookRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.BookController",
+    "Method": "GetBookById",
+    "RelativePath": "api/Book/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],
@@ -134,6 +346,37 @@
   },
   {
     "ContainingType": "Plant_BiologyEducation.Controllers.BookController",
+    "Method": "ApproveOrRejectBook",
+    "RelativePath": "api/Book/{id}/status",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "statusDto",
+        "Type": "PlantBiologyEducation.Entity.DTO.Book.BookStatusUpdateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.BookController",
+    "Method": "GetPendingBooks",
+    "RelativePath": "api/Book/pending",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.BookController",
     "Method": "SearchOrGetAllBooks",
     "RelativePath": "api/Book/search",
     "HttpMethod": "GET",
@@ -159,6 +402,22 @@
       {
         "Name": "dto",
         "Type": "Plant_BiologyEducation.Entity.DTO.Chapter.ChapterRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.ChapterController",
+    "Method": "GetChapterById",
+    "RelativePath": "api/Chapter/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
         "IsRequired": true
       }
     ],
@@ -199,6 +458,37 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.ChapterController",
+    "Method": "ApproveOrRejectChapter",
+    "RelativePath": "api/Chapter/{id}/status",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "statusDto",
+        "Type": "PlantBiologyEducation.Entity.DTO.Chapter.ChapterStatusUpdate",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.ChapterController",
+    "Method": "GetPendingChapters",
+    "RelativePath": "api/Chapter/pending",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -272,6 +562,27 @@
   },
   {
     "ContainingType": "Plant_BiologyEducation.Controllers.LessonController",
+    "Method": "ApproveOrRejectLesson",
+    "RelativePath": "api/Lesson/{id}/status",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "statusDto",
+        "Type": "PlantBiologyEducation.Entity.DTO.Lesson.LessonStatusUpdate",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.LessonController",
     "Method": "SearchOrGetAllLesson",
     "RelativePath": "api/Lesson/search",
     "HttpMethod": "GET",
@@ -282,80 +593,6 @@
         "Name": "title",
         "Type": "System.String",
         "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Plant_BiologyEducation.Controllers.ManageBookController",
-    "Method": "GetAll",
-    "RelativePath": "api/ManageBook",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Plant_BiologyEducation.Controllers.ManageBookController",
-    "Method": "Add",
-    "RelativePath": "api/ManageBook",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "Plant_BiologyEducation.Entity.DTO.Management.ManageBookRequestDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Plant_BiologyEducation.Controllers.ManageBookController",
-    "Method": "GetByBookId",
-    "RelativePath": "api/ManageBook/{bookId}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "bookId",
-        "Type": "System.Guid",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Plant_BiologyEducation.Controllers.ManageChapterController",
-    "Method": "TrackChapterEdit",
-    "RelativePath": "api/ManageChapter/update",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "Plant_BiologyEducation.Entity.DTO.Management.ManageChapterDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Plant_BiologyEducation.Controllers.ManageLessonController",
-    "Method": "TrackLessonEdit",
-    "RelativePath": "api/ManageLesson/update",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "Plant_BiologyEducation.Entity.DTO.Management.ManageLessonDTO",
-        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -403,75 +640,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Plant_BiologyEducation.Controllers.PBAController",
-    "Method": "Create",
-    "RelativePath": "api/PBA",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "requestDTO",
-        "Type": "Plant_BiologyEducation.Entity.DTO.P_B_A.P_B_A_RequestDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Plant_BiologyEducation.Controllers.PBAController",
-    "Method": "Update",
-    "RelativePath": "api/PBA/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Guid",
-        "IsRequired": true
-      },
-      {
-        "Name": "requestDTO",
-        "Type": "Plant_BiologyEducation.Entity.DTO.P_B_A.P_B_A_RequestDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Plant_BiologyEducation.Controllers.PBAController",
-    "Method": "Delete",
-    "RelativePath": "api/PBA/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Guid",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Plant_BiologyEducation.Controllers.PBAController",
-    "Method": "SearchByCommonName",
-    "RelativePath": "api/PBA/search",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "commonName",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "PlantNetIdentifyController",
     "Method": "IdentifyPlant",
     "RelativePath": "api/PlantNetIdentify/identify",
@@ -483,22 +651,6 @@
         "Name": "image",
         "Type": "Microsoft.AspNetCore.Http.IFormFile",
         "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Plant_BiologyEducation.Controllers.UserController",
-    "Method": "CreateUser",
-    "RelativePath": "api/User",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "userRequestDTO",
-        "Type": "Plant_BiologyEducation.Entity.DTO.User.UserRequestDTO",
-        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -542,6 +694,63 @@
   },
   {
     "ContainingType": "Plant_BiologyEducation.Controllers.UserController",
+    "Method": "UpdateUserStatus",
+    "RelativePath": "api/User/{id}/status",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "statusDto",
+        "Type": "PlantBiologyEducation.Entity.DTO.User.UserStatusUpdateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.UserController",
+    "Method": "CreateUser",
+    "RelativePath": "api/User/admin-create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userRequestDTO",
+        "Type": "PlantBiologyEducation.Entity.DTO.User.AdminRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.UserController",
+    "Method": "GetAllUsers",
+    "RelativePath": "api/User/getAllUsers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.UserController",
+    "Method": "GetInactiveUsers",
+    "RelativePath": "api/User/inactive",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.UserController",
     "Method": "GetUsers",
     "RelativePath": "api/User/search",
     "HttpMethod": "GET",
@@ -555,21 +764,5 @@
       }
     ],
     "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Program\u002B\u003C\u003Ec__DisplayClass0_0",
-    "Method": "\u003C\u003CMain\u003E$\u003Eb__8",
-    "RelativePath": "health",
-    "HttpMethod": "GET",
-    "IsController": false,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 200
-      }
-    ]
   }
 ]

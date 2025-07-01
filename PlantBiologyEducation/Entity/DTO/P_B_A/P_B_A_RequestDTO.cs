@@ -11,6 +11,10 @@
         public bool IsExtinct { get; set; }
         public DateTime? DiscoveredAt { get; set; }
         public int? AverageLifeSpan { get; set; }
+        public bool IsActive { get; set; }
+        public string Status { get; set; }  // Pending, Approved, Rejected
+
+        public string? RejectionReason { get; set; } // Lý do từ chối nếu có
 
         public Guid Lesson_Id { get; set; }
     }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Plant_BiologyEducation.Entity.Model;
+using PlantBiologyEducation.Entity.Model;
 
 namespace Plant_BiologyEducation.Data
 {
@@ -10,66 +11,24 @@ namespace Plant_BiologyEducation.Data
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<ManageBook> ManageBooks { get; set; }
-        public DbSet<ManageChapter> ManageChapters { get; set; }
-        public DbSet<ManageLesson> ManageLessons { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<Chapter> Chapters { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<Plant_Biology_Animals> Plant_Biology_Animals { get; set; }
+        public DbSet<AccessBook> AccessBooks { get; set; }
+        public DbSet<AccessLesson> AccessLessons { get; set; }
+        public DbSet<AccessBiology> AccessBiologies { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
             // Khóa chính cho các bảng chính
             modelBuilder.Entity<User>().HasKey(u => u.User_Id);
             modelBuilder.Entity<Book>().HasKey(b => b.Book_Id);
             modelBuilder.Entity<Chapter>().HasKey(c => c.Chapter_Id);
             modelBuilder.Entity<Lesson>().HasKey(l => l.Lesson_Id);
-            modelBuilder.Entity<Plant_Biology_Animals>().HasKey(p => p.Id);
-
-            // Khóa chính + thiết lập quan hệ cho bảng trung gian ManageBook
-            modelBuilder.Entity<ManageBook>()
-                .HasKey(mb => new { mb.User_Id, mb.Book_Id });
-
-            modelBuilder.Entity<ManageBook>()
-                .HasOne(mb => mb.User)
-                .WithMany(u => u.ManagedBooks)
-                .HasForeignKey(mb => mb.User_Id);
-
-            modelBuilder.Entity<ManageBook>()
-                .HasOne(mb => mb.Book)
-                .WithMany(b => b.ManagedBy)
-                .HasForeignKey(mb => mb.Book_Id);
-
-            // ManageChapter
-            modelBuilder.Entity<ManageChapter>()
-                .HasKey(mc => new { mc.User_Id, mc.Chapter_Id });
-
-            modelBuilder.Entity<ManageChapter>()
-                .HasOne(mc => mc.User)
-                .WithMany(u => u.ManagedChapters)
-                .HasForeignKey(mc => mc.User_Id);
-
-            modelBuilder.Entity<ManageChapter>()
-                .HasOne(mc => mc.Chapter)
-                .WithMany(c => c.ManagedBy)
-                .HasForeignKey(mc => mc.Chapter_Id);
-
-            // ManageLesson
-            modelBuilder.Entity<ManageLesson>()
-                .HasKey(ml => new { ml.User_Id, ml.Lesson_Id });
-
-            modelBuilder.Entity<ManageLesson>()
-                .HasOne(ml => ml.User)
-                .WithMany(u => u.ManagedLessons)
-                .HasForeignKey(ml => ml.User_Id);
-
-            modelBuilder.Entity<ManageLesson>()
-                .HasOne(ml => ml.Lesson)
-                .WithMany(l => l.ManagedBy)
-                .HasForeignKey(ml => ml.Lesson_Id);
+            modelBuilder.Entity<Plant_Biology_Animals>().HasKey(p => p.Id);     
 
             // Quan hệ 1-n Chapter - Lesson
             modelBuilder.Entity<Lesson>()
@@ -89,6 +48,56 @@ namespace Plant_BiologyEducation.Data
                 .WithMany(l => l.RelatedSpecies)
                 .HasForeignKey(p => p.LessonId)
                 .OnDelete(DeleteBehavior.Cascade); // hoặc Restrict nếu bạn không muốn xóa cascade
+
+            // AccessBook
+            modelBuilder.Entity<AccessBook>()
+                .HasKey(ab => ab.AccessBook_Id);
+
+            modelBuilder.Entity<AccessBook>()
+                .HasOne(ab => ab.User)
+                .WithMany()
+                .HasForeignKey(ab => ab.User_Id)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<AccessBook>()
+                .HasOne(ab => ab.Book)
+                .WithMany()
+                .HasForeignKey(ab => ab.Book_Id)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // AccessLesson
+            modelBuilder.Entity<AccessLesson>()
+                .HasKey(al => al.AccessLesson_Id);
+
+            modelBuilder.Entity<AccessLesson>()
+                .HasOne(al => al.User)
+                .WithMany()
+                .HasForeignKey(al => al.User_Id)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<AccessLesson>()
+                .HasOne(al => al.Lesson)
+                .WithMany()
+                .HasForeignKey(al => al.Lesson_Id)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // AccessBiology
+            modelBuilder.Entity<AccessBiology>()
+                .HasKey(ab => ab.AccessBiology_Id);
+
+            modelBuilder.Entity<AccessBiology>()
+                .HasOne(ab => ab.User)
+                .WithMany()
+                .HasForeignKey(ab => ab.User_Id)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<AccessBiology>()
+                .HasOne(ab => ab.Oject)
+                .WithMany()
+                .HasForeignKey(ab => ab.Oject_Id)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
         }
 
     }
