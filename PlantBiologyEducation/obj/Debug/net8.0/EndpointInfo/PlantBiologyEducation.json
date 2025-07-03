@@ -474,6 +474,18 @@
         }
       }
     },
+    "/api/Book/approved": {
+      "get": {
+        "tags": [
+          "Book"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Book/search": {
       "get": {
         "tags": [
@@ -1649,7 +1661,7 @@
           },
           "role": {
             "minLength": 1,
-            "pattern": "^(Teacher|Student)$",
+            "pattern": "^(Student)$",
             "type": "string"
           },
           "fullName": {

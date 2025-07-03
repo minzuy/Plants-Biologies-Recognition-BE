@@ -367,6 +367,16 @@
   },
   {
     "ContainingType": "Plant_BiologyEducation.Controllers.BookController",
+    "Method": "GetAllBooks",
+    "RelativePath": "api/Book/approved",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.BookController",
     "Method": "GetPendingBooks",
     "RelativePath": "api/Book/pending",
     "HttpMethod": "GET",

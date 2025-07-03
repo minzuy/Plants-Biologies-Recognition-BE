@@ -88,5 +88,17 @@ namespace Plant_BiologyEducation.Repository
         {
             return _context.SaveChanges() > 0;
         }
+
+        internal object GetAllBooksForStudents()
+        {
+            return _context.Books
+                 .Where(b => b.Status == "Approved")
+                  .AsSplitQuery()
+                  .Include(b => b.Chapters)
+                  .ThenInclude(c => c.Lessons)
+                  .ThenInclude(l => l.RelatedSpecies)
+                  .OrderBy(b => b.Book_Title)
+                  .ToList();
+        }
     }
 }

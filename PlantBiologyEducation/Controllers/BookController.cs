@@ -5,6 +5,7 @@ using Plant_BiologyEducation.Repository;
 using Plant_BiologyEducation.Entity.Model;
 using System.Xml;
 using PlantBiologyEducation.Entity.DTO.Book;
+using Plant_BiologyEducation.Entity.DTO.User;
 
 namespace Plant_BiologyEducation.Controllers
 {
@@ -20,6 +21,17 @@ namespace Plant_BiologyEducation.Controllers
             _bookRepository = bookRepository;
             _mapper = mapper;
         }
+
+
+
+        [HttpGet("approved")]
+        public IActionResult GetAllBooks()
+        {
+            var books = _bookRepository.GetAllBooksForStudents();
+            var booksDTO = _mapper.Map<List<BookDTO>>(books);
+            return Ok(booksDTO);
+        }
+
 
         // GET: api/Book?title=abc
         [HttpGet("search")]

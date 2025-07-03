@@ -6,7 +6,6 @@ namespace Plant_BiologyEducation.Entity.DTO.Chapter
 {
     public class ChapterDTO
     {
-        public Guid Book_Id { get; set; }
         public Guid Chapter_Id { get; set; }
         public string Chapter_Title { get; set; }
 
@@ -20,6 +19,10 @@ namespace Plant_BiologyEducation.Entity.DTO.Chapter
         public string? RejectionReason { get; set; }
 
         [JsonPropertyOrder(4)]
+
+        public Guid Book_Id { get; set; }
+
+        [JsonPropertyOrder(5)]
         public List<LessonDTO> Lessons { get; set; }
     }
 }

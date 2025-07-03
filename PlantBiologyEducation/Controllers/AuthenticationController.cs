@@ -8,6 +8,7 @@ using Plant_BiologyEducation.Repository;
 using Plant_BiologyEducation.Service;
 using PlantBiologyEducation.Entity.DTO.User;
 
+
 namespace Plant_BiologyEducation.Controllers
 {
     [ApiController]
@@ -56,9 +57,9 @@ namespace Plant_BiologyEducation.Controllers
                 return BadRequest(ModelState);
 
             // Chỉ cho phép đăng ký với Role là Student hoặc Teacher
-            var allowedRoles = new[] { "Student", "Teacher" };
+            var allowedRoles = new[] { "Student"};
             if (!allowedRoles.Contains(userRequestDTO.Role))
-                return BadRequest("You are only allowed to register with the role of 'Student' or 'Teacher'.");
+                return BadRequest("You are only allowed to register with the role of 'Student'.");
 
             // Kiểm tra trùng Account
             if (_userRepo.GetAllUsers().Any(u => u.Account == userRequestDTO.Account))
