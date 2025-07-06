@@ -135,7 +135,7 @@ namespace Plant_BiologyEducation.Controllers
             if (!_pbaRepo.UpdatePBA(existing))
                 return StatusCode(500, "Error while updating plant.");
 
-            return NoContent();
+            return Ok("Updated successful");
         }
 
         // DELETE: api/PBA/{id}
@@ -152,7 +152,7 @@ namespace Plant_BiologyEducation.Controllers
             if (!_pbaRepo.DeletePBA(entity))
                 return StatusCode(500, "Error while deleting plant.");
 
-            return NoContent();
+            return Ok("Deleted successful");
         }
     }
 }

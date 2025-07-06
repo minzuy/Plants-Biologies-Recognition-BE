@@ -121,8 +121,11 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-var app = builder.Build();
+// Configure to listen on PORT provided by Render (fallback to 8080 locally)
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+builder.WebHost.UseUrls($"http://*:{port}");
 
+var app = builder.Build();
 // Test database connection
 if (app.Environment.IsDevelopment())
 {
