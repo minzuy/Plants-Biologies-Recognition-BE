@@ -682,6 +682,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "PlantBiologyEducation.Controllers.PredictController",
+    "Method": "UploadImage",
+    "RelativePath": "api/Predict/upload",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "image",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Plant_BiologyEducation.Controllers.UserController",
     "Method": "UpdateUser",
     "RelativePath": "api/User/{id}",

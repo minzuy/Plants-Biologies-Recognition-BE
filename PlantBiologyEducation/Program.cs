@@ -5,6 +5,7 @@ using Microsoft.OpenApi.Models;
 using Plant_BiologyEducation.Data;
 using Plant_BiologyEducation.Repository;
 using Plant_BiologyEducation.Service;
+using PlantBiologyEducation.Service;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -68,6 +69,9 @@ builder.Services.AddScoped<AccessLessonRepository>();
 builder.Services.AddScoped<AccessBiologyRepository>();
 
 
+builder.Services.AddScoped<PredictService>();
+builder.Services.AddScoped<DictionaryService>();
+
 // Swagger - Enable for all environments
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -114,6 +118,14 @@ builder.Services.AddHttpClient("PlantNetClient", client =>
     client.BaseAddress = new Uri("https://my-api.plantnet.org/v2/");
     client.Timeout = TimeSpan.FromMinutes(5);
 });
+
+// HttpClient with extended timeout for Predict API
+builder.Services.AddHttpClient("PredictAPI", client =>
+{
+    client.Timeout = TimeSpan.FromMinutes(5); // ⏱ Tăng timeout lên 5 phút
+});
+builder.Services.AddScoped<PredictService>();
+
 
 // Database
 builder.Services.AddDbContext<DataContext>(options =>

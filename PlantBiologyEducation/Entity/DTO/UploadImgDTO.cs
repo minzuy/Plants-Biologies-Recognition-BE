@@ -4,6 +4,6 @@ using System.ComponentModel.DataAnnotations;
 public class UploadImgDTO   
 {
     [Required]
-    [FromForm(Name = "file")]
-    public IFormFile File { get; set; }
+    [FromForm(Name = "image")]
+    public IFormFile Image { get; set; }
 }
