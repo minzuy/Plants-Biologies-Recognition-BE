@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PlantBiologyEducation.Service; // Đảm bảo bạn đã thêm namespace này
+using PlantBiologyEducation.Service;
 
 namespace PlantBiologyEducation.Controllers
 {
@@ -22,16 +22,12 @@ namespace PlantBiologyEducation.Controllers
                 return BadRequest("Vui lòng chọn một hình ảnh.");
             }
 
-            var result = await _predictService.PredictWithImageAsync(request.Image);
+            var resultJson = await _predictService.PredictWithImageAsync(request.Image);
 
-            // Tùy chọn: Bạn có thể kiểm tra xem có chi tiết loài nào được tìm thấy không
-            if (result.Prediction == null)
-            {
-                return NotFound("Không thể dự đoán loài từ hình ảnh hoặc không tìm thấy kết quả.");
-            }
-
-            // Trả về đối tượng kết hợp PredictionWithDetail
-            return Ok(result);
+            // Trả về chuỗi JSON trực tiếp
+            // ASP.NET Core sẽ tự động thiết lập Content-Type là application/json
+            // nếu chuỗi này có định dạng JSON hợp lệ
+            return Ok(resultJson);
         }
     }
 }
