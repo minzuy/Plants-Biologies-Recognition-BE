@@ -38,6 +38,14 @@ namespace Plant_BiologyEducation.Repository
                 .FirstOrDefault(l => l.Lesson_Id == id);
         }
 
+        public async Task<List<Lesson>> GetLessonsByChapterId(Guid chapterId)
+        {
+            return _context.Lessons
+                .Where(l => l.Chapter_Id == chapterId)
+                .Include(l => l.Chapter)
+                .ToList();
+        }
+
         // Tìm bài học theo tên
         public ICollection<Lesson> SearchLessonsByTitle(string title)
         {
@@ -47,6 +55,16 @@ namespace Plant_BiologyEducation.Repository
                 .OrderBy(l => l.Lesson_Title)
                 .ToList();
         }
+
+        public async Task<List<Lesson>> GetPendingLessonsAsync()
+        {
+            return await _context.Lessons
+                .Where(c => c.Status == "Pending")
+                .Include(c => c.Chapter)
+                .Include(c => c.RelatedSpecies)
+                .ToListAsync();
+        }
+
 
         // Tạo bài học mới
         public bool CreateLesson(Lesson lesson)

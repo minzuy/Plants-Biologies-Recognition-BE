@@ -6,6 +6,7 @@ namespace Plant_BiologyEducation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    
     public class ObjectDetectionController : ControllerBase
     {
         private readonly ObjectDetection _detector;
@@ -30,7 +31,9 @@ namespace Plant_BiologyEducation.Controllers
         }
 
         [HttpPost("predict")]
+    
         [Consumes("multipart/form-data")]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> Predict([FromForm] UploadImgDTO dto)
         {
             if (dto.File == null || dto.File.Length == 0)
@@ -99,6 +102,7 @@ namespace Plant_BiologyEducation.Controllers
         }
 
         [HttpGet("labels")]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult GetLabels()
         {
             return Ok(new
@@ -109,6 +113,7 @@ namespace Plant_BiologyEducation.Controllers
         }
 
         [HttpGet("species/{name}")]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult GetSpeciesDetails(string name)
         {
             if (_speciesDetails.TryGetValue(name, out var details))

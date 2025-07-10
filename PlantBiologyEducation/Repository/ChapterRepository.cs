@@ -46,6 +46,15 @@ namespace Plant_BiologyEducation.Repository
                 .ToListAsync();
         }
 
+        public async Task<List<Chapter>> GetChaptersByBookIdAsync(Guid bookId)
+        {
+            return await _context.Chapters
+                .Where(c => c.Book_Id == bookId)
+                .Include(c => c.Lessons)
+                .ToListAsync();
+        }
+
+
         // Thêm mới Chapter
         public bool CreateChapter(Chapter chapter)
         {

@@ -51,6 +51,18 @@ namespace Plant_BiologyEducation.Controllers
             return Ok(chapterDto);
         }
 
+        [HttpGet("book/{bookId}")]
+        public async Task<IActionResult> GetChaptersByBookId(Guid bookId)
+        {
+            if (!_bookRepository.BookExists(bookId))
+                return NotFound("Book not found.");
+
+            var chapters = await _chapterRepository.GetChaptersByBookIdAsync(bookId);
+            var chapterDTOs = _mapper.Map<List<ChapterDTO>>(chapters);
+            return Ok(chapterDTOs);
+        }
+
+
         [HttpPost]
         public IActionResult CreateChaptersWithLessons([FromBody] ChapterRequestDTO dto)
         {

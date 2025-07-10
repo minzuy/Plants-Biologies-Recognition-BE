@@ -44,6 +44,13 @@ namespace Plant_BiologyEducation.Repository
                 .FirstOrDefault(pba => pba.Id == id);
         }
 
+        public async Task<List<Plant_Biology_Animals>> GetByLessonId(Guid lessonId)
+        {
+            return _context.Plant_Biology_Animals
+                .Where(pba => pba.LessonId == lessonId)
+                .ToList();
+        }
+
         public bool CreatePBA(Plant_Biology_Animals pba)
         {
             _context.Plant_Biology_Animals.Add(pba);

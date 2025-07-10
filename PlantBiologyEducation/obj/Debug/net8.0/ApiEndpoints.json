@@ -251,6 +251,22 @@
   },
   {
     "ContainingType": "Plant_BiologyEducation.Controllers.BiologiesController",
+    "Method": "GetLessonByChapterId",
+    "RelativePath": "api/Biologies/lesson/{lessonId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "lessonId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.BiologiesController",
     "Method": "GetPendingPBA",
     "RelativePath": "api/Biologies/pending",
     "HttpMethod": "GET",
@@ -493,6 +509,22 @@
   },
   {
     "ContainingType": "Plant_BiologyEducation.Controllers.ChapterController",
+    "Method": "GetChaptersByBookId",
+    "RelativePath": "api/Chapter/book/{bookId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "bookId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.ChapterController",
     "Method": "GetPendingChapters",
     "RelativePath": "api/Chapter/pending",
     "HttpMethod": "GET",
@@ -593,6 +625,32 @@
   },
   {
     "ContainingType": "Plant_BiologyEducation.Controllers.LessonController",
+    "Method": "GetLessonByChapterId",
+    "RelativePath": "api/Lesson/chapter/{chapterId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "chapterId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.LessonController",
+    "Method": "GetPendingLesson",
+    "RelativePath": "api/Lesson/pending",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.LessonController",
     "Method": "SearchOrGetAllLesson",
     "RelativePath": "api/Lesson/search",
     "HttpMethod": "GET",
@@ -603,48 +661,6 @@
         "Name": "title",
         "Type": "System.String",
         "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Plant_BiologyEducation.Controllers.ObjectDetectionController",
-    "Method": "GetLabels",
-    "RelativePath": "api/ObjectDetection/labels",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Plant_BiologyEducation.Controllers.ObjectDetectionController",
-    "Method": "Predict",
-    "RelativePath": "api/ObjectDetection/predict",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "File",
-        "Type": "Microsoft.AspNetCore.Http.IFormFile",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Plant_BiologyEducation.Controllers.ObjectDetectionController",
-    "Method": "GetSpeciesDetails",
-    "RelativePath": "api/ObjectDetection/species/{name}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "name",
-        "Type": "System.String",
-        "IsRequired": true
       }
     ],
     "ReturnTypes": []

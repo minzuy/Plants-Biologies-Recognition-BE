@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Plant_BiologyEducation.Entity.DTO.Chapter;
 using Plant_BiologyEducation.Entity.DTO.Lesson;
 using Plant_BiologyEducation.Entity.Model;
 using Plant_BiologyEducation.Repository;
@@ -44,6 +45,26 @@ namespace Plant_BiologyEducation.Controllers
             var lessonDTOs = _mapper.Map<List<LessonDTO>>(lessons);
             return Ok(lessonDTOs);
         }
+
+        [HttpGet("pending")]
+        public async Task<IActionResult> GetPendingLesson()
+        {
+            var pending = await _lessonRepository.GetPendingLessonsAsync();
+            var DTOs = _mapper.Map<List<LessonDTO>>(pending);
+            return Ok(DTOs);
+        }
+
+        [HttpGet("chapter/{chapterId}")]
+        public async Task<IActionResult> GetLessonByChapterId(Guid chapterId)
+        {
+            if (!_chapterRepository.ChapterExists(chapterId))
+                return NotFound("Chapter not found.");
+
+            var lessons = await _lessonRepository.GetLessonsByChapterId(chapterId);
+            var lessonDTOs = _mapper.Map<List<LessonDTO>>(lessons);
+            return Ok(lessonDTOs);
+        }
+
 
         // ✅ CREATE
         [HttpPost]

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Plant_BiologyEducation.Entity.DTO.Chapter;
 using Plant_BiologyEducation.Entity.DTO.P_B_A;
 using Plant_BiologyEducation.Repository;
 using PlantBiologyEducation.Entity.DTO.P_B_A;
@@ -111,6 +112,18 @@ namespace Plant_BiologyEducation.Controllers
             var result = _mapper.Map<P_B_A_DTO>(entity);
             return CreatedAtAction(nameof(GetById), new { id = entity.Id }, result);
         }
+
+        [HttpGet("lesson/{lessonId}")]
+        public async Task<IActionResult> GetLessonByChapterId(Guid lessonId)
+        {
+            if (!_lessonRepository.LessonExists(lessonId))
+                return NotFound("Lesson not found.");
+
+            var bios = await _pbaRepo.GetByLessonId(lessonId);
+            var bioDTOs = _mapper.Map<List<P_B_A_DTO>>(bios);
+            return Ok(bioDTOs);
+        }
+
 
         // PUT: api/PBA/{id}
         [HttpPut("{id}")]
