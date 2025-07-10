@@ -6,43 +6,45 @@
     "Description": "Vi khuẩn sống trong ruột người và động vật. Một số chủng có thể gây ngộ độc.",
     "Habitat": "Ruột người và động vật",
     "ImageUrl": "https://universe.roboflow.com/hanas-muchammad-hanis-lvpt8/ecoli-2zbzr",
-    "IsExtinct": false,
-    "DiscoveredAt": null,
-    "AverageLifeSpan": null
+    "IsExtinct": true,
+    "DiscoveredAt": "1885-01-01 00:00:00",
+    "AverageLifeSpan": "Trong môi trường giàu dinh dưỡng: 20–30 phút. Trong môi trường nghèo dinh dưỡng: vài giờ đến vài ngày. Một số chủng có thể tồn tại lâu hơn trong điều kiện khắc nghiệt."
   },
-  "Paracemium": {
-    "CommonName": "Paracemium",
+  "Paramecium": {
+    "CommonName": "Paramecium",
     "ScientificName": "Paramecium",
     "SpecieType": "Động vật nguyên sinh",
-    "Description": "Sinh vật đơn bào, di chuyển bằng lông mao, sống trong môi trường nước.",
-    "Habitat": "Môi trường nước",
+    "Description": "Sinh vật đơn bào, di chuyển bằng lông mao, sống trong môi trường nước. Được mô tả từ cuối thế kỷ 17.",
+    "Habitat": "Môi trường nước ngọt",
     "ImageUrl": "https://universe.roboflow.com/objectd/microorganism-in-water",
     "IsExtinct": false,
-    "DiscoveredAt": null,
-    "AverageLifeSpan": null
+    "DiscoveredAt": "1678-01-01 00:00:00",
+    "AverageLifeSpan": "Clonal lifespan khoảng 200–300 lần phân chia (fissions); tương đương vài ngày đến vài tuần tùy điều kiện. Dẫn chứng: Paramecium tetraurelia hết sức sau ~200 fissions nếu không được tái sinh bằng conjugation/autogamy"
   },
-  "Plasmodium": {
-    "CommonName": "Plasmodium",
+  "Plasmodium falciparum": {
+    "CommonName": "Plasmodium falciparum",
     "ScientificName": "Plasmodium falciparum",
     "SpecieType": "Ký sinh trùng",
-    "Description": "Gây bệnh sốt rét ở người, lây truyền qua muỗi.",
-    "Habitat": "Ký sinh trong người (lây qua muỗi)",
+    "Description": "Ký sinh trùng gây bệnh sốt rét ở người, lây truyền qua muỗi Anopheles.",
+    "Habitat": "Ký sinh trong gan và hồng cầu người, truyền qua muỗi",
     "ImageUrl": "https://universe.roboflow.com/home-uwdia/classification-of-wbc",
     "IsExtinct": false,
-    "DiscoveredAt": null,
-    "AverageLifeSpan": null
+    "DiscoveredAt": "1880-01-01 00:00:00",
+    "AverageLifeSpan": "Trong cơ thể người: giai đoạn trong gan 6–15 ngày; trong máu vài tuần đến nhiều năm nếu không điều trị. Có thể tồn tại trong dạng nhiễm tiềm ẩn đến vài thập kỷ."
   },
+
   "African lion": {
-    "CommonName": "African lion",
+    "CommonName": "Sử tử Châu Phi",
     "ScientificName": "Panthera leo",
     "SpecieType": "Động vật có vú",
     "Description": "Sư tử châu Phi, sống theo bầy đàn, con đực có bờm đặc trưng.",
     "Habitat": "Châu Phi (đồng cỏ, xavan)",
     "ImageUrl": "https://universe.roboflow.com/everything-6h5ci/lion-detection-mscks",
     "IsExtinct": false,
-    "DiscoveredAt": null,
-    "AverageLifeSpan": null
+    "DiscoveredAt": "1758-01-01 00:00:00",
+    "AverageLifeSpan": "Trong tự nhiên: khoảng 10–14 năm (trung bình ~12 năm); trong nuôi nhốt: đến 20–28 năm"
   },
+
   "Green sea turtle": {
     "CommonName": "Green sea turtle",
     "ScientificName": "Chelonia mydas",
@@ -50,21 +52,22 @@
     "Description": "Rùa biển lớn, ăn thực vật biển, nguy cơ tuyệt chủng.",
     "Habitat": "Đại dương (vùng nước ấm)",
     "ImageUrl": "https://universe.roboflow.com/muhammad-alief-syahrudin-kocdv/penyu-hiu-paus-va-ikan",
-    "IsExtinct": false,
+    "IsExtinct": true,
     "DiscoveredAt": null,
     "AverageLifeSpan": null
   },
   "Bald Eagle": {
-    "CommonName": "Bald Eagle",
+    "CommonName": "Đại bàng",
     "ScientificName": "Haliaeetus leucocephalus",
     "SpecieType": "Chim",
     "Description": "Đại bàng đầu trắng, biểu tượng quốc gia Hoa Kỳ.",
     "Habitat": "Bắc Mỹ (gần vùng nước lớn)",
     "ImageUrl": "https://universe.roboflow.com/mohith-0tkop/eagles-detection",
     "IsExtinct": false,
-    "DiscoveredAt": null,
-    "AverageLifeSpan": null
+    "DiscoveredAt": "1782-01-01 00:00:00",
+    "AverageLifeSpan": "Trong tự nhiên: khoảng 20–30 năm (tuổi già nhất xác nhận được là 38 tuổi); trong nuôi nhốt: lên đến 40–50 năm"
   },
+
   "Giant Panda": {
     "CommonName": "Giant Panda",
     "ScientificName": "Ailuropoda melanoleuca",
@@ -72,7 +75,7 @@
     "Description": "Gấu trúc lớn, ăn tre, sống chủ yếu ở Trung Quốc.",
     "Habitat": "Trung Quốc (vùng núi, rừng tre)",
     "ImageUrl": "https://universe.roboflow.com/roboflow-a5qtl/panda-detection-j5cbv",
-    "IsExtinct": false,
+    "IsExtinct": true,
     "DiscoveredAt": null,
     "AverageLifeSpan": null
   },
@@ -83,7 +86,7 @@
     "Description": "Loài động vật lớn nhất từng tồn tại trên Trái Đất.",
     "Habitat": "Đại dương",
     "ImageUrl": "https://universe.roboflow.com/abcd-ppcy6/abcdrt",
-    "IsExtinct": false,
+    "IsExtinct": true,
     "DiscoveredAt": null,
     "AverageLifeSpan": null
   },
@@ -94,7 +97,7 @@
     "Description": "Loài mèo chạy nhanh nhất thế giới, sống ở châu Phi.",
     "Habitat": "Châu Phi (đồng cỏ, xavan)",
     "ImageUrl": "https://universe.roboflow.com/penguin99/cheeta-opahl",
-    "IsExtinct": false,
+    "IsExtinct": true,
     "DiscoveredAt": null,
     "AverageLifeSpan": null
   },
@@ -105,7 +108,7 @@
     "Description": "Thú có túi, sống ở Úc, ăn lá bạch đàn.",
     "Habitat": "Úc (rừng bạch đàn)",
     "ImageUrl": "https://universe.roboflow.com/nameplate/koala-ag6b3",
-    "IsExtinct": false,
+    "IsExtinct": true,
     "DiscoveredAt": null,
     "AverageLifeSpan": null
   },
@@ -116,7 +119,7 @@
     "Description": "Thằn lằn lớn, sống ở vùng nhiệt đới, thường nuôi làm cảnh.",
     "Habitat": "Vùng nhiệt đới (rừng mưa, bờ sông)",
     "ImageUrl": "https://universe.roboflow.com/lyc-7hjlj/green_detection",
-    "IsExtinct": false,
+    "IsExtinct": true,
     "DiscoveredAt": null,
     "AverageLifeSpan": null
   },
@@ -127,7 +130,7 @@
     "Description": "Loài sói phổ biến, tổ tiên của chó nhà.",
     "Habitat": "Bắc Mỹ, Á, Âu (rừng, núi, đồng bằng)",
     "ImageUrl": "https://universe.roboflow.com/hoby-r752k/cv-1gk9v",
-    "IsExtinct": false,
+    "IsExtinct": true,
     "DiscoveredAt": null,
     "AverageLifeSpan": null
   },
@@ -138,7 +141,7 @@
     "Description": "Động vật có vú lớn nhất trên cạn, có ngà dài.",
     "Habitat": "Châu Phi (rừng, đồng cỏ)",
     "ImageUrl": "https://universe.roboflow.com/general-ib2dq/my-elephants",
-    "IsExtinct": false,
+    "IsExtinct": true,
     "DiscoveredAt": null,
     "AverageLifeSpan": null
   },
@@ -149,7 +152,7 @@
     "Description": "Gây hại cho cây trồng, khó kiểm soát.",
     "Habitat": "Trên cây trồng",
     "ImageUrl": "https://universe.roboflow.com/resuy/whiteflies-wv5in",
-    "IsExtinct": false,
+    "IsExtinct": true,
     "DiscoveredAt": null,
     "AverageLifeSpan": null
   },
@@ -160,7 +163,7 @@
     "Description": "Ong mật, quan trọng trong thụ phấn cây trồng.",
     "Habitat": "Môi trường đa dạng (rừng, vườn, đô thị)",
     "ImageUrl": "https://universe.roboflow.com/test-gtxep/bee-qocmd",
-    "IsExtinct": false,
+    "IsExtinct": true,
     "DiscoveredAt": null,
     "AverageLifeSpan": null
   },
@@ -171,7 +174,7 @@
     "Description": "Cây mọng nước, dùng trong dược liệu và mỹ phẩm.",
     "Habitat": "Vùng khô hạn, nhiệt đới",
     "ImageUrl": "https://universe.roboflow.com/politicians/aloevera",
-    "IsExtinct": false,
+    "IsExtinct": true,
     "DiscoveredAt": null,
     "AverageLifeSpan": null
   },
@@ -182,7 +185,7 @@
     "Description": "Cây ăn trái phổ biến, dùng trong nhiều món ăn.",
     "Habitat": "Được trồng phổ biến",
     "ImageUrl": "https://universe.roboflow.com/tomato-2yulp/tomato_farm",
-    "IsExtinct": false,
+    "IsExtinct": true,
     "DiscoveredAt": null,
     "AverageLifeSpan": null
   },
@@ -193,7 +196,7 @@
     "Description": "Cây lấy củ làm lương thực, trồng phổ biến toàn cầu.",
     "Habitat": "Được trồng phổ biến",
     "ImageUrl": "https://universe.roboflow.com/citrus-rtwpq/potatodetect-0c25y",
-    "IsExtinct": false,
+    "IsExtinct": true,
     "DiscoveredAt": null,
     "AverageLifeSpan": null
   },
@@ -204,7 +207,7 @@
     "Description": "Lương thực chính của hơn nửa dân số thế giới.",
     "Habitat": "Được trồng phổ biến (ruộng nước)",
     "ImageUrl": "https://universe.roboflow.com/ahra-u5eq9/agrofit",
-    "IsExtinct": false,
+    "IsExtinct": true,
     "DiscoveredAt": null,
     "AverageLifeSpan": null
   },
@@ -215,7 +218,7 @@
     "Description": "Cây trồng lương thực chủ yếu, dùng làm bột mì.",
     "Habitat": "Được trồng phổ biến",
     "ImageUrl": "https://universe.roboflow.com/ritik-negi-fby1e/wheatheads-wvcqg",
-    "IsExtinct": false,
+    "IsExtinct": true,
     "DiscoveredAt": null,
     "AverageLifeSpan": null
   },
@@ -226,7 +229,7 @@
     "Description": "Cây lương thực quan trọng, giàu tinh bột.",
     "Habitat": "Được trồng phổ biến",
     "ImageUrl": "https://universe.roboflow.com/artibedded/corn-crop3",
-    "IsExtinct": false,
+    "IsExtinct": true,
     "DiscoveredAt": null,
     "AverageLifeSpan": null
   },
@@ -237,7 +240,7 @@
     "Description": "Hoa hướng dương, dùng lấy hạt và dầu ăn.",
     "Habitat": "Được trồng phổ biến",
     "ImageUrl": "https://universe.roboflow.com/idertuvshin-p0vqg/shalgalt",
-    "IsExtinct": false,
+    "IsExtinct": true,
     "DiscoveredAt": null,
     "AverageLifeSpan": null
   },
@@ -248,7 +251,7 @@
     "Description": "Hoa hồng, biểu tượng của tình yêu, thường trồng làm cảnh.",
     "Habitat": "Được trồng phổ biến",
     "ImageUrl": "https://universe.roboflow.com/bernardo-montufar-gmail-com/rose-breeds",
-    "IsExtinct": false,
+    "IsExtinct": true,
     "DiscoveredAt": null,
     "AverageLifeSpan": null
   },
@@ -259,7 +262,7 @@
     "Description": "Cây lấy xơ làm vải, sản phẩm nông nghiệp quan trọng.",
     "Habitat": "Được trồng phổ biến",
     "ImageUrl": "https://universe.roboflow.com/p-project-ebvkg/cotton-boll-growth-detection",
-    "IsExtinct": false,
+    "IsExtinct": true,
     "DiscoveredAt": null,
     "AverageLifeSpan": null
   },
@@ -270,7 +273,7 @@
     "Description": "Cây ăn quả, quả mọng đỏ ngọt, chứa nhiều vitamin.",
     "Habitat": "Được trồng phổ biến",
     "ImageUrl": "https://universe.roboflow.com/lans-space/strawberry-finder",
-    "IsExtinct": false,
+    "IsExtinct": true,
     "DiscoveredAt": null,
     "AverageLifeSpan": null
   },
@@ -281,7 +284,7 @@
     "Description": "Cây ăn quả nhiệt đới, vị chua ngọt, mọc sát mặt đất.",
     "Habitat": "Vùng nhiệt đới",
     "ImageUrl": "https://universe.roboflow.com/pineapple-grading-system-ripeness-machine-vision/pineapple-maturity-project-app",
-    "IsExtinct": false,
+    "IsExtinct": true,
     "DiscoveredAt": null,
     "AverageLifeSpan": null
   },
@@ -292,7 +295,7 @@
     "Description": "Hoa lily, biểu tượng của sự thuần khiết và thanh cao.",
     "Habitat": "Được trồng phổ biến",
     "ImageUrl": "https://universe.roboflow.com/school-wiahx/lilyum_projesi",
-    "IsExtinct": false,
+    "IsExtinct": true,
     "DiscoveredAt": null,
     "AverageLifeSpan": null
   }

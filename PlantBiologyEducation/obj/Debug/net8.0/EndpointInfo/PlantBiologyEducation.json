@@ -1668,8 +1668,7 @@
             "nullable": true
           },
           "averageLifeSpan": {
-            "type": "integer",
-            "format": "int32",
+            "type": "string",
             "nullable": true
           },
           "isActive": {
