@@ -291,7 +291,7 @@
         ],
         "parameters": [
           {
-            "name": "commonName",
+            "name": "input",
             "in": "query",
             "schema": {
               "type": "string"

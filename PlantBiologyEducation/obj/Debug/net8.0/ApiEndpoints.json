@@ -277,14 +277,14 @@
   },
   {
     "ContainingType": "Plant_BiologyEducation.Controllers.BiologiesController",
-    "Method": "SearchByCommonName",
+    "Method": "SearchByName",
     "RelativePath": "api/Biologies/search",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "commonName",
+        "Name": "input",
         "Type": "System.String",
         "IsRequired": false
       }

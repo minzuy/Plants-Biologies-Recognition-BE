@@ -32,8 +32,7 @@ namespace Plant_BiologyEducation.Repository
         public ICollection<Plant_Biology_Animals> SearchByName(string input)
         {
             return _context.Plant_Biology_Animals
-                .Where(pba => pba.CommonName.Contains(input))
-                .Where(pba => pba.ScientificName.Contains(input))
+                .Where(pba => pba.CommonName.Contains(input) || pba.ScientificName.Contains(input))
                 .OrderBy(pba => pba.AverageLifeSpan)
                 .ToList();
         }
