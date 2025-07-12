@@ -14,15 +14,20 @@ namespace Plant_BiologyEducation.Controllers
         private readonly Plant_Biology_Animal_Repository _pbaRepo;
         private readonly LessonRepository _lessonRepository;
         private readonly IMapper _mapper;
+        private readonly ILogger<BiologiesController> _logger;
 
-        public BiologiesController(Plant_Biology_Animal_Repository pbaRepo,LessonRepository lessonRepository, IMapper mapper)
+        public BiologiesController(
+            Plant_Biology_Animal_Repository pbaRepo,
+            LessonRepository lessonRepository,
+            IMapper mapper,
+            ILogger<BiologiesController> logger)
         {
             _pbaRepo = pbaRepo;
             _lessonRepository = lessonRepository;
             _mapper = mapper;
+            _logger = logger;
         }
 
-        // GET: api/PBA/search?commonName=...
         [HttpGet("search")]
         public IActionResult SearchByName([FromQuery] string? input)
         {
@@ -33,7 +38,7 @@ namespace Plant_BiologyEducation.Controllers
             var result = _mapper.Map<List<P_B_A_DTO>>(list);
             return Ok(result);
         }
-        // GET: api/biologies/pending
+
         [HttpGet("pending")]
         public IActionResult GetPendingPBA()
         {
@@ -42,17 +47,22 @@ namespace Plant_BiologyEducation.Controllers
             return Ok(dtoList);
         }
 
-        // PUT: api/biologies/{id}/status
         [HttpPut("{id}/status")]
         public IActionResult UpdateStatus(Guid id, [FromBody] PBAStatusUpdateDTO statusDto)
         {
             var entity = _pbaRepo.GetById(id);
             if (entity == null)
-                return NotFound("Bilogy not found");
+            {
+                _logger.LogWarning("Biology not found. Id: {Id}", id);
+                return NotFound(new { error = "Biology not found", id });
+            }
 
             var validStatuses = new[] { "Approved", "Rejected" };
             if (!validStatuses.Contains(statusDto.Status))
-                return BadRequest("Invalid status. Must be 'Approved' or 'Rejected'.");
+            {
+                _logger.LogWarning("Invalid status for Biology update. Id: {Id}, Status: {Status}", id, statusDto.Status);
+                return BadRequest(new { error = "Invalid status. Must be 'Approved' or 'Rejected'.", id, status = statusDto.Status });
+            }
 
             entity.Status = statusDto.Status;
 
@@ -61,53 +71,70 @@ namespace Plant_BiologyEducation.Controllers
                 entity.RejectionReason = statusDto.RejectionReason ?? "No reason provided";
                 entity.IsActive = false;
             }
-            else if (statusDto.Status == "Approved")
+            else
             {
                 entity.RejectionReason = null;
                 entity.IsActive = true;
             }
 
             if (!_pbaRepo.UpdatePBA(entity))
-                return StatusCode(500, "Failed to update status.");
+            {
+                _logger.LogError("Failed to update biology status. Id: {Id}", id);
+                return StatusCode(500, new { error = "Failed to update status", id });
+            }
 
             return Ok(new
             {
-                message = "Bilogy's status updated.",
+                message = "Biology's status updated.",
                 newStatus = entity.Status,
                 pbaId = entity.Id
             });
         }
 
-        // GET: api/PBA/{id}
         [HttpGet("{id}")]
         public IActionResult GetById(Guid id)
         {
             var entity = _pbaRepo.GetById(id);
             if (entity == null)
-                return NotFound();
+            {
+                _logger.LogWarning("Biology not found. Id: {Id}", id);
+                return NotFound(new { error = "Biology not found", id });
+            }
 
             var dto = _mapper.Map<P_B_A_DTO>(entity);
             return Ok(dto);
         }
 
-        // POST: api/PBA
         [HttpPost]
         public IActionResult Create([FromBody] P_B_A_RequestDTO requestDTO)
         {
             if (requestDTO == null)
-                return BadRequest("Plant data is required.");
+            {
+                _logger.LogWarning("Request body is null.");
+                return BadRequest(new { error = "Plant data is required." });
+            }
 
             if (!ModelState.IsValid)
+            {
+                _logger.LogWarning("ModelState invalid: {@ModelState}", ModelState);
                 return BadRequest(ModelState);
+            }
+
             var lesson = _lessonRepository.GetLessonById(requestDTO.Lesson_Id);
             if (lesson == null)
-                return NotFound("Lesson not found.");
+            {
+                _logger.LogWarning("Lesson not found for Lesson_Id: {LessonId}", requestDTO.Lesson_Id);
+                return NotFound(new { error = "Lesson not found", lessonId = requestDTO.Lesson_Id });
+            }
 
             var entity = _mapper.Map<Plant_Biology_Animals>(requestDTO);
             entity.Id = Guid.NewGuid();
 
             if (!_pbaRepo.CreatePBA(entity))
-                return StatusCode(500, "Error while saving Object.");
+            {
+                _logger.LogError("Failed to create biology object. {@Entity}", entity);
+                return StatusCode(500, new { error = "Error while saving Object." });
+            }
 
             var result = _mapper.Map<P_B_A_DTO>(entity);
             return CreatedAtAction(nameof(GetById), new { id = entity.Id }, result);
@@ -117,55 +144,80 @@ namespace Plant_BiologyEducation.Controllers
         public async Task<IActionResult> GetLessonByChapterId(Guid lessonId)
         {
             if (!_lessonRepository.LessonExists(lessonId))
-                return NotFound("Lesson not found.");
+            {
+                _logger.LogWarning("Lesson not found. LessonId: {LessonId}", lessonId);
+                return NotFound(new { error = "Lesson not found", lessonId });
+            }
 
             var bios = await _pbaRepo.GetByLessonId(lessonId);
             var bioDTOs = _mapper.Map<List<P_B_A_DTO>>(bios);
             return Ok(bioDTOs);
         }
 
-
-        // PUT: api/PBA/{id}
         [HttpPut("{id}")]
         public IActionResult Update(Guid id, [FromBody] P_B_A_RequestDTO requestDTO)
         {
-            var lesson   = _lessonRepository.GetLessonById(requestDTO.Lesson_Id);
-            if (lesson == null)
-                return NotFound("Lesson not found.");
             if (requestDTO == null)
-                return BadRequest("Plant data is required.");
+            {
+                _logger.LogWarning("Update request is null.");
+                return BadRequest(new { error = "Plant data is required." });
+            }
 
             if (!ModelState.IsValid)
+            {
+                _logger.LogWarning("Invalid model state on update: {@ModelState}", ModelState);
                 return BadRequest(ModelState);
+            }
+
+            var lesson = _lessonRepository.GetLessonById(requestDTO.Lesson_Id);
+            if (lesson == null)
+            {
+                _logger.LogWarning("Lesson not found on update. LessonId: {LessonId}", requestDTO.Lesson_Id);
+                return NotFound(new { error = "Lesson not found", lessonId = requestDTO.Lesson_Id });
+            }
 
             if (!_pbaRepo.PBAExists(id))
-                return NotFound();
+            {
+                _logger.LogWarning("Biology not found on update. Id: {Id}", id);
+                return NotFound(new { error = "Biology not found", id });
+            }
 
             var existing = _pbaRepo.GetById(id);
             _mapper.Map(requestDTO, existing);
             existing.Id = id;
 
             if (!_pbaRepo.UpdatePBA(existing))
-                return StatusCode(500, "Error while updating plant.");
+            {
+                _logger.LogError("Error while updating biology. Id: {Id}, Data: {@Data}", id, requestDTO);
+                return StatusCode(500, new { error = "Error while updating plant.", id });
+            }
 
-            return Ok("Updated successful");
+            return Ok(new { message = "Updated successfully", id });
         }
 
-        // DELETE: api/PBA/{id}
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
             if (!_pbaRepo.PBAExists(id))
-                return NotFound();
+            {
+                _logger.LogWarning("Biology not found on delete. Id: {Id}", id);
+                return NotFound(new { error = "Biology not found", id });
+            }
 
             var entity = _pbaRepo.GetById(id);
             if (entity == null)
-                return NotFound();
+            {
+                _logger.LogWarning("Biology entity is null on delete. Id: {Id}", id);
+                return NotFound(new { error = "Biology entity is null", id });
+            }
 
             if (!_pbaRepo.DeletePBA(entity))
-                return StatusCode(500, "Error while deleting plant.");
+            {
+                _logger.LogError("Error while deleting biology. Id: {Id}", id);
+                return StatusCode(500, new { error = "Error while deleting plant.", id });
+            }
 
-            return Ok("Deleted successful");
+            return Ok(new { message = "Deleted successfully", id });
         }
     }
 }
