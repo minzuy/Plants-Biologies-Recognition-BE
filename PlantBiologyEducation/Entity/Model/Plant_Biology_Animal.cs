@@ -10,7 +10,7 @@ public class Plant_Biology_Animals
     public string Habitat { get; set; }
     public string ImageUrl { get; set; }
     public bool IsExtinct { get; set; }
-    public DateTime? DiscoveredAt { get; set; }
+    public string DiscoveredAt { get; set; }
     public string AverageLifeSpan { get; set; }
 
     public bool IsActive { get; set; }
