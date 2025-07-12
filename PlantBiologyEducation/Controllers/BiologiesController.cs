@@ -14,18 +14,15 @@ namespace Plant_BiologyEducation.Controllers
         private readonly Plant_Biology_Animal_Repository _pbaRepo;
         private readonly LessonRepository _lessonRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger<BiologiesController> _logger;
 
         public BiologiesController(
             Plant_Biology_Animal_Repository pbaRepo,
             LessonRepository lessonRepository,
-            IMapper mapper,
-            ILogger<BiologiesController> logger)
+            IMapper mapper)
         {
             _pbaRepo = pbaRepo;
             _lessonRepository = lessonRepository;
             _mapper = mapper;
-            _logger = logger;
         }
 
         [HttpGet("search")]
@@ -53,14 +50,12 @@ namespace Plant_BiologyEducation.Controllers
             var entity = _pbaRepo.GetById(id);
             if (entity == null)
             {
-                _logger.LogWarning("Biology not found. Id: {Id}", id);
                 return NotFound(new { error = "Biology not found", id });
             }
 
             var validStatuses = new[] { "Approved", "Rejected" };
             if (!validStatuses.Contains(statusDto.Status))
             {
-                _logger.LogWarning("Invalid status for Biology update. Id: {Id}, Status: {Status}", id, statusDto.Status);
                 return BadRequest(new { error = "Invalid status. Must be 'Approved' or 'Rejected'.", id, status = statusDto.Status });
             }
 
@@ -79,7 +74,6 @@ namespace Plant_BiologyEducation.Controllers
 
             if (!_pbaRepo.UpdatePBA(entity))
             {
-                _logger.LogError("Failed to update biology status. Id: {Id}", id);
                 return StatusCode(500, new { error = "Failed to update status", id });
             }
 
@@ -97,7 +91,6 @@ namespace Plant_BiologyEducation.Controllers
             var entity = _pbaRepo.GetById(id);
             if (entity == null)
             {
-                _logger.LogWarning("Biology not found. Id: {Id}", id);
                 return NotFound(new { error = "Biology not found", id });
             }
 
@@ -110,20 +103,17 @@ namespace Plant_BiologyEducation.Controllers
         {
             if (requestDTO == null)
             {
-                _logger.LogWarning("Request body is null.");
                 return BadRequest(new { error = "Plant data is required." });
             }
 
             if (!ModelState.IsValid)
             {
-                _logger.LogWarning("ModelState invalid: {@ModelState}", ModelState);
                 return BadRequest(ModelState);
             }
 
             var lesson = _lessonRepository.GetLessonById(requestDTO.Lesson_Id);
             if (lesson == null)
             {
-                _logger.LogWarning("Lesson not found for Lesson_Id: {LessonId}", requestDTO.Lesson_Id);
                 return NotFound(new { error = "Lesson not found", lessonId = requestDTO.Lesson_Id });
             }
 
@@ -132,7 +122,6 @@ namespace Plant_BiologyEducation.Controllers
 
             if (!_pbaRepo.CreatePBA(entity))
             {
-                _logger.LogError("Failed to create biology object. {@Entity}", entity);
                 return StatusCode(500, new { error = "Error while saving Object." });
             }
 
@@ -145,7 +134,6 @@ namespace Plant_BiologyEducation.Controllers
         {
             if (!_lessonRepository.LessonExists(lessonId))
             {
-                _logger.LogWarning("Lesson not found. LessonId: {LessonId}", lessonId);
                 return NotFound(new { error = "Lesson not found", lessonId });
             }
 
@@ -159,26 +147,22 @@ namespace Plant_BiologyEducation.Controllers
         {
             if (requestDTO == null)
             {
-                _logger.LogWarning("Update request is null.");
                 return BadRequest(new { error = "Plant data is required." });
             }
 
             if (!ModelState.IsValid)
             {
-                _logger.LogWarning("Invalid model state on update: {@ModelState}", ModelState);
                 return BadRequest(ModelState);
             }
 
             var lesson = _lessonRepository.GetLessonById(requestDTO.Lesson_Id);
             if (lesson == null)
             {
-                _logger.LogWarning("Lesson not found on update. LessonId: {LessonId}", requestDTO.Lesson_Id);
                 return NotFound(new { error = "Lesson not found", lessonId = requestDTO.Lesson_Id });
             }
 
             if (!_pbaRepo.PBAExists(id))
             {
-                _logger.LogWarning("Biology not found on update. Id: {Id}", id);
                 return NotFound(new { error = "Biology not found", id });
             }
 
@@ -188,7 +172,6 @@ namespace Plant_BiologyEducation.Controllers
 
             if (!_pbaRepo.UpdatePBA(existing))
             {
-                _logger.LogError("Error while updating biology. Id: {Id}, Data: {@Data}", id, requestDTO);
                 return StatusCode(500, new { error = "Error while updating plant.", id });
             }
 
@@ -200,20 +183,17 @@ namespace Plant_BiologyEducation.Controllers
         {
             if (!_pbaRepo.PBAExists(id))
             {
-                _logger.LogWarning("Biology not found on delete. Id: {Id}", id);
                 return NotFound(new { error = "Biology not found", id });
             }
 
             var entity = _pbaRepo.GetById(id);
             if (entity == null)
             {
-                _logger.LogWarning("Biology entity is null on delete. Id: {Id}", id);
                 return NotFound(new { error = "Biology entity is null", id });
             }
 
             if (!_pbaRepo.DeletePBA(entity))
             {
-                _logger.LogError("Error while deleting biology. Id: {Id}", id);
                 return StatusCode(500, new { error = "Error while deleting plant.", id });
             }
 

@@ -14,13 +14,11 @@ namespace Plant_BiologyEducation.Controllers
     {
         private readonly BookRepository _bookRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger<BookController> _logger;
 
-        public BookController(BookRepository bookRepository, IMapper mapper, ILogger<BookController> logger)
+        public BookController(BookRepository bookRepository, IMapper mapper)
         {
             _bookRepository = bookRepository;
             _mapper = mapper;
-            _logger = logger;
         }
 
         [HttpGet("approved")]
@@ -28,14 +26,12 @@ namespace Plant_BiologyEducation.Controllers
         {
             try
             {
-                _logger.LogInformation("GET /api/Book/approved called from Mobile");
                 var books = _bookRepository.GetAllBooksForStudents();
                 var booksDTO = _mapper.Map<List<BookDTO>>(books);
                 return Ok(booksDTO);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                _logger.LogError(ex, "Error occurred while fetching approved books.");
                 return StatusCode(500, "Internal server error");
             }
         }
@@ -45,7 +41,6 @@ namespace Plant_BiologyEducation.Controllers
         {
             try
             {
-                _logger.LogInformation("GET /api/Book/search?title={title} called", title);
                 var books = string.IsNullOrWhiteSpace(title)
                     ? _bookRepository.GetAllBooks()
                     : _bookRepository.SearchBooksByTitle(title);
@@ -67,9 +62,8 @@ namespace Plant_BiologyEducation.Controllers
                 var bookDTOs = _mapper.Map<List<BookDTO>>(books);
                 return Ok(bookDTOs);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                _logger.LogError(ex, "Error occurred while searching books.");
                 return StatusCode(500, "Internal server error");
             }
         }
@@ -79,14 +73,12 @@ namespace Plant_BiologyEducation.Controllers
         {
             try
             {
-                _logger.LogInformation("GET /api/Book/pending called");
                 var books = _bookRepository.GetPendingBooks();
                 var booksDTO = _mapper.Map<List<BookDTO>>(books);
                 return Ok(booksDTO);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                _logger.LogError(ex, "Error occurred while fetching pending books.");
                 return StatusCode(500, "Internal server error");
             }
         }
@@ -96,20 +88,15 @@ namespace Plant_BiologyEducation.Controllers
         {
             try
             {
-                _logger.LogInformation("GET /api/Book/{id} called with id: {Id}", id);
                 var book = _bookRepository.GetBookById(id);
                 if (book == null)
-                {
-                    _logger.LogWarning("Book not found with id: {Id}", id);
                     return NotFound();
-                }
 
                 var bookDTO = _mapper.Map<BookDTO>(book);
                 return Ok(bookDTO);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                _logger.LogError(ex, "Error while getting book by id: {Id}", id);
                 return StatusCode(500, "Internal server error");
             }
         }
@@ -119,7 +106,6 @@ namespace Plant_BiologyEducation.Controllers
         {
             try
             {
-                _logger.LogInformation("POST /api/Book called to create new book.");
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
@@ -149,17 +135,12 @@ namespace Plant_BiologyEducation.Controllers
 
                 var success = _bookRepository.CreateBook(book);
                 if (!success)
-                {
-                    _logger.LogError("Error saving book to database.");
                     return StatusCode(500, "An error occurred while saving the book.");
-                }
 
-                _logger.LogInformation("Book created successfully with ID: {BookId}", book.Book_Id);
                 return Ok(new { message = "Book created successfully", bookId = book.Book_Id });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                _logger.LogError(ex, "Exception occurred while creating book.");
                 return StatusCode(500, "Internal server error");
             }
         }
@@ -169,13 +150,8 @@ namespace Plant_BiologyEducation.Controllers
         {
             try
             {
-                _logger.LogInformation("PUT /api/Book/{id} called to update book: {Id}", id);
-
                 if (!_bookRepository.BookExists(id))
-                {
-                    _logger.LogWarning("Book not found with id: {Id}", id);
                     return NotFound("Book not found.");
-                }
 
                 var bookEntity = _mapper.Map<Book>(bookDto);
                 bookEntity.Book_Id = id;
@@ -184,17 +160,12 @@ namespace Plant_BiologyEducation.Controllers
 
                 var result = _bookRepository.UpdateBook(bookEntity);
                 if (!result)
-                {
-                    _logger.LogError("Error updating book with id: {Id}", id);
                     return StatusCode(500, "Error updating the book.");
-                }
 
-                _logger.LogInformation("Book updated successfully with id: {Id}", id);
                 return Ok("Book updated successfully.");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                _logger.LogError(ex, "Exception occurred while updating book with id: {Id}", id);
                 return StatusCode(500, "Internal server error");
             }
         }
@@ -204,21 +175,13 @@ namespace Plant_BiologyEducation.Controllers
         {
             try
             {
-                _logger.LogInformation("PUT /api/Book/{id}/status called with id: {Id} and status: {Status}", id, statusDto.Status);
-
                 var book = _bookRepository.GetBookById(id);
                 if (book == null)
-                {
-                    _logger.LogWarning("Book not found with id: {Id}", id);
                     return NotFound("Book not found.");
-                }
 
                 var validStatuses = new[] { "Approved", "Rejected" };
                 if (!validStatuses.Contains(statusDto.Status))
-                {
-                    _logger.LogWarning("Invalid status: {Status}", statusDto.Status);
                     return BadRequest("Invalid status. Must be 'Approved' or 'Rejected'.");
-                }
 
                 book.Status = statusDto.Status;
 
@@ -235,12 +198,8 @@ namespace Plant_BiologyEducation.Controllers
 
                 var result = _bookRepository.UpdateBook(book);
                 if (!result)
-                {
-                    _logger.LogError("Failed to update book status with id: {Id}", id);
                     return StatusCode(500, "Failed to update status.");
-                }
 
-                _logger.LogInformation("Book status updated to {Status} for book id: {Id}", statusDto.Status, id);
                 return Ok(new
                 {
                     message = "Book status updated.",
@@ -248,9 +207,8 @@ namespace Plant_BiologyEducation.Controllers
                     bookId = book.Book_Id
                 });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                _logger.LogError(ex, "Exception while updating status of book with id: {Id}", id);
                 return StatusCode(500, "Internal server error");
             }
         }
@@ -260,27 +218,18 @@ namespace Plant_BiologyEducation.Controllers
         {
             try
             {
-                _logger.LogInformation("DELETE /api/Book/{id} called to delete book with id: {Id}", id);
                 var book = _bookRepository.GetBookById(id);
                 if (book == null)
-                {
-                    _logger.LogWarning("Book not found for deletion with id: {Id}", id);
                     return NotFound();
-                }
 
                 var result = _bookRepository.DeleteBook(book);
                 if (!result)
-                {
-                    _logger.LogError("Error deleting book with id: {Id}", id);
                     return StatusCode(500, "Error deleting the book.");
-                }
 
-                _logger.LogInformation("Book deleted successfully with id: {Id}", id);
                 return Ok("Book deleted successfully.");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                _logger.LogError(ex, "Exception while deleting book with id: {Id}", id);
                 return StatusCode(500, "Internal server error");
             }
         }
