@@ -19,149 +19,239 @@ namespace Plant_BiologyEducation.Controllers
         private readonly BookRepository _bookRepository;
         private readonly IMapper _mapper;
         private readonly JwtService _jwtService;
+        private readonly ILogger<LessonController> _logger;
 
         public LessonController(
             LessonRepository lessonRepository,
             ChapterRepository chapterRepository,
             BookRepository bookRepository,
             IMapper mapper,
-            JwtService jwtService)
+            JwtService jwtService,
+            ILogger<LessonController> logger)
         {
             _lessonRepository = lessonRepository;
             _chapterRepository = chapterRepository;
             _bookRepository = bookRepository;
             _mapper = mapper;
             _jwtService = jwtService;
+            _logger = logger;
         }
 
-        // GET: api/Lesson?title=abc
         [HttpGet("search")]
         public IActionResult SearchOrGetAllLesson([FromQuery] string? title)
         {
-            var lessons = string.IsNullOrWhiteSpace(title)
-                ? _lessonRepository.GetAllLessons()
-                : _lessonRepository.SearchLessonsByTitle(title);
+            try
+            {
+                _logger.LogInformation("GET /api/Lesson/search called with title = {Title}", title);
 
-            var lessonDTOs = _mapper.Map<List<LessonDTO>>(lessons);
-            return Ok(lessonDTOs);
+                var lessons = string.IsNullOrWhiteSpace(title)
+                    ? _lessonRepository.GetAllLessons()
+                    : _lessonRepository.SearchLessonsByTitle(title);
+
+                var lessonDTOs = _mapper.Map<List<LessonDTO>>(lessons);
+                return Ok(lessonDTOs);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while searching or retrieving lessons.");
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         [HttpGet("pending")]
         public async Task<IActionResult> GetPendingLesson()
         {
-            var pending = await _lessonRepository.GetPendingLessonsAsync();
-            var DTOs = _mapper.Map<List<LessonDTO>>(pending);
-            return Ok(DTOs);
+            try
+            {
+                _logger.LogInformation("GET /api/Lesson/pending called");
+                var pending = await _lessonRepository.GetPendingLessonsAsync();
+                var DTOs = _mapper.Map<List<LessonDTO>>(pending);
+                return Ok(DTOs);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while getting pending lessons.");
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         [HttpGet("chapter/{chapterId}")]
         public async Task<IActionResult> GetLessonByChapterId(Guid chapterId)
         {
-            if (!_chapterRepository.ChapterExists(chapterId))
-                return NotFound("Chapter not found.");
+            try
+            {
+                _logger.LogInformation("GET /api/Lesson/chapter/{chapterId} called with id = {Id}", chapterId);
 
-            var lessons = await _lessonRepository.GetLessonsByChapterId(chapterId);
-            var lessonDTOs = _mapper.Map<List<LessonDTO>>(lessons);
-            return Ok(lessonDTOs);
+                if (!_chapterRepository.ChapterExists(chapterId))
+                {
+                    _logger.LogWarning("Chapter not found with id: {Id}", chapterId);
+                    return NotFound("Chapter not found.");
+                }
+
+                var lessons = await _lessonRepository.GetLessonsByChapterId(chapterId);
+                var lessonDTOs = _mapper.Map<List<LessonDTO>>(lessons);
+                return Ok(lessonDTOs);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while getting lessons by chapterId: {Id}", chapterId);
+                return StatusCode(500, "Internal server error");
+            }
         }
 
-
-        // ✅ CREATE
         [HttpPost]
         public IActionResult CreateLesson([FromBody] LessonRequestDTO dto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            try
+            {
+                _logger.LogInformation("POST /api/Lesson called for chapterId: {ChapterId}", dto.Chapter_Id);
 
-            var chapter = _chapterRepository.GetChapterById(dto.Chapter_Id);
-            if (chapter == null)
-                return NotFound("Chapter not found.");
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
 
-            var lesson = _mapper.Map<Lesson>(dto);
-            lesson.Lesson_Id = Guid.NewGuid();
-            lesson.Status = "Pending";
-            lesson.IsActive = false;
-            lesson.RejectionReason = null;
+                var chapter = _chapterRepository.GetChapterById(dto.Chapter_Id);
+                if (chapter == null)
+                {
+                    _logger.LogWarning("Chapter not found for lesson creation with id: {Id}", dto.Chapter_Id);
+                    return NotFound("Chapter not found.");
+                }
 
-            var success = _lessonRepository.CreateLesson(lesson);
-            if (!success)
-                return StatusCode(500, "Failed to create lesson.");
+                var lesson = _mapper.Map<Lesson>(dto);
+                lesson.Lesson_Id = Guid.NewGuid();
+                lesson.Status = "Pending";
+                lesson.IsActive = false;
+                lesson.RejectionReason = null;
 
-            return Ok(new { message = "Lesson created successfully.", lessonId = lesson.Lesson_Id });
+                var success = _lessonRepository.CreateLesson(lesson);
+                if (!success)
+                {
+                    _logger.LogError("Failed to create lesson for chapterId: {ChapterId}", dto.Chapter_Id);
+                    return StatusCode(500, "Failed to create lesson.");
+                }
+
+                _logger.LogInformation("Lesson created successfully with id: {LessonId}", lesson.Lesson_Id);
+                return Ok(new { message = "Lesson created successfully.", lessonId = lesson.Lesson_Id });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Exception while creating lesson.");
+                return StatusCode(500, "Internal server error");
+            }
         }
 
-        // ✅ UPDATE
         [HttpPut("{id}")]
         public IActionResult UpdateLesson(Guid id, [FromBody] LessonRequestDTO dto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            try
+            {
+                _logger.LogInformation("PUT /api/Lesson/{id} called with id: {Id}", id);
 
-            var existingLesson = _lessonRepository.GetLessonById(id);
-            if (existingLesson == null)
-                return NotFound("Lesson not found.");
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
 
-            // Không cập nhật Chapter_Id để giữ nguyên liên kết gốc
-            _mapper.Map(dto, existingLesson); // DTO không ảnh hưởng Chapter_Id vì đã cấu hình mapper
+                var existingLesson = _lessonRepository.GetLessonById(id);
+                if (existingLesson == null)
+                {
+                    _logger.LogWarning("Lesson not found with id: {Id}", id);
+                    return NotFound("Lesson not found.");
+                }
 
-            var result = _lessonRepository.UpdateLesson(existingLesson);
-            if (!result)
-                return StatusCode(500, "Error updating lesson.");
+                _mapper.Map(dto, existingLesson); // Không cập nhật Chapter_Id
 
-            return Ok("Lesson updated successfully.");
+                var result = _lessonRepository.UpdateLesson(existingLesson);
+                if (!result)
+                {
+                    _logger.LogError("Failed to update lesson with id: {Id}", id);
+                    return StatusCode(500, "Error updating lesson.");
+                }
+
+                _logger.LogInformation("Lesson updated successfully with id: {Id}", id);
+                return Ok("Lesson updated successfully.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Exception while updating lesson with id: {Id}", id);
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         [HttpPut("{id}/status")]
-        // [Authorize(Roles = "Admin")]
         public IActionResult ApproveOrRejectLesson(Guid id, [FromBody] LessonStatusUpdate statusDto)
         {
-            var lesson = _lessonRepository.GetLessonById(id);
-            if (lesson == null)
-                return NotFound("Lesson not found.");
-
-            var validStatuses = new[] { "Approved", "Rejected" };
-            if (!validStatuses.Contains(statusDto.Status))
-                return BadRequest("Invalid status. Must be 'Approved' or 'Rejected'.");
-
-            lesson.Status = statusDto.Status;
-
-            if (statusDto.Status == "Rejected")
+            try
             {
-                lesson.RejectionReason = statusDto.RejectionReason ?? "No reason provided";
-                lesson.IsActive = false;
+                _logger.LogInformation("PUT /api/Lesson/{id}/status called with id: {Id}, status: {Status}", id, statusDto.Status);
+
+                var lesson = _lessonRepository.GetLessonById(id);
+                if (lesson == null)
+                {
+                    _logger.LogWarning("Lesson not found with id: {Id}", id);
+                    return NotFound("Lesson not found.");
+                }
+
+                var validStatuses = new[] { "Approved", "Rejected" };
+                if (!validStatuses.Contains(statusDto.Status))
+                {
+                    _logger.LogWarning("Invalid status {Status} for lesson id: {Id}", statusDto.Status, id);
+                    return BadRequest("Invalid status. Must be 'Approved' or 'Rejected'.");
+                }
+
+                lesson.Status = statusDto.Status;
+                lesson.IsActive = statusDto.Status == "Approved";
+                lesson.RejectionReason = statusDto.Status == "Rejected"
+                    ? statusDto.RejectionReason ?? "No reason provided"
+                    : null;
+
+                var result = _lessonRepository.UpdateLesson(lesson);
+                if (!result)
+                {
+                    _logger.LogError("Failed to update lesson status with id: {Id}", id);
+                    return StatusCode(500, "Failed to update lesson status.");
+                }
+
+                _logger.LogInformation("Lesson status updated to {Status} for lesson id: {Id}", statusDto.Status, id);
+                return Ok(new
+                {
+                    message = "Lesson status updated.",
+                    newStatus = lesson.Status,
+                    lessonId = lesson.Lesson_Id
+                });
             }
-            else if (statusDto.Status == "Approved")
+            catch (Exception ex)
             {
-                lesson.RejectionReason = null;
-                lesson.IsActive = true;
+                _logger.LogError(ex, "Exception while updating lesson status with id: {Id}", id);
+                return StatusCode(500, "Internal server error");
             }
-
-            var result = _lessonRepository.UpdateLesson(lesson);
-            if (!result)
-                return StatusCode(500, "Failed to update lesson status.");
-
-            return Ok(new
-            {
-                message = "Lesson status updated.",
-                newStatus = lesson.Status,
-                lessonId = lesson.Lesson_Id
-            });
         }
 
-
-        // ✅ DELETE
         [HttpDelete("{id}")]
         public IActionResult DeleteLesson(Guid id)
         {
-            var lesson = _lessonRepository.GetLessonById(id);
-            if (lesson == null)
-                return NotFound("Lesson not found.");
+            try
+            {
+                _logger.LogInformation("DELETE /api/Lesson/{id} called with id: {Id}", id);
+                var lesson = _lessonRepository.GetLessonById(id);
+                if (lesson == null)
+                {
+                    _logger.LogWarning("Lesson not found with id: {Id}", id);
+                    return NotFound("Lesson not found.");
+                }
 
-            var result = _lessonRepository.DeleteLesson(lesson);
-            if (!result)
-                return StatusCode(500, "Error deleting lesson.");
+                var result = _lessonRepository.DeleteLesson(lesson);
+                if (!result)
+                {
+                    _logger.LogError("Error deleting lesson with id: {Id}", id);
+                    return StatusCode(500, "Error deleting lesson.");
+                }
 
-            return Ok("Lesson deleted successfully.");
+                _logger.LogInformation("Lesson deleted successfully with id: {Id}", id);
+                return Ok("Lesson deleted successfully.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Exception while deleting lesson with id: {Id}", id);
+                return StatusCode(500, "Internal server error");
+            }
         }
     }
 }

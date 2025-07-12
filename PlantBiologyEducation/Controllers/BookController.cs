@@ -3,7 +3,6 @@ using AutoMapper;
 using Plant_BiologyEducation.Entity.DTO.Book;
 using Plant_BiologyEducation.Repository;
 using Plant_BiologyEducation.Entity.Model;
-using System.Xml;
 using PlantBiologyEducation.Entity.DTO.Book;
 using Plant_BiologyEducation.Entity.DTO.User;
 
@@ -15,190 +14,275 @@ namespace Plant_BiologyEducation.Controllers
     {
         private readonly BookRepository _bookRepository;
         private readonly IMapper _mapper;
+        private readonly ILogger<BookController> _logger;
 
-        public BookController(BookRepository bookRepository, IMapper mapper)
+        public BookController(BookRepository bookRepository, IMapper mapper, ILogger<BookController> logger)
         {
             _bookRepository = bookRepository;
             _mapper = mapper;
+            _logger = logger;
         }
-
-
 
         [HttpGet("approved")]
         public IActionResult GetAllBooks()
         {
-            var books = _bookRepository.GetAllBooksForStudents();
-            var booksDTO = _mapper.Map<List<BookDTO>>(books);
-            return Ok(booksDTO);
+            try
+            {
+                _logger.LogInformation("GET /api/Book/approved called from Mobile");
+                var books = _bookRepository.GetAllBooksForStudents();
+                var booksDTO = _mapper.Map<List<BookDTO>>(books);
+                return Ok(booksDTO);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while fetching approved books.");
+                return StatusCode(500, "Internal server error");
+            }
         }
 
-
-        // GET: api/Book?title=abc
         [HttpGet("search")]
         public IActionResult SearchOrGetAllBooks([FromQuery] string? title)
         {
-            var books = string.IsNullOrWhiteSpace(title)
-                ? _bookRepository.GetAllBooks()
-                : _bookRepository.SearchBooksByTitle(title);
-
-            foreach (var book in books)
+            try
             {
-                book.Chapters = book.Chapters
-                    .OrderBy(c => c.Chapter_Title)
-                    .Select(c =>
-                    {
-                        c.Lessons = c.Lessons
-                            .OrderBy(l => l.Lesson_Title)
-                            .ToList();
-                        return c;
-                    })
-                    .ToList();
+                _logger.LogInformation("GET /api/Book/search?title={title} called", title);
+                var books = string.IsNullOrWhiteSpace(title)
+                    ? _bookRepository.GetAllBooks()
+                    : _bookRepository.SearchBooksByTitle(title);
+
+                foreach (var book in books)
+                {
+                    book.Chapters = book.Chapters
+                        .OrderBy(c => c.Chapter_Title)
+                        .Select(c =>
+                        {
+                            c.Lessons = c.Lessons
+                                .OrderBy(l => l.Lesson_Title)
+                                .ToList();
+                            return c;
+                        })
+                        .ToList();
+                }
+
+                var bookDTOs = _mapper.Map<List<BookDTO>>(books);
+                return Ok(bookDTOs);
             }
-
-            var bookDTOs = _mapper.Map<List<BookDTO>>(books);
-            return Ok(bookDTOs);
-
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while searching books.");
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         [HttpGet("pending")]
-        // [Authorize(Roles = "Admin")]
         public IActionResult GetPendingBooks()
         {
-            var books = _bookRepository.GetPendingBooks();
-            var booksDTO = _mapper.Map<List<BookDTO>>(books);
-            return Ok(booksDTO);
+            try
+            {
+                _logger.LogInformation("GET /api/Book/pending called");
+                var books = _bookRepository.GetPendingBooks();
+                var booksDTO = _mapper.Map<List<BookDTO>>(books);
+                return Ok(booksDTO);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while fetching pending books.");
+                return StatusCode(500, "Internal server error");
+            }
         }
 
-        // GET: api/Book/{id}
         [HttpGet("{id}")]
         public IActionResult GetBookById(Guid id)
         {
-            var book = _bookRepository.GetBookById(id);
-            if (book == null)
-                return NotFound();
+            try
+            {
+                _logger.LogInformation("GET /api/Book/{id} called with id: {Id}", id);
+                var book = _bookRepository.GetBookById(id);
+                if (book == null)
+                {
+                    _logger.LogWarning("Book not found with id: {Id}", id);
+                    return NotFound();
+                }
 
-            var bookDTO = _mapper.Map<BookDTO>(book);
-            return Ok(bookDTO);
+                var bookDTO = _mapper.Map<BookDTO>(book);
+                return Ok(bookDTO);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error while getting book by id: {Id}", id);
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         [HttpPost]
         public IActionResult CreateBookWithChaptersAndLessons([FromBody] BookRequestDTO dto)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var book = _mapper.Map<Book>(dto);
-            book.Book_Id = Guid.NewGuid();
-            book.Status = "Pending";
-            book.IsActive = false;
-            book.RejectionReason = null;
-
-            foreach (var chapter in book.Chapters)
+            try
             {
-                chapter.Chapter_Id = Guid.NewGuid();
-                chapter.Book_Id = book.Book_Id;
+                _logger.LogInformation("POST /api/Book called to create new book.");
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
 
-                chapter.Status = "Pending";
-                chapter.IsActive = false;
-                chapter.RejectionReason = null;
+                var book = _mapper.Map<Book>(dto);
+                book.Book_Id = Guid.NewGuid();
+                book.Status = "Pending";
+                book.IsActive = false;
+                book.RejectionReason = null;
 
-                foreach (var lesson in chapter.Lessons)
+                foreach (var chapter in book.Chapters)
                 {
-                    lesson.Lesson_Id = Guid.NewGuid();
-                    lesson.Chapter_Id = chapter.Chapter_Id;
+                    chapter.Chapter_Id = Guid.NewGuid();
+                    chapter.Book_Id = book.Book_Id;
+                    chapter.Status = "Pending";
+                    chapter.IsActive = false;
+                    chapter.RejectionReason = null;
 
-                    lesson.Status = "Pending";
-                    lesson.IsActive = false;
-                    lesson.RejectionReason = null;
+                    foreach (var lesson in chapter.Lessons)
+                    {
+                        lesson.Lesson_Id = Guid.NewGuid();
+                        lesson.Chapter_Id = chapter.Chapter_Id;
+                        lesson.Status = "Pending";
+                        lesson.IsActive = false;
+                        lesson.RejectionReason = null;
+                    }
                 }
+
+                var success = _bookRepository.CreateBook(book);
+                if (!success)
+                {
+                    _logger.LogError("Error saving book to database.");
+                    return StatusCode(500, "An error occurred while saving the book.");
+                }
+
+                _logger.LogInformation("Book created successfully with ID: {BookId}", book.Book_Id);
+                return Ok(new { message = "Book created successfully", bookId = book.Book_Id });
             }
-
-            var success = _bookRepository.CreateBook(book);
-            if (!success)
-                return StatusCode(500, "An error occurred while saving the book.");
-
-            return Ok(new { message = "Book created successfully", bookId = book.Book_Id });
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Exception occurred while creating book.");
+                return StatusCode(500, "Internal server error");
+            }
         }
 
-
-
-        // PUT: api/Book/{id}
         [HttpPut("{id}")]
         public IActionResult UpdateBook(Guid id, [FromBody] BookRequestDTO bookDto)
         {
-            // Kiểm tra sách có tồn tại
-            if (!_bookRepository.BookExists(id))
-                return NotFound("Book not found.");
+            try
+            {
+                _logger.LogInformation("PUT /api/Book/{id} called to update book: {Id}", id);
 
-            // Ánh xạ DTO sang Entity
-            var bookEntity = _mapper.Map<Book>(bookDto);
+                if (!_bookRepository.BookExists(id))
+                {
+                    _logger.LogWarning("Book not found with id: {Id}", id);
+                    return NotFound("Book not found.");
+                }
 
-            // Gán ID từ route vào entity
-            bookEntity.Book_Id = id;
-            bookEntity.Status = "Pending"; 
-            bookEntity.IsActive = false;
+                var bookEntity = _mapper.Map<Book>(bookDto);
+                bookEntity.Book_Id = id;
+                bookEntity.Status = "Pending";
+                bookEntity.IsActive = false;
 
-            // Thực hiện cập nhật
-            var result = _bookRepository.UpdateBook(bookEntity);
-            if (!result)
-                return StatusCode(500, "Error updating the book.");
+                var result = _bookRepository.UpdateBook(bookEntity);
+                if (!result)
+                {
+                    _logger.LogError("Error updating book with id: {Id}", id);
+                    return StatusCode(500, "Error updating the book.");
+                }
 
-            return Ok("Book updated successfully.");
+                _logger.LogInformation("Book updated successfully with id: {Id}", id);
+                return Ok("Book updated successfully.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Exception occurred while updating book with id: {Id}", id);
+                return StatusCode(500, "Internal server error");
+            }
         }
-
 
         [HttpPut("{id}/status")]
-        // [Authorize(Roles = "Admin")]
         public IActionResult ApproveOrRejectBook(Guid id, [FromBody] BookStatusUpdateDTO statusDto)
         {
-            var book = _bookRepository.GetBookById(id);
-            if (book == null)
-                return NotFound("Book not found.");
-
-            // Kiểm tra hợp lệ status
-            var validStatuses = new[] { "Approved", "Rejected" };
-            if (!validStatuses.Contains(statusDto.Status))
-                return BadRequest("Invalid status. Must be 'Approved' or 'Rejected'.");
-
-            book.Status = statusDto.Status;
-
-            // Nếu rejected thì lưu lý do
-            if (statusDto.Status == "Rejected")
+            try
             {
-                book.RejectionReason = statusDto.RejectionReason ?? "No reason provided";
-                book.IsActive = false;
+                _logger.LogInformation("PUT /api/Book/{id}/status called with id: {Id} and status: {Status}", id, statusDto.Status);
+
+                var book = _bookRepository.GetBookById(id);
+                if (book == null)
+                {
+                    _logger.LogWarning("Book not found with id: {Id}", id);
+                    return NotFound("Book not found.");
+                }
+
+                var validStatuses = new[] { "Approved", "Rejected" };
+                if (!validStatuses.Contains(statusDto.Status))
+                {
+                    _logger.LogWarning("Invalid status: {Status}", statusDto.Status);
+                    return BadRequest("Invalid status. Must be 'Approved' or 'Rejected'.");
+                }
+
+                book.Status = statusDto.Status;
+
+                if (statusDto.Status == "Rejected")
+                {
+                    book.RejectionReason = statusDto.RejectionReason ?? "No reason provided";
+                    book.IsActive = false;
+                }
+                else if (statusDto.Status == "Approved")
+                {
+                    book.RejectionReason = null;
+                    book.IsActive = true;
+                }
+
+                var result = _bookRepository.UpdateBook(book);
+                if (!result)
+                {
+                    _logger.LogError("Failed to update book status with id: {Id}", id);
+                    return StatusCode(500, "Failed to update status.");
+                }
+
+                _logger.LogInformation("Book status updated to {Status} for book id: {Id}", statusDto.Status, id);
+                return Ok(new
+                {
+                    message = "Book status updated.",
+                    newStatus = book.Status,
+                    bookId = book.Book_Id
+                });
             }
-            else if (statusDto.Status == "Approved")
+            catch (Exception ex)
             {
-                book.RejectionReason = null;
-                book.IsActive = true; // Tuỳ logic bạn muốn
+                _logger.LogError(ex, "Exception while updating status of book with id: {Id}", id);
+                return StatusCode(500, "Internal server error");
             }
-
-            var result = _bookRepository.UpdateBook(book);
-            if (!result)
-                return StatusCode(500, "Failed to update status.");
-
-            return Ok(new
-            {
-                message = "Book status updated.",
-                newStatus = book.Status,
-                bookId = book.Book_Id
-            });
         }
 
-        // DELETE: api/Book/{id}
         [HttpDelete("{id}")]
         public IActionResult DeleteBook(Guid id)
         {
-            var book = _bookRepository.GetBookById(id);
-            if (book == null)
-                return NotFound();
+            try
+            {
+                _logger.LogInformation("DELETE /api/Book/{id} called to delete book with id: {Id}", id);
+                var book = _bookRepository.GetBookById(id);
+                if (book == null)
+                {
+                    _logger.LogWarning("Book not found for deletion with id: {Id}", id);
+                    return NotFound();
+                }
 
-            var result = _bookRepository.DeleteBook(book);
-            if (!result)
-                return StatusCode(500, "Error deleting the book.");
+                var result = _bookRepository.DeleteBook(book);
+                if (!result)
+                {
+                    _logger.LogError("Error deleting book with id: {Id}", id);
+                    return StatusCode(500, "Error deleting the book.");
+                }
 
-            return Ok("Book deleted successfully.");
+                _logger.LogInformation("Book deleted successfully with id: {Id}", id);
+                return Ok("Book deleted successfully.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Exception while deleting book with id: {Id}", id);
+                return StatusCode(500, "Internal server error");
+            }
         }
     }
 }

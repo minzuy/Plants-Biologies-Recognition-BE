@@ -24,11 +24,11 @@ namespace Plant_BiologyEducation.Controllers
 
         // GET: api/PBA/search?commonName=...
         [HttpGet("search")]
-        public IActionResult SearchByCommonName([FromQuery] string? commonName)
+        public IActionResult SearchByName([FromQuery] string? input)
         {
-            var list = string.IsNullOrWhiteSpace(commonName)
+            var list = string.IsNullOrWhiteSpace(input)
                 ? _pbaRepo.GetAllEntity()
-                : _pbaRepo.SearchByCommonName(commonName);
+                : _pbaRepo.SearchByName(input);
 
             var result = _mapper.Map<List<P_B_A_DTO>>(list);
             return Ok(result);
@@ -107,7 +107,7 @@ namespace Plant_BiologyEducation.Controllers
             entity.Id = Guid.NewGuid();
 
             if (!_pbaRepo.CreatePBA(entity))
-                return StatusCode(500, "Error while saving plant.");
+                return StatusCode(500, "Error while saving Object.");
 
             var result = _mapper.Map<P_B_A_DTO>(entity);
             return CreatedAtAction(nameof(GetById), new { id = entity.Id }, result);

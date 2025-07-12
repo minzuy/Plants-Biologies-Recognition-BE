@@ -29,10 +29,11 @@ namespace Plant_BiologyEducation.Repository
                 .ToList();
         }
 
-        public ICollection<Plant_Biology_Animals> SearchByCommonName(string commonName)
+        public ICollection<Plant_Biology_Animals> SearchByName(string input)
         {
             return _context.Plant_Biology_Animals
-                .Where(pba => pba.CommonName.Contains(commonName))
+                .Where(pba => pba.CommonName.Contains(input))
+                .Where(pba => pba.ScientificName.Contains(input))
                 .OrderBy(pba => pba.AverageLifeSpan)
                 .ToList();
         }
