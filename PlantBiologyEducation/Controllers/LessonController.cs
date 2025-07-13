@@ -102,6 +102,7 @@ namespace Plant_BiologyEducation.Controllers
                 lesson.Status = "Pending";
                 lesson.IsActive = false;
                 lesson.RejectionReason = null;
+                Console.WriteLine("Creating lesson with Chapter_Id: " + lesson.Chapter_Id);
 
                 var success = _lessonRepository.CreateLesson(lesson);
                 if (!success)
@@ -128,6 +129,9 @@ namespace Plant_BiologyEducation.Controllers
                     return NotFound("Lesson not found.");
 
                 _mapper.Map(dto, existingLesson); // Không cập nhật Chapter_Id
+                existingLesson.Status = "Pending";
+                existingLesson.IsActive = false;
+                existingLesson.RejectionReason = null;
 
                 var result = _lessonRepository.UpdateLesson(existingLesson);
                 if (!result)

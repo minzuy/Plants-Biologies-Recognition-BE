@@ -1468,13 +1468,6 @@
           "rejectionReason": {
             "type": "string",
             "nullable": true
-          },
-          "chapters": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ChapterRequestDTO"
-            },
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1517,13 +1510,6 @@
           },
           "rejectionReason": {
             "type": "string",
-            "nullable": true
-          },
-          "lessons": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/LessonRequestDTO"
-            },
             "nullable": true
           }
         },

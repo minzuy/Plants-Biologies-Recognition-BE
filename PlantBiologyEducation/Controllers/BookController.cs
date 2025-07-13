@@ -115,23 +115,23 @@ namespace Plant_BiologyEducation.Controllers
                 book.IsActive = false;
                 book.RejectionReason = null;
 
-                foreach (var chapter in book.Chapters)
-                {
-                    chapter.Chapter_Id = Guid.NewGuid();
-                    chapter.Book_Id = book.Book_Id;
-                    chapter.Status = "Pending";
-                    chapter.IsActive = false;
-                    chapter.RejectionReason = null;
+                //foreach (var chapter in book.Chapters)
+                //{
+                //    chapter.Chapter_Id = Guid.NewGuid();
+                //    chapter.Book_Id = book.Book_Id;
+                //    chapter.Status = "Pending";
+                //    chapter.IsActive = false;
+                //    chapter.RejectionReason = null;
 
-                    foreach (var lesson in chapter.Lessons)
-                    {
-                        lesson.Lesson_Id = Guid.NewGuid();
-                        lesson.Chapter_Id = chapter.Chapter_Id;
-                        lesson.Status = "Pending";
-                        lesson.IsActive = false;
-                        lesson.RejectionReason = null;
-                    }
-                }
+                //    foreach (var lesson in chapter.Lessons)
+                //    {
+                //        lesson.Lesson_Id = Guid.NewGuid();
+                //        lesson.Chapter_Id = chapter.Chapter_Id;
+                //        lesson.Status = "Pending";
+                //        lesson.IsActive = false;
+                //        lesson.RejectionReason = null;
+                //    }
+                //}
 
                 var success = _bookRepository.CreateBook(book);
                 if (!success)

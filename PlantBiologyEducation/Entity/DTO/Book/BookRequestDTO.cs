@@ -12,6 +12,6 @@ namespace Plant_BiologyEducation.Entity.DTO.Book
         public string Status { get; set; }
         // Pending, Approved, Rejected
         public string? RejectionReason { get; set; } = null;// Lý do từ chối nếu có
-        public List<ChapterRequestDTO> ? Chapters { get; set; }
+        //public List<ChapterRequestDTO> ? Chapters { get; set; }
     }
 }

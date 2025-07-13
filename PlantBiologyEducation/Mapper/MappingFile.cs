@@ -25,8 +25,8 @@ namespace Plant_BiologyEducation.Mapper
             // Lesson mappings
             CreateMap<LessonDTO, Lesson>();
             CreateMap<LessonRequestDTO, Lesson>()
-                .ForMember(dest => dest.Lesson_Id, opt => opt.Ignore())
-                .ForMember(dest => dest.Chapter_Id, opt => opt.Ignore());
+                .ForMember(dest => dest.Lesson_Id, opt => opt.Ignore());
+
             CreateMap<Lesson, LessonRequestDTO>();
             // Lesson ↔ LessonDTO mapping
             CreateMap<Lesson, LessonDTO>()
