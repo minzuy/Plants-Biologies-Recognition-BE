@@ -52,6 +52,7 @@ namespace Plant_BiologyEducation.Repository
             return _context.Lessons
                 .Where(l => l.Lesson_Title.Contains(title))
                 .Include(l => l.Chapter)
+                .Include(l => l.RelatedSpecies)
                 .OrderBy(l => l.Lesson_Title)
                 .ToList();
         }
