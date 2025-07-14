@@ -119,6 +119,8 @@ namespace Plant_BiologyEducation.Controllers
 
             var entity = _mapper.Map<Plant_Biology_Animals>(requestDTO);
             entity.Id = Guid.NewGuid();
+            entity.IsActive = false; // Default to active
+            entity.Status = "Pending"; // Default status
 
             if (!_pbaRepo.CreatePBA(entity))
             {
@@ -169,6 +171,8 @@ namespace Plant_BiologyEducation.Controllers
             var existing = _pbaRepo.GetById(id);
             _mapper.Map(requestDTO, existing);
             existing.Id = id;
+            existing.IsActive = false; // Ensure it's active on update
+            existing.Status = "Pending"; // Reset status to pending on update
 
             if (!_pbaRepo.UpdatePBA(existing))
             {
