@@ -38,7 +38,7 @@ namespace Plant_BiologyEducation.Repository
         public ICollection<Book> SearchBooksByTitle(string title)
         {
             return _context.Books
-                .Where(b => b.Book_Title.Contains(title))
+                .Where(b => b.Book_Title.ToLower().Contains(title.ToLower()))
                 .Include(b => b.Chapters)
                     .ThenInclude(c => c.Lessons)
                     .ThenInclude(l => l.RelatedSpecies) // Thêm dòng này

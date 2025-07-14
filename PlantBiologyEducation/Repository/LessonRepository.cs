@@ -50,7 +50,7 @@ namespace Plant_BiologyEducation.Repository
         public ICollection<Lesson> SearchLessonsByTitle(string title)
         {
             return _context.Lessons
-                .Where(l => l.Lesson_Title.Contains(title))
+                .Where(l => l.Lesson_Title.ToLower().Contains(title.ToLower()))
                 .Include(l => l.Chapter)
                 .Include(l => l.RelatedSpecies)
                 .OrderBy(l => l.Lesson_Title)

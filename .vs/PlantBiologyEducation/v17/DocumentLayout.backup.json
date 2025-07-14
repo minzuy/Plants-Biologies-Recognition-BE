@@ -3,6 +3,18 @@
   "WorkspaceRootPath": "D:\\API_Learning\\PlantBiologyEducation\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|d:\\api_learning\\plantbiologyeducation\\plantbiologyeducation\\repository\\plant_biology_animal_repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|solutionrelative:plantbiologyeducation\\repository\\plant_biology_animal_repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|d:\\api_learning\\plantbiologyeducation\\plantbiologyeducation\\repository\\chapterrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|solutionrelative:plantbiologyeducation\\repository\\chapterrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|d:\\api_learning\\plantbiologyeducation\\plantbiologyeducation\\repository\\bookrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|solutionrelative:plantbiologyeducation\\repository\\bookrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|d:\\api_learning\\plantbiologyeducation\\plantbiologyeducation\\repository\\lessonrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|solutionrelative:plantbiologyeducation\\repository\\lessonrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -11,12 +23,12 @@
       "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|solutionrelative:plantbiologyeducation\\controllers\\lessoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|d:\\api_learning\\plantbiologyeducation\\plantbiologyeducation\\entity\\dto\\lesson\\lessonrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|solutionrelative:plantbiologyeducation\\entity\\dto\\lesson\\lessonrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|d:\\api_learning\\plantbiologyeducation\\plantbiologyeducation\\service\\detailspecies.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|solutionrelative:plantbiologyeducation\\service\\detailspecies.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|d:\\api_learning\\plantbiologyeducation\\plantbiologyeducation\\entity\\dto\\lesson\\lessonrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|solutionrelative:plantbiologyeducation\\entity\\dto\\lesson\\lessonrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|d:\\api_learning\\plantbiologyeducation\\plantbiologyeducation\\controllers\\biologiescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -51,19 +63,58 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Plant_Biology_Animal_Repository.cs",
+              "DocumentMoniker": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Repository\\Plant_Biology_Animal_Repository.cs",
+              "RelativeDocumentMoniker": "PlantBiologyEducation\\Repository\\Plant_Biology_Animal_Repository.cs",
+              "ToolTip": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Repository\\Plant_Biology_Animal_Repository.cs",
+              "RelativeToolTip": "PlantBiologyEducation\\Repository\\Plant_Biology_Animal_Repository.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAYwCEAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-14T17:20:12.328Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ChapterRepository.cs",
+              "DocumentMoniker": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Repository\\ChapterRepository.cs",
+              "RelativeDocumentMoniker": "PlantBiologyEducation\\Repository\\ChapterRepository.cs",
+              "ToolTip": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Repository\\ChapterRepository.cs",
+              "RelativeToolTip": "PlantBiologyEducation\\Repository\\ChapterRepository.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAACUAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-14T17:19:44.217Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BookRepository.cs",
+              "DocumentMoniker": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Repository\\BookRepository.cs",
+              "RelativeDocumentMoniker": "PlantBiologyEducation\\Repository\\BookRepository.cs",
+              "ToolTip": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Repository\\BookRepository.cs",
+              "RelativeToolTip": "PlantBiologyEducation\\Repository\\BookRepository.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAAAC4AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-14T17:19:09.085Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "LessonRepository.cs",
               "DocumentMoniker": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Repository\\LessonRepository.cs",
               "RelativeDocumentMoniker": "PlantBiologyEducation\\Repository\\LessonRepository.cs",
               "ToolTip": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Repository\\LessonRepository.cs",
               "RelativeToolTip": "PlantBiologyEducation\\Repository\\LessonRepository.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAAADgAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAAAAgAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-14T16:22:01.025Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "LessonController.cs",
               "DocumentMoniker": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Controllers\\LessonController.cs",
               "RelativeDocumentMoniker": "PlantBiologyEducation\\Controllers\\LessonController.cs",
@@ -76,7 +127,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "LessonRequestDTO.cs",
               "DocumentMoniker": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Entity\\DTO\\Lesson\\LessonRequestDTO.cs",
               "RelativeDocumentMoniker": "PlantBiologyEducation\\Entity\\DTO\\Lesson\\LessonRequestDTO.cs",
@@ -84,12 +135,11 @@
               "RelativeToolTip": "PlantBiologyEducation\\Entity\\DTO\\Lesson\\LessonRequestDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-14T15:43:34.871Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-14T15:43:34.871Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "BiologiesController.cs",
               "DocumentMoniker": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Controllers\\BiologiesController.cs",
               "RelativeDocumentMoniker": "PlantBiologyEducation\\Controllers\\BiologiesController.cs",
@@ -101,20 +151,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "DetailSpecies.json",
               "DocumentMoniker": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Service\\DetailSpecies.json",
               "RelativeDocumentMoniker": "PlantBiologyEducation\\Service\\DetailSpecies.json",
-              "ToolTip": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Service\\DetailSpecies.json*",
-              "RelativeToolTip": "PlantBiologyEducation\\Service\\DetailSpecies.json*",
-              "ViewState": "AgIAAMoAAAAAAAAAAAAAAN8AAAAEAAAAAAAAAA==",
+              "ToolTip": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Service\\DetailSpecies.json",
+              "RelativeToolTip": "PlantBiologyEducation\\Service\\DetailSpecies.json",
+              "ViewState": "AgIAAAMBAAAAAAAAAAAAAA4BAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-07-14T08:51:39.549Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "BookController.cs",
               "DocumentMoniker": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Controllers\\BookController.cs",
               "RelativeDocumentMoniker": "PlantBiologyEducation\\Controllers\\BookController.cs",
@@ -126,7 +176,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "MappingFile.cs",
               "DocumentMoniker": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Mapper\\MappingFile.cs",
               "RelativeDocumentMoniker": "PlantBiologyEducation\\Mapper\\MappingFile.cs",
@@ -138,7 +188,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "ChapterController.cs",
               "DocumentMoniker": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Controllers\\ChapterController.cs",
               "RelativeDocumentMoniker": "PlantBiologyEducation\\Controllers\\ChapterController.cs",
@@ -150,7 +200,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "ChapterRequestDTO.cs",
               "DocumentMoniker": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Entity\\DTO\\Chapter\\ChapterRequestDTO.cs",
               "RelativeDocumentMoniker": "PlantBiologyEducation\\Entity\\DTO\\Chapter\\ChapterRequestDTO.cs",

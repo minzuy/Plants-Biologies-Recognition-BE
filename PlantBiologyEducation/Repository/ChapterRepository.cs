@@ -32,7 +32,7 @@ namespace Plant_BiologyEducation.Repository
         public async Task<List<Chapter>> SearchChapterByTitleAsync(string title)
         {
             return await _context.Chapters
-                .Where(c => c.Chapter_Title.Contains(title))
+                .Where(c => c.Chapter_Title.ToLower().Contains(title.ToLower()))
                 .Include(c => c.Book)
                 .Include(c => c.Lessons)
                 .ToListAsync();
