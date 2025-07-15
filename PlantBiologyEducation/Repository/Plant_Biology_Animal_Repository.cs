@@ -29,6 +29,13 @@ namespace Plant_BiologyEducation.Repository
                 .ToList();
         }
 
+        public ICollection<Plant_Biology_Animals> GetApprovedPBA()
+        {
+            return _context.Plant_Biology_Animals
+                .Where(pba => pba.Status == "Approved")
+                .ToList();
+        }
+
         public ICollection<Plant_Biology_Animals> SearchByName(string input)
         {
             return _context.Plant_Biology_Animals
@@ -39,6 +46,16 @@ namespace Plant_BiologyEducation.Repository
                 .ToList();
         }
 
+        public ICollection<Plant_Biology_Animals> SearchByNameForStudent(string input)
+        {
+            return _context.Plant_Biology_Animals
+                .Where(pba =>
+                        pba.CommonName.ToLower().Contains(input.ToLower()) ||
+                        pba.ScientificName.ToLower().Contains(input.ToLower()) && pba.Status == "Approved"
+                        )
+                .OrderBy(pba => pba.AverageLifeSpan)
+                .ToList();
+        }
 
         public Plant_Biology_Animals GetById(Guid id)
         {

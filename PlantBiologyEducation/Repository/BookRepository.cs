@@ -18,6 +18,7 @@ namespace Plant_BiologyEducation.Repository
         {
             return _context.Books
                 .AsSplitQuery()
+
                 .Include(b => b.Chapters)
                     .ThenInclude(c => c.Lessons)
                     .ThenInclude(l => l.RelatedSpecies)
@@ -34,11 +35,22 @@ namespace Plant_BiologyEducation.Repository
                     .ThenInclude(l => l.RelatedSpecies)
                 .FirstOrDefault(b => b.Book_Id == id);
         }
+
+        public ICollection<Book> SearchBooksByTitleForStudent(string title)
+        {
+            return _context.Books
+                .Where(b => b.Book_Title.ToLower().Contains(title.ToLower()) && b.Status == "Approved")
+                .Include(b => b.Chapters)
+                    .ThenInclude(c => c.Lessons)
+                    .ThenInclude(l => l.RelatedSpecies) // Thêm dòng này
+                .OrderBy(b => b.Book_Title)
+                .ToList();
+        }
         // Tìm sách theo tiêu đề
         public ICollection<Book> SearchBooksByTitle(string title)
         {
             return _context.Books
-                .Where(b => b.Book_Title.ToLower().Contains(title.ToLower()))
+                .Where(b => b.Book_Title.ToLower().Contains(title.ToLower()) )
                 .Include(b => b.Chapters)
                     .ThenInclude(c => c.Lessons)
                     .ThenInclude(l => l.RelatedSpecies) // Thêm dòng này

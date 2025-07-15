@@ -10,7 +10,7 @@ namespace Plant_BiologyEducation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    //[Authorize]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly UserRepository _userRepo;
@@ -25,7 +25,7 @@ namespace Plant_BiologyEducation.Controllers
 
         // GET: api/User
         [HttpGet("getAllUsers")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetAllUsers()
         {
             var users = _userRepo.GetAllUsers();
@@ -35,7 +35,7 @@ namespace Plant_BiologyEducation.Controllers
 
         // GET: api/User
         [HttpGet("search")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetUsers([FromQuery] string? fullName)
         {
             var users = string.IsNullOrWhiteSpace(fullName)
@@ -70,7 +70,7 @@ namespace Plant_BiologyEducation.Controllers
 
         // POST: api/User
         [HttpPost("admin-create")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult CreateUser([FromBody] AdminRequestDTO userRequestDTO)
         {
             if (userRequestDTO == null)
@@ -101,6 +101,8 @@ namespace Plant_BiologyEducation.Controllers
 
         // PUT: api/User/{id}
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Student,Teacher")]
+
         public IActionResult UpdateUser(Guid id, [FromBody] UserRequestDTO userRequestDTO)
         {
             if (userRequestDTO == null)
@@ -127,7 +129,7 @@ namespace Plant_BiologyEducation.Controllers
             return Ok(new { message = "Update User successfully" });
         }
         [HttpPut("{id}/status")]
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult UpdateUserStatus(Guid id, [FromBody] UserStatusUpdateDTO statusDto)
         {
             var user = _userRepo.GetUserById(id);
@@ -149,7 +151,7 @@ namespace Plant_BiologyEducation.Controllers
         }
 
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteUser(Guid id)
         {
             if (!_userRepo.UserExists(id))

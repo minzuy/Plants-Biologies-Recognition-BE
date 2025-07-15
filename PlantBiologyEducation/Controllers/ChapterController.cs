@@ -4,6 +4,7 @@ using Plant_BiologyEducation.Entity.Model;
 using AutoMapper;
 using Plant_BiologyEducation.Entity.DTO.Chapter;
 using PlantBiologyEducation.Entity.DTO.Chapter;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Plant_BiologyEducation.Controllers
 {

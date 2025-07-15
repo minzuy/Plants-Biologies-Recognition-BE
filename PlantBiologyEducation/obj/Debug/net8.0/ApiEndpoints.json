@@ -129,6 +129,32 @@
   },
   {
     "ContainingType": "Plant_BiologyEducation.Controllers.AuthenticationController",
+    "Method": "GoogleAuth",
+    "RelativePath": "api/Authentication/google",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PlantBiologyEducation.Entity.DTO.User.GoogleLoginDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.AuthenticationController",
+    "Method": "GoogleLoginTest",
+    "RelativePath": "api/Authentication/google-test",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.AuthenticationController",
     "Method": "Login",
     "RelativePath": "api/Authentication/login",
     "HttpMethod": "POST",
@@ -383,16 +409,6 @@
   },
   {
     "ContainingType": "Plant_BiologyEducation.Controllers.BookController",
-    "Method": "GetAllBooks",
-    "RelativePath": "api/Book/approved",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Plant_BiologyEducation.Controllers.BookController",
     "Method": "GetPendingBooks",
     "RelativePath": "api/Book/pending",
     "HttpMethod": "GET",
@@ -403,7 +419,7 @@
   },
   {
     "ContainingType": "Plant_BiologyEducation.Controllers.BookController",
-    "Method": "SearchOrGetAllBooks",
+    "Method": "SearchBooks",
     "RelativePath": "api/Book/search",
     "HttpMethod": "GET",
     "IsController": true,
@@ -666,22 +682,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "PlantNetIdentifyController",
-    "Method": "IdentifyPlant",
-    "RelativePath": "api/PlantNetIdentify/identify",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "image",
-        "Type": "Microsoft.AspNetCore.Http.IFormFile",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "PlantBiologyEducation.Controllers.PredictController",
     "Method": "UploadImage",
     "RelativePath": "api/Predict/upload",
@@ -773,8 +773,8 @@
   },
   {
     "ContainingType": "Plant_BiologyEducation.Controllers.UserController",
-    "Method": "GetAllUsers",
-    "RelativePath": "api/User/getAllUsers",
+    "Method": "GetInactiveUsers",
+    "RelativePath": "api/User/inactive",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -783,8 +783,8 @@
   },
   {
     "ContainingType": "Plant_BiologyEducation.Controllers.UserController",
-    "Method": "GetInactiveUsers",
-    "RelativePath": "api/User/inactive",
+    "Method": "GetAllUsers",
+    "RelativePath": "api/User/manageUsers",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

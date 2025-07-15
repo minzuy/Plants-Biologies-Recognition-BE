@@ -7,12 +7,15 @@ using Plant_BiologyEducation.Entity.Model;
 using Plant_BiologyEducation.Repository;
 using Plant_BiologyEducation.Service;
 using PlantBiologyEducation.Entity.DTO.User;
+using System.Text.Json;
 
 
 namespace Plant_BiologyEducation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
+
     public class AuthenticationController : Controller
     {
         private readonly UserRepository _userRepo;
@@ -45,6 +48,93 @@ namespace Plant_BiologyEducation.Controllers
                 }
             });
         }
+
+        [HttpPost("google-test")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [AllowAnonymous]
+        public IActionResult GoogleLoginTest()
+        {
+            var payload = new GooglePayload
+            {
+                Email = "duy@gmail.com",
+                Name = "Test User",
+            };
+
+            var user = _userRepo.GetUserByAccount(payload.Email);
+
+            if (user == null)
+            {
+                user = new User
+                {
+                    User_Id = Guid.NewGuid(),
+                    Account = payload.Email,
+                    Password = "1234577",
+                    FullName = payload.Name,
+                    Role = "Student",
+                    IsActive = true,
+                };
+                _userRepo.CreateUser(user);
+            }
+
+            var jwt = _jwtService.GenerateToken(user);
+
+            return Ok(new
+            {
+                token = jwt,
+                user = new
+                {
+                    id = user.User_Id,
+                    name = user.FullName,
+                    email = user.Account,
+                    role = user.Role
+                }
+            });
+        }
+
+
+        [HttpPost("google")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GoogleAuth([FromBody] GoogleLoginDTO request)
+        {
+            var payload = await VerifyGoogleToken(request.IdToken);
+
+            if (payload == null || string.IsNullOrEmpty(payload.Email))
+                return Unauthorized("Invalid Google token");
+
+            var user = _userRepo.GetUserByAccount(payload.Email);
+
+            // Nếu chưa có, tự động đăng ký
+            if (user == null)
+            {
+                user = new User
+                {
+                    User_Id = Guid.NewGuid(),
+                    Account = payload.Email,
+                    Password = "", 
+                    FullName = payload.Name,
+                    Role = "Student", // mặc định
+                    IsActive = true
+                };
+
+                _userRepo.CreateUser(user);
+            }
+
+            var jwt = _jwtService.GenerateToken(user);
+
+            return Ok(new
+            {
+                token = jwt,
+                user = new
+                {
+                    id = user.User_Id,
+                    name = user.FullName,
+                    email = user.Account,
+                    role = user.Role
+                }
+            });
+        }
+
+
 
         [HttpPost("register")]
         [AllowAnonymous]
@@ -96,6 +186,7 @@ namespace Plant_BiologyEducation.Controllers
         }
         // GET: api/User/{id}
         [HttpGet("{id}")]
+
         public IActionResult GetUserById(Guid id)
         {
             if (!_userRepo.UserExists(id))
@@ -105,5 +196,23 @@ namespace Plant_BiologyEducation.Controllers
             var userDTO = _mapper.Map<UserDTO>(user);
             return Ok(userDTO);
         }
+
+        private async Task<GooglePayload?> VerifyGoogleToken(string idToken)
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync($"https://oauth2.googleapis.com/tokeninfo?id_token={idToken}");
+
+            if (!response.IsSuccessStatusCode)
+                return null;
+
+            var content = await response.Content.ReadAsStringAsync();
+
+            return JsonSerializer.Deserialize<GooglePayload>(content, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+        }
+
     }
+
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Plant_BiologyEducation.Entity.DTO.Chapter;
 using Plant_BiologyEducation.Entity.DTO.P_B_A;
@@ -9,6 +10,7 @@ namespace Plant_BiologyEducation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class BiologiesController : ControllerBase
     {
         private readonly Plant_Biology_Animal_Repository _pbaRepo;
@@ -26,17 +28,31 @@ namespace Plant_BiologyEducation.Controllers
         }
 
         [HttpGet("search")]
+        [Authorize(Roles = "Admin,Student,Teacher")]
+
         public IActionResult SearchByName([FromQuery] string? input)
         {
-            var list = string.IsNullOrWhiteSpace(input)
-                ? _pbaRepo.GetAllEntity()
-                : _pbaRepo.SearchByName(input);
+            List<Plant_Biology_Animals> list;
+            if (User.IsInRole("Student"))
+            {
+                list = (List<Plant_Biology_Animals>)(string.IsNullOrWhiteSpace(input)
+                ? _pbaRepo.GetApprovedPBA()
+                : _pbaRepo.SearchByNameForStudent(input));
+            }
+            else
+            {
+                list = (List<Plant_Biology_Animals>)(string.IsNullOrWhiteSpace(input)
+                    ? _pbaRepo.GetAllEntity()
+                    : _pbaRepo.SearchByName(input));
+            }
+
 
             var result = _mapper.Map<List<P_B_A_DTO>>(list);
             return Ok(result);
         }
 
         [HttpGet("pending")]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetPendingPBA()
         {
             var pendingList = _pbaRepo.GetPendingPBA();
@@ -45,6 +61,7 @@ namespace Plant_BiologyEducation.Controllers
         }
 
         [HttpPut("{id}/status")]
+        [Authorize(Roles = "Admin")]
         public IActionResult UpdateStatus(Guid id, [FromBody] PBAStatusUpdateDTO statusDto)
         {
             var entity = _pbaRepo.GetById(id);
@@ -86,6 +103,7 @@ namespace Plant_BiologyEducation.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetById(Guid id)
         {
             var entity = _pbaRepo.GetById(id);
@@ -99,6 +117,7 @@ namespace Plant_BiologyEducation.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Teacher")]
         public IActionResult Create([FromBody] P_B_A_RequestDTO requestDTO)
         {
             if (requestDTO == null)
@@ -132,6 +151,7 @@ namespace Plant_BiologyEducation.Controllers
         }
 
         [HttpGet("lesson/{lessonId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetLessonByChapterId(Guid lessonId)
         {
             if (!_lessonRepository.LessonExists(lessonId))
@@ -145,6 +165,7 @@ namespace Plant_BiologyEducation.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Teacher")]
         public IActionResult Update(Guid id, [FromBody] P_B_A_RequestDTO requestDTO)
         {
             if (requestDTO == null)

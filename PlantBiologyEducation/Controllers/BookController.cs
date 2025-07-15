@@ -5,11 +5,15 @@ using Plant_BiologyEducation.Repository;
 using Plant_BiologyEducation.Entity.Model;
 using PlantBiologyEducation.Entity.DTO.Book;
 using Plant_BiologyEducation.Entity.DTO.User;
+using Microsoft.AspNetCore.Authorization;
+using Plant_BiologyEducation.Migrations;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Plant_BiologyEducation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BookController : ControllerBase
     {
         private readonly BookRepository _bookRepository;
@@ -21,45 +25,57 @@ namespace Plant_BiologyEducation.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("approved")]
-        public IActionResult GetAllBooks()
-        {
-            try
-            {
-                var books = _bookRepository.GetAllBooksForStudents();
-                var booksDTO = _mapper.Map<List<BookDTO>>(books);
-                return Ok(booksDTO);
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal server error");
-            }
-        }
 
         [HttpGet("search")]
-        public IActionResult SearchOrGetAllBooks([FromQuery] string? title)
+        [Authorize(Roles = "Admin,Student,Teacher")]
+        public IActionResult SearchBooks([FromQuery] string? title)
         {
+                 List<Book> list;
             try
-            {
-                var books = string.IsNullOrWhiteSpace(title)
-                    ? _bookRepository.GetAllBooks()
-                    : _bookRepository.SearchBooksByTitle(title);
 
-                foreach (var book in books)
+            {
+                if (User.IsInRole("Student"))
                 {
-                    book.Chapters = book.Chapters
-                        .OrderBy(c => c.Chapter_Title)
-                        .Select(c =>
-                        {
-                            c.Lessons = c.Lessons
-                                .OrderBy(l => l.Lesson_Title)
-                                .ToList();
-                            return c;
-                        })
-                        .ToList();
+                    list = (List<Book>)(string.IsNullOrWhiteSpace(title)
+                        ? _bookRepository.GetAllBooksForStudents()
+                         : _bookRepository.SearchBooksByTitleForStudent(title));
+
+                    foreach (var book in list)
+                    {
+                        book.Chapters = book.Chapters
+                            .OrderBy(c => c.Chapter_Title)
+                            .Select(c =>
+                            {
+                                c.Lessons = c.Lessons
+                                    .OrderBy(l => l.Lesson_Title)
+                                    .ToList();
+                                return c;
+                            })
+                            .ToList();
+                    }
+                }
+                else
+                {
+                    list = (List<Book>)(string.IsNullOrWhiteSpace(title)
+                    ? _bookRepository.GetAllBooks()
+                    : _bookRepository.SearchBooksByTitle(title));
+                    foreach (var book in list)
+                    {
+                        book.Chapters = book.Chapters
+                            .OrderBy(c => c.Chapter_Title)
+                            .Select(c =>
+                            {
+                                c.Lessons = c.Lessons
+                                    .OrderBy(l => l.Lesson_Title)
+                                    .ToList();
+                                return c;
+                            })
+                            .ToList();
+                    }
                 }
 
-                var bookDTOs = _mapper.Map<List<BookDTO>>(books);
+
+                var bookDTOs = _mapper.Map<List<BookDTO>>(list);
                 return Ok(bookDTOs);
             }
             catch (Exception)
@@ -69,6 +85,7 @@ namespace Plant_BiologyEducation.Controllers
         }
 
         [HttpGet("pending")]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetPendingBooks()
         {
             try
@@ -84,6 +101,7 @@ namespace Plant_BiologyEducation.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetBookById(Guid id)
         {
             try
@@ -102,6 +120,7 @@ namespace Plant_BiologyEducation.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Teacher")]
         public IActionResult CreateBookWithChaptersAndLessons([FromBody] BookRequestDTO dto)
         {
             try
@@ -146,6 +165,7 @@ namespace Plant_BiologyEducation.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Teacher")]
         public IActionResult UpdateBook(Guid id, [FromBody] BookRequestDTO bookDto)
         {
             try
@@ -171,6 +191,7 @@ namespace Plant_BiologyEducation.Controllers
         }
 
         [HttpPut("{id}/status")]
+        [Authorize(Roles = "Admin")]
         public IActionResult ApproveOrRejectBook(Guid id, [FromBody] BookStatusUpdateDTO statusDto)
         {
             try
@@ -214,6 +235,7 @@ namespace Plant_BiologyEducation.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteBook(Guid id)
         {
             try

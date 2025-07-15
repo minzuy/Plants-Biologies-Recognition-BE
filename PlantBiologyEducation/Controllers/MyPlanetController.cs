@@ -12,6 +12,7 @@ public class PlantNetIdentifyController : ControllerBase
     }
 
     [HttpPost("identify")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> IdentifyPlant(IFormFile image)
     {
         if (image == null || image.Length == 0)

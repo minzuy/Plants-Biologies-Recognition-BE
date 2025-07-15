@@ -411,3 +411,4 @@ D:\API_Learning\PlantBiologyEducation\PlantBiologyEducation\obj\Debug\net8.0\Pla
 D:\API_Learning\PlantBiologyEducation\PlantBiologyEducation\obj\Debug\net8.0\PlantBiologyEducation.genruntimeconfig.cache
 D:\API_Learning\PlantBiologyEducation\PlantBiologyEducation\obj\Debug\net8.0\ref\PlantBiologyEducation.dll
 D:\API_Learning\PlantBiologyEducation\PlantBiologyEducation\bin\Debug\net8.0\Service\best.onnx
+D:\API_Learning\PlantBiologyEducation\PlantBiologyEducation\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.Google.dll
