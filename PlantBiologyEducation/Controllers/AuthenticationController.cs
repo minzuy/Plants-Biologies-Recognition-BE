@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Plant_BiologyEducation.Entity.DTO.User;
 using Plant_BiologyEducation.Entity.Model;
 using Plant_BiologyEducation.Repository;
 using Plant_BiologyEducation.Service;
-using PlantBiologyEducation.Entity.DTO.User;
+using PlantBiologyEducation.Entity.DTO.Authen;
 using System.Text.Json;
 
 
@@ -21,20 +22,31 @@ namespace Plant_BiologyEducation.Controllers
         private readonly UserRepository _userRepo;
         private readonly IMapper _mapper;
         private readonly JwtService _jwtService;
-        public AuthenticationController(UserRepository userRepo, IMapper mapper, JwtService jwtService)
+        private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly EmailService _emailService;
+        public AuthenticationController(UserRepository userRepo, IMapper mapper, JwtService jwtService, IPasswordHasher<User> passwordHasher, EmailService emailService)
         {
             _userRepo = userRepo;
             _mapper = mapper;
             _jwtService = jwtService;
+            _passwordHasher = passwordHasher;
+            _emailService = emailService;
         }
+
         [HttpPost("login")]
         [AllowAnonymous]
         public IActionResult Login([FromBody] LoginDTO loginDto)
         {
             var user = _userRepo.GetAllUsers()
-                                .FirstOrDefault(u => u.Account == loginDto.Account && u.Password == loginDto.Password);
+                .FirstOrDefault(u =>
+                    u.Account.Equals(loginDto.Identifier, StringComparison.OrdinalIgnoreCase) ||
+                    u.Email.Equals(loginDto.Identifier, StringComparison.OrdinalIgnoreCase));
 
             if (user == null)
+                return Unauthorized("Invalid credentials.");
+
+            var result = _passwordHasher.VerifyHashedPassword(user, user.Password, loginDto.Password);
+            if (result != PasswordVerificationResult.Success)
                 return Unauthorized("Invalid credentials.");
 
             var token = _jwtService.GenerateToken(user);
@@ -48,6 +60,7 @@ namespace Plant_BiologyEducation.Controllers
                 }
             });
         }
+
 
         [HttpPost("google-test")]
         [ApiExplorerSettings(IgnoreApi = true)]
@@ -166,24 +179,62 @@ namespace Plant_BiologyEducation.Controllers
 
 
         }
-        [HttpPost("forgot-password")]
-        public IActionResult ForgotPassword([FromBody] ForgotPasswordRequestDTO requestPassword)
+
+        [HttpPost("forgot-password/request")]
+        [AllowAnonymous]
+        public IActionResult RequestResetPassword([FromBody] ForgotPasswordRequestDTO request)
         {
-            if (string.IsNullOrWhiteSpace(requestPassword.Account) || string.IsNullOrWhiteSpace(requestPassword.NewPassword))
-                return BadRequest("Account and new password are required.");
 
-            var user = _userRepo.GetUserByAccount(requestPassword.Account);
+            if (string.IsNullOrWhiteSpace(request.Email))
+                return BadRequest("Email is required.");
 
+            var user = _userRepo.GetUserByEmail(request.Email);
             if (user == null)
-                return NotFound("Account not found.");
+                return NotFound("Email not found.");
 
-            user.Password = requestPassword.NewPassword; // TODO: Hash nếu cần
+            string verificationCode = new Random().Next(100000, 999999).ToString();
+            user.resetToken = verificationCode;
 
             if (!_userRepo.UpdateUser(user))
-                return StatusCode(500, "Failed to update password.");
+                return StatusCode(500, "Failed to update user with reset code.");
 
-            return Ok("Password updated successfully.");
+            bool emailSent = _emailService.SendVerificationCode(user.Email, verificationCode);
+            if (!emailSent)
+                return StatusCode(500, "Failed to send verification email.");
+
+            return Ok("Verification code sent to your email.");
         }
+
+        [HttpPost("forgot-password/confirm")]
+        [AllowAnonymous]
+        public IActionResult ConfirmResetPassword([FromBody] ForgotPasswordConfirmDTO dto)
+        {
+            if (string.IsNullOrWhiteSpace(dto.Email) ||
+                string.IsNullOrWhiteSpace(dto.VerificationCode) ||
+                string.IsNullOrWhiteSpace(dto.NewPassword))
+            {
+                return BadRequest("Missing required fields.");
+            }
+
+            var user = _userRepo.GetUserByEmail(dto.Email);
+            if (user == null)
+                return NotFound("Email not found.");
+
+            if (user.resetToken != dto.VerificationCode)
+                return BadRequest("Invalid verification code.");
+
+            user.Password = _passwordHasher.HashPassword(user, dto.NewPassword);
+            user.resetToken = null;
+
+            if (!_userRepo.UpdateUser(user))
+                return StatusCode(500, "Failed to reset password.");
+
+            return Ok("Password has been reset successfully.");
+        }
+
+
+
+
         // GET: api/User/{id}
         [HttpGet("{id}")]
 

@@ -199,18 +199,6 @@
         }
       }
     },
-    "/api/Authentication/google-test": {
-      "post": {
-        "tags": [
-          "Authentication"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/Authentication/google": {
       "post": {
         "tags": [
@@ -273,7 +261,7 @@
         }
       }
     },
-    "/api/Authentication/forgot-password": {
+    "/api/Authentication/forgot-password/request": {
       "post": {
         "tags": [
           "Authentication"
@@ -293,6 +281,37 @@
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/ForgotPasswordRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Authentication/forgot-password/confirm": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordConfirmDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordConfirmDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordConfirmDTO"
               }
             }
           }
@@ -1170,7 +1189,7 @@
         }
       }
     },
-    "/api/User/manageUsers": {
+    "/api/User/getAllUsers": {
       "get": {
         "tags": [
           "User"
@@ -1411,6 +1430,7 @@
       "AdminRequestDTO": {
         "required": [
           "account",
+          "email",
           "fullName",
           "password",
           "role"
@@ -1420,6 +1440,10 @@
           "account": {
             "maxLength": 50,
             "minLength": 0,
+            "type": "string"
+          },
+          "email": {
+            "minLength": 1,
             "type": "string"
           },
           "password": {
@@ -1528,14 +1552,28 @@
         },
         "additionalProperties": false
       },
-      "ForgotPasswordRequestDTO": {
+      "ForgotPasswordConfirmDTO": {
         "type": "object",
         "properties": {
-          "account": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "verificationCode": {
             "type": "string",
             "nullable": true
           },
           "newPassword": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ForgotPasswordRequestDTO": {
+        "type": "object",
+        "properties": {
+          "email": {
             "type": "string",
             "nullable": true
           }
@@ -1602,7 +1640,7 @@
       "LoginDTO": {
         "type": "object",
         "properties": {
-          "account": {
+          "identifier": {
             "type": "string",
             "nullable": true
           },
@@ -1686,6 +1724,7 @@
       "UserRequestDTO": {
         "required": [
           "account",
+          "email",
           "fullName",
           "password",
           "role"
@@ -1695,6 +1734,10 @@
           "account": {
             "maxLength": 50,
             "minLength": 0,
+            "type": "string"
+          },
+          "email": {
+            "minLength": 1,
             "type": "string"
           },
           "password": {

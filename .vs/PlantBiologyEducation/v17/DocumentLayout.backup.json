@@ -1,12 +1,71 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\API_Learning\\PlantBiologyEducation\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|d:\\api_learning\\plantbiologyeducation\\plantbiologyeducation\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|solutionrelative:plantbiologyeducation\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|d:\\api_learning\\plantbiologyeducation\\plantbiologyeducation\\entity\\dto\\authen\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|solutionrelative:plantbiologyeducation\\entity\\dto\\authen\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|d:\\api_learning\\plantbiologyeducation\\plantbiologyeducation\\service\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|solutionrelative:plantbiologyeducation\\service\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LoginDTO.cs",
+              "DocumentMoniker": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Entity\\DTO\\Authen\\LoginDTO.cs",
+              "RelativeDocumentMoniker": "PlantBiologyEducation\\Entity\\DTO\\Authen\\LoginDTO.cs",
+              "ToolTip": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Entity\\DTO\\Authen\\LoginDTO.cs",
+              "RelativeToolTip": "PlantBiologyEducation\\Entity\\DTO\\Authen\\LoginDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-16T18:13:59.309Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthenticationController.cs",
+              "DocumentMoniker": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Controllers\\AuthenticationController.cs",
+              "RelativeDocumentMoniker": "PlantBiologyEducation\\Controllers\\AuthenticationController.cs",
+              "ToolTip": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Controllers\\AuthenticationController.cs",
+              "RelativeToolTip": "PlantBiologyEducation\\Controllers\\AuthenticationController.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAACcAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-16T18:11:08.493Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "EmailService.cs",
+              "DocumentMoniker": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Service\\EmailService.cs",
+              "RelativeDocumentMoniker": "PlantBiologyEducation\\Service\\EmailService.cs",
+              "ToolTip": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Service\\EmailService.cs",
+              "RelativeToolTip": "PlantBiologyEducation\\Service\\EmailService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-16T18:00:02.021Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

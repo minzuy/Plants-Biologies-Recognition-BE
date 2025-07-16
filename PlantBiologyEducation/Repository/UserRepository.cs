@@ -39,6 +39,12 @@ namespace Plant_BiologyEducation.Repository
             return _context.Users
                 .FirstOrDefault(u => u.User_Id == id);
         }
+
+        public User GetUserByEmail(String email)
+        {
+            return _context.Users
+                .FirstOrDefault(u => u.Email == email);
+        }
         public User GetUserByAccount(string account)
         {
             return _context.Users.FirstOrDefault(u => u.Account == account);

@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Plant_BiologyEducation.Data;
+using Plant_BiologyEducation.Entity.Model;
 using Plant_BiologyEducation.Repository;
 using Plant_BiologyEducation.Service;
 using PlantBiologyEducation.Service;
@@ -59,8 +61,6 @@ builder.Services.AddScoped<BookRepository>();
 builder.Services.AddScoped<ChapterRepository>();
 builder.Services.AddScoped<LessonRepository>();
 
-
-
 builder.Services.AddScoped<Plant_Biology_Animal_Repository>();
 
 builder.Services.AddScoped<PlantNetService>();
@@ -72,6 +72,10 @@ builder.Services.AddScoped<AccessBiologyRepository>();
 
 builder.Services.AddScoped<PredictService>();
 builder.Services.AddScoped<DictionaryService>();
+
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+builder.Services.AddScoped<EmailService>();
+
 
 // Swagger - Enable for all environments
 builder.Services.AddEndpointsApiExplorer();

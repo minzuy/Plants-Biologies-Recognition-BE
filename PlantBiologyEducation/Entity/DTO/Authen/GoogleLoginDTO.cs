@@ -1,4 +1,4 @@
-﻿namespace PlantBiologyEducation.Entity.DTO.User
+﻿namespace PlantBiologyEducation.Entity.DTO.Authen
 {
     public class GoogleLoginDTO
     {

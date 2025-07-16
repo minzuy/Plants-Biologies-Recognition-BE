@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Plant_BiologyEducation.Data;
@@ -11,9 +12,11 @@ using Plant_BiologyEducation.Data;
 namespace Plant_BiologyEducation.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20250716172022_update-user-entity")]
+    partial class updateuserentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -203,10 +206,6 @@ namespace Plant_BiologyEducation.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Account")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
 

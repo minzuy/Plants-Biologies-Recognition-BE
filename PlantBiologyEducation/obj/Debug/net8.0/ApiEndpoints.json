@@ -113,15 +113,31 @@
   },
   {
     "ContainingType": "Plant_BiologyEducation.Controllers.AuthenticationController",
-    "Method": "ForgotPassword",
-    "RelativePath": "api/Authentication/forgot-password",
+    "Method": "ConfirmResetPassword",
+    "RelativePath": "api/Authentication/forgot-password/confirm",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "requestPassword",
-        "Type": "PlantBiologyEducation.Entity.DTO.User.ForgotPasswordRequestDTO",
+        "Name": "dto",
+        "Type": "PlantBiologyEducation.Entity.DTO.Authen.ForgotPasswordConfirmDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.AuthenticationController",
+    "Method": "RequestResetPassword",
+    "RelativePath": "api/Authentication/forgot-password/request",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PlantBiologyEducation.Entity.DTO.Authen.ForgotPasswordRequestDTO",
         "IsRequired": true
       }
     ],
@@ -137,20 +153,10 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "PlantBiologyEducation.Entity.DTO.User.GoogleLoginDTO",
+        "Type": "PlantBiologyEducation.Entity.DTO.Authen.GoogleLoginDTO",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Plant_BiologyEducation.Controllers.AuthenticationController",
-    "Method": "GoogleLoginTest",
-    "RelativePath": "api/Authentication/google-test",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -163,7 +169,7 @@
     "Parameters": [
       {
         "Name": "loginDto",
-        "Type": "Plant_BiologyEducation.Entity.DTO.User.LoginDTO",
+        "Type": "PlantBiologyEducation.Entity.DTO.Authen.LoginDTO",
         "IsRequired": true
       }
     ],
@@ -773,8 +779,8 @@
   },
   {
     "ContainingType": "Plant_BiologyEducation.Controllers.UserController",
-    "Method": "GetInactiveUsers",
-    "RelativePath": "api/User/inactive",
+    "Method": "GetAllUsers",
+    "RelativePath": "api/User/getAllUsers",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -783,8 +789,8 @@
   },
   {
     "ContainingType": "Plant_BiologyEducation.Controllers.UserController",
-    "Method": "GetAllUsers",
-    "RelativePath": "api/User/manageUsers",
+    "Method": "GetInactiveUsers",
+    "RelativePath": "api/User/inactive",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
