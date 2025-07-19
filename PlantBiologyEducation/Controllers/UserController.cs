@@ -5,6 +5,7 @@ using Plant_BiologyEducation.Entity.Model;
 using Microsoft.AspNetCore.Authorization;
 using Plant_BiologyEducation.Entity.DTO.User;
 using PlantBiologyEducation.Entity.DTO.User;
+using System.Security.Claims;
 
 namespace Plant_BiologyEducation.Controllers
 {
@@ -20,17 +21,6 @@ namespace Plant_BiologyEducation.Controllers
         {
             _userRepo = userRepo;
             _mapper = mapper;
-        }
-
-
-        // GET: api/User
-        [HttpGet("getAllUsers")]
-        [Authorize(Roles = "Admin")]
-        public IActionResult GetAllUsers()
-        {
-            var users = _userRepo.GetAllUsers();
-            var usersDTO = _mapper.Map<List<UserDTO>>(users);
-            return Ok(usersDTO);
         }
 
         // GET: api/User
@@ -99,27 +89,39 @@ namespace Plant_BiologyEducation.Controllers
 
 
 
-        // PUT: api/User/{id}
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin,Student,Teacher")]
-
-        public IActionResult UpdateUser(Guid id, [FromBody] UserRequestDTO userRequestDTO)
+        public IActionResult UpdateUser(Guid id, [FromBody] AdminRequestDTO userRequestDTO)
         {
-            if (userRequestDTO == null)
-                return BadRequest("User data is required.");
+            if (userRequestDTO == null) return BadRequest("User data is required.");
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (!_userRepo.UserExists(id)) return NotFound();
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            var currentUserRole = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
 
-            if (!_userRepo.UserExists(id))
-                return NotFound();
+            if (currentUserRole == "Teacher" && (userRequestDTO.Role != "Teacher" && userRequestDTO.Role != "Student"))
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new
+                {
+                    success = false,
+                    error = "Teacher can only assign role Teacher or Student.",
+                    code = "FORBIDDEN_ASSIGNMENT_BY_TEACHER"
+                });
+            }
 
-            // Lấy user hiện tại từ database
+            if (currentUserRole == "Student" && userRequestDTO.Role != "Student")
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, new
+                {
+                    success = false,
+                    error = "Student can only assign role Student.",
+                    code = "FORBIDDEN_ASSIGNMENT_BY_STUDENT"
+                });
+            }
+
             var existingUser = _userRepo.GetUserById(id);
-
-            // Map các thay đổi từ DTO sang Entity (giữ nguyên ID)
             _mapper.Map(userRequestDTO, existingUser);
-            existingUser.User_Id = id; // Đảm bảo ID không bị thay đổi
+            existingUser.User_Id = id;
 
             if (!_userRepo.UpdateUser(existingUser))
             {
@@ -128,6 +130,8 @@ namespace Plant_BiologyEducation.Controllers
 
             return Ok(new { message = "Update User successfully" });
         }
+
+
         [HttpPut("{id}/status")]
         [Authorize(Roles = "Admin")]
         public IActionResult UpdateUserStatus(Guid id, [FromBody] UserStatusUpdateDTO statusDto)

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Plant_BiologyEducation.Entity.DTO.User;
 using Plant_BiologyEducation.Entity.Model;
 using Plant_BiologyEducation.Repository;
@@ -33,119 +34,118 @@ namespace Plant_BiologyEducation.Controllers
             _emailService = emailService;
         }
 
+
         [HttpPost("login")]
         [AllowAnonymous]
-        public IActionResult Login([FromBody] LoginDTO loginDto)
+        public IActionResult Login([FromBody] LoginDTO request)
         {
-            var user = _userRepo.GetAllUsers()
-                .FirstOrDefault(u =>
-                    u.Account.Equals(loginDto.Identifier, StringComparison.OrdinalIgnoreCase) ||
-                    u.Email.Equals(loginDto.Identifier, StringComparison.OrdinalIgnoreCase));
-
-            if (user == null)
-                return Unauthorized("Invalid credentials.");
-
-            var result = _passwordHasher.VerifyHashedPassword(user, user.Password, loginDto.Password);
-            if (result != PasswordVerificationResult.Success)
-                return Unauthorized("Invalid credentials.");
-
-            var token = _jwtService.GenerateToken(user);
-
-            return Ok(new
+            if (string.IsNullOrWhiteSpace(request.Identifier) || string.IsNullOrWhiteSpace(request.Password))
             {
-                Token = token,
-                User = new
-                {
-                    userId = user.User_Id,
-                }
-            });
-        }
+                return BadRequest("Vui lòng nhập đầy đủ thông tin.");
+            }
 
-
-        [HttpPost("google-test")]
-        [ApiExplorerSettings(IgnoreApi = true)]
-        [AllowAnonymous]
-        public IActionResult GoogleLoginTest()
-        {
-            var payload = new GooglePayload
-            {
-                Email = "duy@gmail.com",
-                Name = "Test User",
-            };
-
-            var user = _userRepo.GetUserByAccount(payload.Email);
+            // Tìm user theo Email hoặc Username
+            var allUsers = _userRepo.GetAllUsers(); // Dùng UserRepository thay vì _context
+            var user = allUsers.FirstOrDefault(u =>
+                (u.Email == request.Identifier || u.Account == request.Identifier)
+                && u.Password == request.Password); // So sánh mật khẩu trực tiếp (không hash)
 
             if (user == null)
             {
-                user = new User
-                {
-                    User_Id = Guid.NewGuid(),
-                    Account = payload.Email,
-                    Password = "1234577",
-                    FullName = payload.Name,
-                    Role = "Student",
-                    IsActive = true,
-                };
-                _userRepo.CreateUser(user);
+                return Unauthorized("Tên đăng nhập/email hoặc mật khẩu không đúng.");
             }
 
             var jwt = _jwtService.GenerateToken(user);
 
-            return Ok(new
+            var response = new
             {
                 token = jwt,
-                user = new
-                {
-                    id = user.User_Id,
-                    name = user.FullName,
-                    email = user.Account,
-                    role = user.Role
-                }
+                user.User_Id,
+                user.FullName,
+                user.Email,
+                user.Account,
+                user.Role,
+                Message = "Đăng nhập thành công"
+            };
+
+            return Ok(response);
+        }
+
+
+        [HttpPost("verify-google-token")]
+        [AllowAnonymous]
+        public async Task<IActionResult> VerifyGoogleTokenOnly([FromBody] GoogleLoginDTO request)
+        {
+            if (string.IsNullOrEmpty(request.IdToken))
+                return BadRequest("Missing idToken");
+
+            var payload = await VerifyGoogleToken(request.IdToken);
+
+            if (payload.Aud != "974321576275-3s0ev7qs9q8fju3j1954lmlnrq3g3t3f.apps.googleusercontent.com")
+                return Unauthorized("Token was not issued for this application");
+
+
+            if (payload == null)
+                return Unauthorized("Invalid Google token");
+
+            return Ok(new
+            {
+                email = payload.Email,
+                name = payload.Name,
+                message = "Google token is valid"
             });
         }
 
 
-        [HttpPost("google")]
+        [HttpPost("google-signin")]
         [AllowAnonymous]
         public async Task<IActionResult> GoogleAuth([FromBody] GoogleLoginDTO request)
         {
+            if (string.IsNullOrWhiteSpace(request.IdToken))
+                return BadRequest("Missing Google idToken");
+
             var payload = await VerifyGoogleToken(request.IdToken);
 
             if (payload == null || string.IsNullOrEmpty(payload.Email))
                 return Unauthorized("Invalid Google token");
 
-            var user = _userRepo.GetUserByAccount(payload.Email);
+            // Kiểm tra người dùng đã tồn tại trong hệ thống chưa
+            var user = _userRepo.GetUserByEmail(payload.Email);
 
-            // Nếu chưa có, tự động đăng ký
+            // Nếu chưa có thì tạo mới người dùng
             if (user == null)
             {
                 user = new User
                 {
                     User_Id = Guid.NewGuid(),
                     Account = payload.Email,
-                    Password = "", 
+                    Password = "", // Google users không cần mật khẩu
                     FullName = payload.Name,
-                    Role = "Student", // mặc định
+                    Email = payload.Email,
+                    Role = "Student",
                     IsActive = true
                 };
 
-                _userRepo.CreateUser(user);
+                if (!_userRepo.CreateUser(user))
+                    return StatusCode(500, "Could not create user");
             }
 
-            var jwt = _jwtService.GenerateToken(user);
+            var token = _jwtService.GenerateToken(user);
 
             return Ok(new
             {
-                token = jwt,
+                token = token,
                 user = new
                 {
                     id = user.User_Id,
                     name = user.FullName,
-                    email = user.Account,
+                    email = user.Email,
                     role = user.Role
-                }
+                },
+                message = "Đăng nhập bằng Google thành công"
             });
         }
+
 
 
 

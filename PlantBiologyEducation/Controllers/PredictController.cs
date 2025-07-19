@@ -6,7 +6,6 @@ namespace PlantBiologyEducation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
 
     public class PredictController : ControllerBase
     {

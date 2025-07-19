@@ -29,7 +29,7 @@ namespace Plant_BiologyEducation.Repository
         public ICollection<User> SearchUsersByFullName(string fullName)
         {
             return _context.Users
-                .Where(u => u.FullName.Contains(fullName))
+                .Where( u => u.FullName.ToLower().Contains(fullName.ToLower() ) )
                 .OrderBy(u => u.Role)
                 .ToList();
         }

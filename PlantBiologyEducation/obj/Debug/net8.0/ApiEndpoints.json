@@ -146,7 +146,7 @@
   {
     "ContainingType": "Plant_BiologyEducation.Controllers.AuthenticationController",
     "Method": "GoogleAuth",
-    "RelativePath": "api/Authentication/google",
+    "RelativePath": "api/Authentication/google-signin",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -168,7 +168,7 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "loginDto",
+        "Name": "request",
         "Type": "PlantBiologyEducation.Entity.DTO.Authen.LoginDTO",
         "IsRequired": true
       }
@@ -186,6 +186,22 @@
       {
         "Name": "userRequestDTO",
         "Type": "Plant_BiologyEducation.Entity.DTO.User.UserRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Plant_BiologyEducation.Controllers.AuthenticationController",
+    "Method": "VerifyGoogleTokenOnly",
+    "RelativePath": "api/Authentication/verify-google-token",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PlantBiologyEducation.Entity.DTO.Authen.GoogleLoginDTO",
         "IsRequired": true
       }
     ],
@@ -718,7 +734,7 @@
       },
       {
         "Name": "userRequestDTO",
-        "Type": "Plant_BiologyEducation.Entity.DTO.User.UserRequestDTO",
+        "Type": "PlantBiologyEducation.Entity.DTO.User.AdminRequestDTO",
         "IsRequired": true
       }
     ],
@@ -775,16 +791,6 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Plant_BiologyEducation.Controllers.UserController",
-    "Method": "GetAllUsers",
-    "RelativePath": "api/User/getAllUsers",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
     "ReturnTypes": []
   },
   {

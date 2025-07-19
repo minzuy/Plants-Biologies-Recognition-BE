@@ -199,7 +199,38 @@
         }
       }
     },
-    "/api/Authentication/google": {
+    "/api/Authentication/verify-google-token": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GoogleLoginDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GoogleLoginDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GoogleLoginDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Authentication/google-signin": {
       "post": {
         "tags": [
           "Authentication"
@@ -1189,18 +1220,6 @@
         }
       }
     },
-    "/api/User/getAllUsers": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/User/search": {
       "get": {
         "tags": [
@@ -1285,17 +1304,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserRequestDTO"
+                "$ref": "#/components/schemas/AdminRequestDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserRequestDTO"
+                "$ref": "#/components/schemas/AdminRequestDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UserRequestDTO"
+                "$ref": "#/components/schemas/AdminRequestDTO"
               }
             }
           }
