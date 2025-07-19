@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\API_Learning\\PlantBiologyEducation\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|d:\\api_learning\\plantbiologyeducation\\plantbiologyeducation\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|solutionrelative:plantbiologyeducation\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|d:\\api_learning\\plantbiologyeducation\\plantbiologyeducation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|solutionrelative:plantbiologyeducation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -13,10 +17,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|d:\\api_learning\\plantbiologyeducation\\plantbiologyeducation\\entity\\dto\\authen\\googlepayload.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|solutionrelative:plantbiologyeducation\\entity\\dto\\authen\\googlepayload.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|d:\\api_learning\\plantbiologyeducation\\plantbiologyeducation\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|solutionrelative:plantbiologyeducation\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|d:\\api_learning\\plantbiologyeducation\\plantbiologyeducation\\entity\\dto\\authen\\googlelogindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -34,24 +34,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\appsettings.json",
               "RelativeDocumentMoniker": "PlantBiologyEducation\\appsettings.json",
               "ToolTip": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\appsettings.json",
               "RelativeToolTip": "PlantBiologyEducation\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAEAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-07-19T04:32:30.765Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "GooglePayload.cs",
               "DocumentMoniker": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Entity\\DTO\\Authen\\GooglePayload.cs",
               "RelativeDocumentMoniker": "PlantBiologyEducation\\Entity\\DTO\\Authen\\GooglePayload.cs",
@@ -72,8 +72,7 @@
               "RelativeToolTip": "PlantBiologyEducation\\Entity\\DTO\\Authen\\GoogleLoginDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T04:05:19.462Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-19T04:05:19.462Z"
             },
             {
               "$type": "Document",
@@ -85,31 +84,30 @@
               "RelativeToolTip": "PlantBiologyEducation\\Service\\GoogleService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T03:42:45.243Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-19T03:42:45.243Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "AuthenticationController.cs",
               "DocumentMoniker": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Controllers\\AuthenticationController.cs",
               "RelativeDocumentMoniker": "PlantBiologyEducation\\Controllers\\AuthenticationController.cs",
               "ToolTip": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Controllers\\AuthenticationController.cs",
               "RelativeToolTip": "PlantBiologyEducation\\Controllers\\AuthenticationController.cs",
-              "ViewState": "AgIAAHQAAAAAAAAAAAAAwGAAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAAAHcAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-19T03:38:43.165Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Program.cs",
               "RelativeDocumentMoniker": "PlantBiologyEducation\\Program.cs",
               "ToolTip": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Program.cs",
               "RelativeToolTip": "PlantBiologyEducation\\Program.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAAACcAAABIAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-19T03:38:01.59Z",
               "EditorCaption": ""
