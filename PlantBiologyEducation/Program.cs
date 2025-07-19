@@ -27,13 +27,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services
-    .AddAuthentication()
-    .AddGoogle(options =>
-    {
-        options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-    });
+
 
 
 
@@ -86,6 +80,14 @@ builder.Services.AddScoped<DictionaryService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<EmailService>();
 
+
+builder.Services
+    .AddAuthentication()
+    .AddGoogle(options =>
+    {
+        options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
+        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+    });
 
 // Swagger - Enable for all environments
 builder.Services.AddEndpointsApiExplorer();
