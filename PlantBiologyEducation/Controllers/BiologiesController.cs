@@ -36,15 +36,20 @@ namespace Plant_BiologyEducation.Controllers
             if (User.IsInRole("Student"))
             {
                 list = (List<Plant_Biology_Animals>)(string.IsNullOrWhiteSpace(input)
-                ? _pbaRepo.GetApprovedPBA()
-                : _pbaRepo.SearchByNameForStudent(input));
+                    ? _pbaRepo.GetApprovedPBA()
+                    : _pbaRepo.SearchByNameForStudent(input));
             }
-            else
+            else if (User.IsInRole("Teacher") || User.IsInRole("Admin"))
             {
                 list = (List<Plant_Biology_Animals>)(string.IsNullOrWhiteSpace(input)
                     ? _pbaRepo.GetAllEntity()
                     : _pbaRepo.SearchByName(input));
             }
+            else
+            {
+                return Forbid(); // Không hợp lệ
+            }
+
 
 
             var result = _mapper.Map<List<P_B_A_DTO>>(list);

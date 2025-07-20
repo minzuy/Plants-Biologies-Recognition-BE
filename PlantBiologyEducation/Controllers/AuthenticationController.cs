@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Google.Apis.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
@@ -104,10 +105,17 @@ namespace Plant_BiologyEducation.Controllers
             if (string.IsNullOrWhiteSpace(request.IdToken))
                 return BadRequest("Missing Google idToken");
 
-            var payload = await VerifyGoogleToken(request.IdToken);
 
-            if (payload == null || string.IsNullOrEmpty(payload.Email))
+            GoogleJsonWebSignature.Payload payload;
+            try
+            {
+                // Xác thực idToken từ Google Console
+                payload = await GoogleJsonWebSignature.ValidateAsync(request.IdToken);
+            }
+            catch
+            {
                 return Unauthorized("Invalid Google token");
+            }
 
             // Kiểm tra người dùng đã tồn tại trong hệ thống chưa
             var user = _userRepo.GetUserByEmail(payload.Email);
