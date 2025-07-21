@@ -156,7 +156,7 @@ namespace Plant_BiologyEducation.Controllers
         }
 
         [HttpGet("lesson/{lessonId}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Teacher")]
         public async Task<IActionResult> GetLessonByChapterId(Guid lessonId)
         {
             if (!_lessonRepository.LessonExists(lessonId))
@@ -209,6 +209,8 @@ namespace Plant_BiologyEducation.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+
         public IActionResult Delete(Guid id)
         {
             if (!_pbaRepo.PBAExists(id))
