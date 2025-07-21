@@ -421,3 +421,4 @@ D:\API_Learning\PlantBiologyEducation\PlantBiologyEducation\bin\Debug\net8.0\Goo
 D:\API_Learning\PlantBiologyEducation\PlantBiologyEducation\bin\Debug\net8.0\Newtonsoft.Json.dll
 D:\API_Learning\PlantBiologyEducation\PlantBiologyEducation\bin\Debug\net8.0\System.Management.dll
 D:\API_Learning\PlantBiologyEducation\PlantBiologyEducation\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Management.dll
+D:\API_Learning\PlantBiologyEducation\PlantBiologyEducation\bin\Debug\net8.0\firebase-adminsdk.json
