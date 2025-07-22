@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace Plant_BiologyEducation.Migrations
+namespace PlantBiologyEducation.Migrations
 {
     /// <inheritdoc />
-    public partial class addnewTablefornotifications : Migration
+    public partial class InitialCreateDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -9,11 +9,11 @@ using Plant_BiologyEducation.Data;
 
 #nullable disable
 
-namespace Plant_BiologyEducation.Migrations
+namespace PlantBiologyEducation.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250712083306_adjust-datatype")]
-    partial class adjustdatatype
+    [Migration("20250722084247_InitialCreateDB")]
+    partial class InitialCreateDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -209,6 +209,10 @@ namespace Plant_BiologyEducation.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("text");
@@ -222,6 +226,9 @@ namespace Plant_BiologyEducation.Migrations
 
                     b.Property<string>("Role")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("resetToken")
                         .HasColumnType("text");
 
                     b.HasKey("User_Id");

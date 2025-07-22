@@ -588,6 +588,38 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "PlantBiologyEducation.Controllers.FcmController",
+    "Method": "RegisterToken",
+    "RelativePath": "api/Fcm/register-token",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PlantBiologyEducation.Controllers.FcmController\u002BRegisterTokenRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PlantBiologyEducation.Controllers.FcmController",
+    "Method": "SendNotification",
+    "RelativePath": "api/Fcm/send-notification",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PlantBiologyEducation.Entity.DTO.Noti.SendNotificationRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Plant_BiologyEducation.Controllers.LessonController",
     "Method": "CreateLesson",
     "RelativePath": "api/Lesson",
@@ -699,22 +731,6 @@
         "Name": "title",
         "Type": "System.String",
         "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "PlantBiologyEducation.Controllers.NotificationsController",
-    "Method": "SendNotification",
-    "RelativePath": "api/notifications/send",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dto",
-        "Type": "PlantBiologyEducation.Entity.DTO.Noti.NotificationDto",
-        "IsRequired": true
       }
     ],
     "ReturnTypes": []

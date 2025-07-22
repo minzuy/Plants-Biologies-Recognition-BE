@@ -9,11 +9,11 @@ using Plant_BiologyEducation.Data;
 
 #nullable disable
 
-namespace Plant_BiologyEducation.Migrations
+namespace PlantBiologyEducation.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250716172022_update-user-entity")]
-    partial class updateuserentity
+    [Migration("20250722084017_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -206,6 +206,10 @@ namespace Plant_BiologyEducation.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Account")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
 

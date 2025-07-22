@@ -63,47 +63,47 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddSingleton<FcmTokenStore>();
 
-try
-{
-    string firebaseServiceAccountJson = null;
-    firebaseServiceAccountJson = builder.Configuration["FIREBASE_SERVICE_ACCOUNT_JSON"];
+//try
+//{
+//    string firebaseServiceAccountJson = null;
+//    firebaseServiceAccountJson = builder.Configuration["FIREBASE_SERVICE_ACCOUNT_JSON"];
 
-    // Nếu không tìm thấy trong biến môi trường, thử đọc từ User Secrets (dùng cho Development)
-    if (string.IsNullOrEmpty(firebaseServiceAccountJson))
-    {
-        firebaseServiceAccountJson = builder.Configuration["Firebase:ServiceAccountJson"];
-    }
-    if (string.IsNullOrEmpty(firebaseServiceAccountJson))
-    {
-        var firebaseServiceAccountPath = Path.Combine(builder.Environment.ContentRootPath, "firebase-adminsdk.json");
-        if (File.Exists(firebaseServiceAccountPath))
-        {
-            firebaseServiceAccountJson = File.ReadAllText(firebaseServiceAccountPath);
-            Console.WriteLine($"Firebase Service Account loaded from local file: {firebaseServiceAccountPath}");
-        }
-    }
+//    // Nếu không tìm thấy trong biến môi trường, thử đọc từ User Secrets (dùng cho Development)
+//    if (string.IsNullOrEmpty(firebaseServiceAccountJson))
+//    {
+//        firebaseServiceAccountJson = builder.Configuration["Firebase:ServiceAccountJson"];
+//    }
+//    if (string.IsNullOrEmpty(firebaseServiceAccountJson))
+//    {
+//        var firebaseServiceAccountPath = Path.Combine(builder.Environment.ContentRootPath, "firebase-adminsdk.json");
+//        if (File.Exists(firebaseServiceAccountPath))
+//        {
+//            firebaseServiceAccountJson = File.ReadAllText(firebaseServiceAccountPath);
+//            Console.WriteLine($"Firebase Service Account loaded from local file: {firebaseServiceAccountPath}");
+//        }
+//    }
 
-    // Kiểm tra xem đã có JSON để khởi tạo chưa
-    if (string.IsNullOrEmpty(firebaseServiceAccountJson))
-    {
-        Console.WriteLine("Error: Firebase Service Account JSON is not configured. " +
-                          "Please set 'FIREBASE_SERVICE_ACCOUNT_JSON' as an environment variable (for production) " +
-                          "or 'Firebase:ServiceAccountJson' in user secrets (for development), " +
-                          "or ensure 'firebase-adminsdk.json' exists locally and is accessible.");
-        Environment.Exit(1); // Dừng ứng dụng nếu không thể cấu hình Firebase
-    }
-    FirebaseApp.Create(new AppOptions()
-    {
-        Credential = GoogleCredential.FromJson(firebaseServiceAccountJson)
-    });
-    Console.WriteLine("Firebase Admin SDK initialized successfully.");
-}
-catch (Exception ex)
-{
-    Console.WriteLine($"Critical Error initializing Firebase Admin SDK: {ex.Message}");
-    Console.WriteLine(ex.ToString()); // In ra chi tiết lỗi để gỡ lỗi
-    Environment.Exit(1); // Dừng ứng dụng nếu có lỗi nghiêm trọng khi khởi tạo Firebase
-}
+//    // Kiểm tra xem đã có JSON để khởi tạo chưa
+//    if (string.IsNullOrEmpty(firebaseServiceAccountJson))
+//    {
+//        Console.WriteLine("Error: Firebase Service Account JSON is not configured. " +
+//                          "Please set 'FIREBASE_SERVICE_ACCOUNT_JSON' as an environment variable (for production) " +
+//                          "or 'Firebase:ServiceAccountJson' in user secrets (for development), " +
+//                          "or ensure 'firebase-adminsdk.json' exists locally and is accessible.");
+//        Environment.Exit(1); // Dừng ứng dụng nếu không thể cấu hình Firebase
+//    }
+//    FirebaseApp.Create(new AppOptions()
+//    {
+//        Credential = GoogleCredential.FromJson(firebaseServiceAccountJson)
+//    });
+//    Console.WriteLine("Firebase Admin SDK initialized successfully.");
+//}
+//catch (Exception ex)
+//{
+//    Console.WriteLine($"Critical Error initializing Firebase Admin SDK: {ex.Message}");
+//    Console.WriteLine(ex.ToString()); // In ra chi tiết lỗi để gỡ lỗi
+//    Environment.Exit(1); // Dừng ứng dụng nếu có lỗi nghiêm trọng khi khởi tạo Firebase
+//}
 
 // Repository
 builder.Services.AddScoped<UserRepository>();

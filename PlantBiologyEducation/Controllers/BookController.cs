@@ -6,7 +6,6 @@ using Plant_BiologyEducation.Entity.Model;
 using PlantBiologyEducation.Entity.DTO.Book;
 using Plant_BiologyEducation.Entity.DTO.User;
 using Microsoft.AspNetCore.Authorization;
-using Plant_BiologyEducation.Migrations;
 using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Plant_BiologyEducation.Controllers

@@ -8,7 +8,7 @@ using Plant_BiologyEducation.Data;
 
 #nullable disable
 
-namespace Plant_BiologyEducation.Migrations
+namespace PlantBiologyEducation.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
