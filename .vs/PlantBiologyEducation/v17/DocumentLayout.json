@@ -1,54 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\API_Learning\\PlantBiologyEducation\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|d:\\api_learning\\plantbiologyeducation\\plantbiologyeducation\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|solutionrelative:plantbiologyeducation\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|d:\\api_learning\\plantbiologyeducation\\plantbiologyeducation\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DB53B5DB-E49D-4576-A24B-8956677A9714}|PlantBiologyEducation\\PlantBiologyEducation.csproj|solutionrelative:plantbiologyeducation\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\appsettings.json",
-              "RelativeDocumentMoniker": "PlantBiologyEducation\\appsettings.json",
-              "ToolTip": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\appsettings.json",
-              "RelativeToolTip": "PlantBiologyEducation\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-07-23T08:38:58.788Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AuthenticationController.cs",
-              "DocumentMoniker": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Controllers\\AuthenticationController.cs",
-              "RelativeDocumentMoniker": "PlantBiologyEducation\\Controllers\\AuthenticationController.cs",
-              "ToolTip": "D:\\API_Learning\\PlantBiologyEducation\\PlantBiologyEducation\\Controllers\\AuthenticationController.cs",
-              "RelativeToolTip": "PlantBiologyEducation\\Controllers\\AuthenticationController.cs",
-              "ViewState": "AgIAACcAAAAAAAAAAAAQwDsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-23T08:37:48.6Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
+      "DocumentGroups": []
     }
   ]
 }

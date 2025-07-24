@@ -27,6 +27,8 @@ namespace PlantBiologyEducation.Controllers
 
 
         [HttpPost("register-token")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+
         public IActionResult RegisterToken([FromBody] RegisterTokenRequest request)
         {
             if (string.IsNullOrEmpty(request.UserId) || string.IsNullOrEmpty(request.FcmToken) || string.IsNullOrEmpty(request.Platform))
@@ -40,6 +42,8 @@ namespace PlantBiologyEducation.Controllers
         }
 
         [HttpPost("send-notification")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+
         public async Task<IActionResult> SendNotification([FromBody] SendNotificationRequest request)
         {
             if (string.IsNullOrEmpty(request.TargetUserId) || string.IsNullOrEmpty(request.Title) || string.IsNullOrEmpty(request.Body))
